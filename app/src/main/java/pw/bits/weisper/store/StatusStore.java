@@ -3,8 +3,6 @@ package pw.bits.weisper.store;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 
-import com.orhanobut.logger.Logger;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -53,7 +51,7 @@ public class StatusStore {
 
     public void loadFront(final getDataCallback callback) {
         StatusData
-                .homeTimeline(since_id, 0)
+                .homeTimeline(0, 0)
                 .subscribe(new Subscriber<Statuses>() {
                     @Override
                     public void onCompleted() {
@@ -67,20 +65,18 @@ public class StatusStore {
 
                     @Override
                     public void onNext(Statuses statuses) {
-                        Logger.i("  Front since_id: %d  max_id: %d  size: %d", statuses.since_id, statuses.max_id, statuses.statuses.size());
-                        if (since_id != 0 && statuses.max_id > since_id) {
+                        if (since_id != 0 && statuses.getMaxId() > since_id) {
                             Status emptyStatus = new Status();
-                            emptyStatus.id = (statuses.max_id + since_id) / 2;
+                            emptyStatus.id = (statuses.getMaxId() + since_id) / 2;
                             emptyStatus.idstr = String.valueOf(emptyStatus.id);
                             statusSortedList.add(emptyStatus);
                         }
-                        if (statuses.since_id > since_id)
-                            since_id = statuses.since_id;
+                        if (statuses.getSinceId() > since_id)
+                            since_id = statuses.getSinceId();
                         if (max_id == 0) {
-                            max_id = statuses.max_id;
+                            max_id = statuses.getMaxId();
                         }
                         load(statuses, callback);
-                        Logger.i(" #Front since_id: %d  max_id: %d", since_id, max_id);
                     }
                 });
     }
@@ -102,12 +98,10 @@ public class StatusStore {
 
                     @Override
                     public void onNext(Statuses statuses) {
-                        Logger.i(" Middle since_id: %d  max_id: %d  size: %d", statuses.since_id, statuses.max_id, statuses.statuses.size());
-                        if (statuses.statuses.size() == 0) {
+                        if (statuses.getStatuses().size() == 0) {
                             statusSortedList.remove(status);
                         }
                         load(statuses, callback);
-                        Logger.i("#Middle since_id: %d  max_id: %d", since_id, max_id);
                     }
                 });
     }
@@ -128,18 +122,16 @@ public class StatusStore {
 
                     @Override
                     public void onNext(Statuses statuses) {
-                        Logger.i(" Behind since_id: %d  max_id: %d  size: %d", statuses.since_id, statuses.max_id, statuses.statuses.size());
-                        if (max_id == 0 || statuses.max_id < max_id)
-                            max_id = statuses.max_id;
+                        if (max_id == 0 || statuses.getMaxId() < max_id)
+                            max_id = statuses.getMaxId();
                         load(statuses, callback);
-                        Logger.i("#Behind since_id: %d  max_id: %d", since_id, max_id);
                     }
                 });
     }
 
     private void load(Statuses statuses, getDataCallback callback) {
         int previousSize = statusSortedList.size();
-        statusSortedList.addAll(statuses.statuses);
+        statusSortedList.addAll(statuses.getStatuses());
         EventBus.getDefault().post(new StatusEvent(statusSortedList.size() - previousSize));
         if (callback != null) {
             callback.onDone();

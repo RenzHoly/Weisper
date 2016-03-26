@@ -57,7 +57,7 @@ public class TopicStatusListView extends RecyclerView {
 
                     @Override
                     public void onNext(Statuses statuses) {
-                        statusSortedList.addAll(statuses.statuses);
+                        statusSortedList.addAll(statuses.getStatuses());
                     }
                 });
     }

@@ -6,7 +6,6 @@ import android.support.v7.util.SortedList;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import pw.bits.weisper.adapter.StatusFlowAdapter;
 import pw.bits.weisper.model.bean.Status;
@@ -72,12 +71,9 @@ public class UserStatusListView extends SwipeRefreshLayout {
                             @Override
                             public void onNext(Statuses statuses) {
                                 isLoading = false;
-                                Log.i(" Behind", String.format("since_id: %d  max_id: %d  size: %d", statuses.since_id, statuses.max_id, statuses.statuses.size()));
-                                long new_max_id = statuses.statuses.get(statuses.statuses.size() - 1).id;
-                                if (max_id == 0 || new_max_id < max_id)
-                                    max_id = new_max_id;
+                                if (max_id == 0 || statuses.getMaxId() < max_id)
+                                    max_id = statuses.getMaxId();
                                 load(statuses);
-                                Log.i("#Behind", String.format("since_id: %d  max_id: %d", since_id, max_id));
                             }
                         });
             }
@@ -103,22 +99,18 @@ public class UserStatusListView extends SwipeRefreshLayout {
                     @Override
                     public void onNext(Statuses statuses) {
                         setRefreshing(false);
-                        Log.i("  Front", String.format("since_id: %d  max_id: %d  size: %d", statuses.since_id, statuses.max_id, statuses.statuses.size()));
-                        long new_since_id = statuses.statuses.get(0).id;
-                        if (new_since_id > since_id)
-                            since_id = new_since_id;
-                        long new_max_id = statuses.statuses.get(statuses.statuses.size() - 1).id;
+                        if (statuses.getSinceId() > since_id)
+                            since_id = statuses.getSinceId();
                         if (max_id == 0) {
-                            max_id = new_max_id;
+                            max_id = statuses.getMaxId();
                         }
                         load(statuses);
-                        Log.i(" #Front", String.format("since_id: %d  max_id: %d", since_id, max_id));
                     }
                 });
     }
 
     private void load(Statuses statuses) {
-        statusSortedList.addAll(statuses.statuses);
+        statusSortedList.addAll(statuses.getStatuses());
     }
 
     public void setUserName(String screen_name) {
