@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fm = getSupportFragmentManager();
     private Fragment statusFlowFragment = new StatusFlowFragment();
     private Fragment pictureFlowFragment = new PictureFlowFragment();
+    private static int[] themes = new int[]{R.style.Theme1, R.style.Theme2, R.style.Theme3};
+    private static int current_theme = 0;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(themes[current_theme]);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setupView();
@@ -96,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
             }
             case R.id.action_user_profile: {
                 EventBus.getDefault().post(new OpenUserEvent(null));
+                return true;
+            }
+            case R.id.action_change_theme: {
+                current_theme++;
+                current_theme = current_theme % themes.length;
+                recreate();
                 return true;
             }
             default: {

@@ -16,4 +16,9 @@
         android:id="@+id/action_switch_picture"
         android:title="@string/action_switch_picture"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_change_theme"
+        android:title="@string/action_change_theme"
+        app:showAsAction="never" />
 </menu>

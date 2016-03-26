@@ -11,4 +11,5 @@
     <string name="login_success">登录有效期 %d 天</string>
     <string name="login_failed">登录失败</string>
     <string name="oauth_url" formatted="false"><![CDATA[https://api.weibo.com/oauth2/authorize?client_id=%s&response_type=token&redirect_uri=%s&key_hash=%s&packagename=%s&display=mobile&scope=%s]]></string>
+    <string name="action_change_theme">Theme</string>
 </resources>
