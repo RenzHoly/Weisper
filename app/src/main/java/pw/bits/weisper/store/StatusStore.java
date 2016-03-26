@@ -24,7 +24,7 @@ import rx.Subscriber;
 public class StatusStore {
     private Timer timer;
     public static StatusStore instance = new StatusStore();
-    private SortedList<Status> statusSortedList = new Statuses.StatusSortedList(new StatusCallback());
+    private SortedList<Status> statusSortedList = new StatusSortedList(new StatusCallback());
     private List<RecyclerView.Adapter> adapters = new ArrayList<>();
     private long since_id = 0;
     private long max_id = 0;
@@ -192,6 +192,12 @@ public class StatusStore {
         @Override
         public boolean areItemsTheSame(Status item1, Status item2) {
             return item1.idstr.equals(item2.idstr);
+        }
+    }
+
+    public static class StatusSortedList extends SortedList<Status> {
+        public StatusSortedList(Callback<Status> callback) {
+            super(Status.class, callback);
         }
     }
 }

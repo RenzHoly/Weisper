@@ -10,13 +10,14 @@ import pw.bits.weisper.adapter.StatusFlowAdapter;
 import pw.bits.weisper.model.bean.Status;
 import pw.bits.weisper.model.bean.Statuses;
 import pw.bits.weisper.model.data.StatusData;
+import pw.bits.weisper.store.StatusStore.StatusSortedList;
 import rx.Subscriber;
 
 /**
  * Created by rzh on 16/3/24.
  */
 public class TopicStatusListView extends RecyclerView {
-    private SortedList<Status> statusSortedList = new Statuses.StatusSortedList(new StatusCallback());
+    private SortedList<Status> statusSortedList = new StatusSortedList(new StatusCallback());
     private StatusFlowAdapter adapter;
 
     public TopicStatusListView(Context context) {

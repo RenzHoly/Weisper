@@ -11,13 +11,14 @@ import pw.bits.weisper.adapter.StatusFlowAdapter;
 import pw.bits.weisper.model.bean.Status;
 import pw.bits.weisper.model.bean.Statuses;
 import pw.bits.weisper.model.data.StatusData;
+import pw.bits.weisper.store.StatusStore.StatusSortedList;
 import rx.Subscriber;
 
 /**
  * Created by rzh on 16/3/24.
  */
 public class UserStatusListView extends SwipeRefreshLayout {
-    private SortedList<Status> statusSortedList = new Statuses.StatusSortedList(new StatusCallback());
+    private SortedList<Status> statusSortedList = new StatusSortedList(new StatusCallback());
     private StatusFlowAdapter adapter;
     private long since_id = 0;
     private long max_id = 0;
