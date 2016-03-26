@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import pw.bits.weisper.Emotions;
+import pw.bits.weisper.library.Emotions;
 import pw.bits.weisper.event.OpenTopicEvent;
 import pw.bits.weisper.event.OpenUserEvent;
 

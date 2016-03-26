@@ -1,7 +1,9 @@
-package pw.bits.weisper;
+package pw.bits.weisper.library;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import pw.bits.library.R;
 
 /**
  * Created by rzh on 16/3/15.
