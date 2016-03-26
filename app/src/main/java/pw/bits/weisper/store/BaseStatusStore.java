@@ -3,51 +3,23 @@ package pw.bits.weisper.store;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import pw.bits.weisper.adapter.PictureFlowAdapter;
-import pw.bits.weisper.adapter.StatusFlowAdapter;
-import pw.bits.weisper.event.StatusEvent;
 import pw.bits.weisper.model.bean.Status;
 import pw.bits.weisper.model.bean.Statuses;
 import pw.bits.weisper.model.data.StatusData;
 import rx.Subscriber;
 
 /**
- * Created by rzh on 16/3/16.
+ * Created by rzh on 16/3/27.
  */
-public class StatusStore {
-    private Timer timer;
-    public static StatusStore instance = new StatusStore();
-    private SortedList<Status> statusSortedList = new StatusSortedList(new StatusCallback());
-    private List<RecyclerView.Adapter> adapters = new ArrayList<>();
+public class BaseStatusStore {
+    public static FlowStatusStore instance = new FlowStatusStore();
+    protected SortedList<Status> statusSortedList = new StatusSortedList(new StatusCallback());
+    protected List<RecyclerView.Adapter> adapters = new ArrayList<>();
     private long since_id = 0;
     private long max_id = 0;
-
-    public void bind(StatusFlowAdapter adapter) {
-        adapter.setList(statusSortedList);
-        adapters.add(adapter);
-    }
-
-    public void bind(PictureFlowAdapter adapter) {
-        adapter.setList(statusSortedList);
-        adapters.add(adapter);
-    }
-
-    public void start() {
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                loadFront(null);
-            }
-        }, 20 * 1000, 20 * 1000);
-    }
 
     public void loadFront(final getDataCallback callback) {
         StatusData
@@ -132,19 +104,13 @@ public class StatusStore {
     private void load(Statuses statuses, getDataCallback callback) {
         int previousSize = statusSortedList.size();
         statusSortedList.addAll(statuses.getStatuses());
-        EventBus.getDefault().post(new StatusEvent(statusSortedList.size() - previousSize));
         if (callback != null) {
-            callback.onDone();
+            callback.onDone(statusSortedList.size() - previousSize);
         }
     }
 
     public static abstract class getDataCallback {
-        public abstract void onDone();
-    }
-
-    public void stop() {
-        timer.cancel();
-        timer.purge();
+        public abstract void onDone(int count);
     }
 
     public class StatusCallback extends SortedList.Callback<Status> {

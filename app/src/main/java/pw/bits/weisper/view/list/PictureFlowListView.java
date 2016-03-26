@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 import pw.bits.weisper.adapter.PictureFlowAdapter;
 import pw.bits.weisper.event.PictureFlowPositionChangeEvent;
 import pw.bits.weisper.model.bean.Status;
-import pw.bits.weisper.store.StatusStore;
+import pw.bits.weisper.store.FlowStatusStore;
 
 /**
  * Created by rzh on 16/3/19.
@@ -32,7 +32,7 @@ public class PictureFlowListView extends SwipeRefreshLayout {
         addView(recyclerView);
 
         final PictureFlowAdapter adapter = new PictureFlowAdapter(getContext());
-        StatusStore.instance.bind(adapter);
+        FlowStatusStore.instance.bind(adapter);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
@@ -66,9 +66,9 @@ public class PictureFlowListView extends SwipeRefreshLayout {
                 int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
                 if (!isLoading && lastVisibleItemPosition >= recyclerView.getAdapter().getItemCount() - 1) {
                     isLoading = true;
-                    StatusStore.instance.loadBehind(new StatusStore.getDataCallback() {
+                    FlowStatusStore.instance.loadBehind(new FlowStatusStore.getDataCallback() {
                         @Override
-                        public void onDone() {
+                        public void onDone(int count) {
                             isLoading = false;
                         }
                     });
@@ -76,9 +76,9 @@ public class PictureFlowListView extends SwipeRefreshLayout {
             }
         });
 
-        setOnRefreshListener(() -> StatusStore.instance.loadFront(new StatusStore.getDataCallback() {
+        setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(new FlowStatusStore.getDataCallback() {
             @Override
-            public void onDone() {
+            public void onDone(int count) {
                 setRefreshing(false);
             }
         }));

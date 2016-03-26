@@ -14,7 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pw.bits.weisper.R;
 import pw.bits.weisper.event.StatusEvent;
-import pw.bits.weisper.store.StatusStore;
+import pw.bits.weisper.store.FlowStatusStore;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -53,7 +53,7 @@ public class StatusFlowFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        StatusStore.instance.loadFront(null);
+        FlowStatusStore.instance.loadFront(null);
     }
 
     @Override

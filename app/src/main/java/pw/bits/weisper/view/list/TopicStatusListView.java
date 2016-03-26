@@ -10,7 +10,7 @@ import pw.bits.weisper.adapter.StatusFlowAdapter;
 import pw.bits.weisper.model.bean.Status;
 import pw.bits.weisper.model.bean.Statuses;
 import pw.bits.weisper.model.data.StatusData;
-import pw.bits.weisper.store.StatusStore.StatusSortedList;
+import pw.bits.weisper.store.BaseStatusStore.StatusSortedList;
 import rx.Subscriber;
 
 /**

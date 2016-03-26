@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import pw.bits.weisper.adapter.StatusFlowAdapter;
-import pw.bits.weisper.store.StatusStore;
+import pw.bits.weisper.store.FlowStatusStore;
 
 /**
  * Created by rzh on 16/3/19.
@@ -28,7 +28,7 @@ public class StatusFlowListView extends SwipeRefreshLayout {
         addView(recyclerView);
 
         StatusFlowAdapter adapter = new StatusFlowAdapter(getContext());
-        StatusStore.instance.bind(adapter);
+        FlowStatusStore.instance.bind(adapter);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
@@ -40,9 +40,9 @@ public class StatusFlowListView extends SwipeRefreshLayout {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!isLoading && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() >= recyclerView.getAdapter().getItemCount() - 1) {
                     isLoading = true;
-                    StatusStore.instance.loadBehind(new StatusStore.getDataCallback() {
+                    FlowStatusStore.instance.loadBehind(new FlowStatusStore.getDataCallback() {
                         @Override
-                        public void onDone() {
+                        public void onDone(int count) {
                             isLoading = false;
                         }
                     });
@@ -50,9 +50,9 @@ public class StatusFlowListView extends SwipeRefreshLayout {
             }
         });
 
-        setOnRefreshListener(() -> StatusStore.instance.loadFront(new StatusStore.getDataCallback() {
+        setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(new FlowStatusStore.getDataCallback() {
             @Override
-            public void onDone() {
+            public void onDone(int count) {
                 setRefreshing(false);
             }
         }));

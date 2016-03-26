@@ -33,7 +33,7 @@ import pw.bits.weisper.fragment.PictureFragment;
 import pw.bits.weisper.fragment.StatusFlowFragment;
 import pw.bits.weisper.fragment.TopicFragment;
 import pw.bits.weisper.fragment.UserFragment;
-import pw.bits.weisper.store.StatusStore;
+import pw.bits.weisper.store.FlowStatusStore;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fm = getSupportFragmentManager();
@@ -144,13 +144,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        StatusStore.instance.start();
+        FlowStatusStore.instance.start();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        StatusStore.instance.stop();
+        FlowStatusStore.instance.stop();
     }
 
     @Override

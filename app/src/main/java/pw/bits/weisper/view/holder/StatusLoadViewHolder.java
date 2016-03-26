@@ -3,7 +3,7 @@ package pw.bits.weisper.view.holder;
 import android.view.View;
 
 import pw.bits.weisper.model.bean.Status;
-import pw.bits.weisper.store.StatusStore;
+import pw.bits.weisper.store.FlowStatusStore;
 
 /**
  * Created by rzh on 16/3/24.
@@ -15,6 +15,6 @@ public class StatusLoadViewHolder extends StatusAbstractViewHolder {
 
     @Override
     public void bindView(final Status status) {
-        itemView.setOnClickListener(v -> StatusStore.instance.loadMiddle(status, null));
+        itemView.setOnClickListener(v -> FlowStatusStore.instance.loadMiddle(status, null));
     }
 }
