@@ -9,20 +9,16 @@ import android.util.AttributeSet;
 
 import pw.bits.weisper.adapter.StatusFlowAdapter;
 import pw.bits.weisper.model.bean.Status;
-import pw.bits.weisper.model.bean.Statuses;
 import pw.bits.weisper.model.data.StatusData;
-import pw.bits.weisper.store.BaseStatusStore.StatusSortedList;
-import rx.Subscriber;
+import pw.bits.weisper.store.BaseStatusStore;
 
 /**
  * Created by rzh on 16/3/24.
  */
 public class UserStatusListView extends SwipeRefreshLayout {
-    private SortedList<Status> statusSortedList = new StatusSortedList(new StatusCallback());
     private StatusFlowAdapter adapter;
-    private long since_id = 0;
-    private long max_id = 0;
     private String screen_name;
+    private UserStatusStore statusStore = new UserStatusStore();
 
     public UserStatusListView(Context context) {
         super(context);
@@ -39,7 +35,7 @@ public class UserStatusListView extends SwipeRefreshLayout {
         addView(recyclerView);
 
         adapter = new StatusFlowAdapter(getContext());
-        adapter.setList(statusSortedList);
+        statusStore.bind(adapter);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -51,67 +47,26 @@ public class UserStatusListView extends SwipeRefreshLayout {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!isLoading && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() >= recyclerView.getAdapter().getItemCount() - 1) {
                     isLoading = true;
-                    loadBehind();
+                    statusStore.loadBehind(count -> isLoading = false);
                 }
-            }
-
-            private void loadBehind() {
-                StatusData
-                        .userTimeline(screen_name, 0, max_id)
-                        .subscribe(new Subscriber<Statuses>() {
-                            @Override
-                            public void onCompleted() {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onNext(Statuses statuses) {
-                                isLoading = false;
-                                if (max_id == 0 || statuses.getMaxId() < max_id)
-                                    max_id = statuses.getMaxId();
-                                load(statuses);
-                            }
-                        });
             }
         });
 
-        setOnRefreshListener(() -> loadFront());
+        setOnRefreshListener(this::refresh);
     }
 
-    public void loadFront() {
-        StatusData
-                .userTimeline(screen_name, since_id, 0)
-                .subscribe(new Subscriber<Statuses>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Statuses statuses) {
-                        setRefreshing(false);
-                        if (statuses.getSinceId() > since_id)
-                            since_id = statuses.getSinceId();
-                        if (max_id == 0) {
-                            max_id = statuses.getMaxId();
-                        }
-                        load(statuses);
-                    }
-                });
+    public void refresh() {
+        statusStore.loadFront(count -> setRefreshing(false));
     }
 
-    private void load(Statuses statuses) {
-        statusSortedList.addAll(statuses.getStatuses());
+    private class UserStatusStore extends BaseStatusStore {
+        public void loadBehind(DataCallback callback) {
+            super.loadBehind(StatusData.userTimeline(screen_name, 0, max_id), callback);
+        }
+
+        public void loadFront(DataCallback callback) {
+            super.loadFront(StatusData.userTimeline(screen_name, since_id, 0), callback);
+        }
     }
 
     public void setUserName(String screen_name) {

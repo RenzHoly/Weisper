@@ -27,7 +27,7 @@ public class UserFragment extends ChangeTitleFragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         user_status_list.setUserName(getArguments().getString("screen_name", null));
-        user_status_list.loadFront();
+        user_status_list.refresh();
     }
 
     @Override
