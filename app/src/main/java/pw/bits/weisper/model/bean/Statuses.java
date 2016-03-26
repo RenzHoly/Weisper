@@ -24,6 +24,6 @@ public class Statuses {
         if (statuses.size() == 0) {
             return 0L;
         }
-        return statuses.get(statuses.size() - 1).id;
+        return statuses.get(statuses.size() - 1).id - 1;
     }
 }
