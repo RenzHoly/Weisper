@@ -15,11 +15,6 @@ public class StatusLoadViewHolder extends StatusAbstractViewHolder {
 
     @Override
     public void bindView(final Status status) {
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StatusStore.instance.loadMiddle(status, null);
-            }
-        });
+        itemView.setOnClickListener(v -> StatusStore.instance.loadMiddle(status, null));
     }
 }

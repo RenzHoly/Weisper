@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 
-
 import pw.bits.weisper.adapter.StatusFlowAdapter;
 import pw.bits.weisper.model.bean.Status;
 import pw.bits.weisper.model.bean.Statuses;
@@ -84,12 +83,7 @@ public class UserStatusListView extends SwipeRefreshLayout {
             }
         });
 
-        setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadFront();
-            }
-        });
+        setOnRefreshListener(() -> loadFront());
     }
 
     public void loadFront() {

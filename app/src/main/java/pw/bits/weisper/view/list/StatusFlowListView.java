@@ -50,16 +50,11 @@ public class StatusFlowListView extends SwipeRefreshLayout {
             }
         });
 
-        setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        setOnRefreshListener(() -> StatusStore.instance.loadFront(new StatusStore.getDataCallback() {
             @Override
-            public void onRefresh() {
-                StatusStore.instance.loadFront(new StatusStore.getDataCallback() {
-                    @Override
-                    public void onDone() {
-                        setRefreshing(false);
-                    }
-                });
+            public void onDone() {
+                setRefreshing(false);
             }
-        });
+        }));
     }
 }

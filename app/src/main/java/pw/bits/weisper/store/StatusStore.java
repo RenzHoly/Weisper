@@ -15,8 +15,8 @@ import pw.bits.weisper.adapter.PictureFlowAdapter;
 import pw.bits.weisper.adapter.StatusFlowAdapter;
 import pw.bits.weisper.event.StatusEvent;
 import pw.bits.weisper.model.bean.Status;
-import pw.bits.weisper.model.data.StatusData;
 import pw.bits.weisper.model.bean.Statuses;
+import pw.bits.weisper.model.data.StatusData;
 import rx.Subscriber;
 
 /**

@@ -69,14 +69,11 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
 
     private int parentWidth = 0;
 
-    private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                EventBus.getDefault().post(new FloatingBarEvent(event.getRawX(), event.getRawY()));
-            }
-            return event.getAction() != MotionEvent.ACTION_UP;
+    private View.OnTouchListener onTouchListener = (v, event) -> {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            EventBus.getDefault().post(new FloatingBarEvent(event.getRawX(), event.getRawY()));
         }
+        return event.getAction() != MotionEvent.ACTION_UP;
     };
 
     public StatusNormalViewHolder(View itemView, int parentWidth) {

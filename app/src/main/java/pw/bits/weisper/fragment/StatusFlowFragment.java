@@ -1,8 +1,8 @@
 package pw.bits.weisper.fragment;
 
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +44,8 @@ public class StatusFlowFragment extends Fragment {
             return;
         }
         final Snackbar snackbar = Snackbar.make(status_list, String.format("更新了 %d 条", count), Snackbar.LENGTH_LONG);
-        snackbar.setAction("查看", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                snackbar.dismiss();
-            }
+        snackbar.setAction("查看", v -> {
+            snackbar.dismiss();
         });
         snackbar.show();
     }

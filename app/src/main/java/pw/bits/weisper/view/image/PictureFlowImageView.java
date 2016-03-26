@@ -3,7 +3,6 @@ package pw.bits.weisper.view.image;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -57,11 +56,6 @@ public class PictureFlowImageView extends ImageView {
                 })
                 .placeholder(R.drawable.picture_placeholder)
                 .into(this);
-        setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new OpenPictureEvent(pictures, position));
-            }
-        });
+        setOnClickListener(v -> EventBus.getDefault().post(new OpenPictureEvent(pictures, position)));
     }
 }

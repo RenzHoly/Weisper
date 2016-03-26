@@ -2,7 +2,6 @@ package pw.bits.weisper.view.image;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.bumptech.glide.Glide;
 
@@ -34,11 +33,6 @@ public class AvatarImageView extends de.hdodenhof.circleimageview.CircleImageVie
                 .asBitmap()
                 .placeholder(R.drawable.picture_placeholder)
                 .into(this);
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new OpenUserEvent(user.screen_name));
-            }
-        });
+        setOnClickListener(v -> EventBus.getDefault().post(new OpenUserEvent(user.screen_name)));
     }
 }
