@@ -40,21 +40,11 @@ public class StatusFlowListView extends SwipeRefreshLayout {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!isLoading && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() >= recyclerView.getAdapter().getItemCount() - 1) {
                     isLoading = true;
-                    FlowStatusStore.instance.loadBehind(new FlowStatusStore.getDataCallback() {
-                        @Override
-                        public void onDone(int count) {
-                            isLoading = false;
-                        }
-                    });
+                    FlowStatusStore.instance.loadBehind(count -> isLoading = false);
                 }
             }
         });
 
-        setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(new FlowStatusStore.getDataCallback() {
-            @Override
-            public void onDone(int count) {
-                setRefreshing(false);
-            }
-        }));
+        setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
     }
 }

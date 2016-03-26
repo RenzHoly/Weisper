@@ -15,13 +15,12 @@ import rx.Subscriber;
  * Created by rzh on 16/3/27.
  */
 public class BaseStatusStore {
-    public static FlowStatusStore instance = new FlowStatusStore();
     protected SortedList<Status> statusSortedList = new StatusSortedList(new StatusCallback());
     protected List<RecyclerView.Adapter> adapters = new ArrayList<>();
     private long since_id = 0;
     private long max_id = 0;
 
-    public void loadFront(final getDataCallback callback) {
+    public void loadFront(final DataCallback callback) {
         StatusData
                 .homeTimeline(0, 0)
                 .subscribe(new Subscriber<Statuses>() {
@@ -53,32 +52,7 @@ public class BaseStatusStore {
                 });
     }
 
-    public void loadMiddle(final Status status, final getDataCallback callback) {
-        int index = statusSortedList.indexOf(status);
-        StatusData
-                .homeTimeline(statusSortedList.get(index + 1).id, statusSortedList.get(index - 1).id - 1)
-                .subscribe(new Subscriber<Statuses>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Statuses statuses) {
-                        if (statuses.getStatuses().size() == 0) {
-                            statusSortedList.remove(status);
-                        }
-                        load(statuses, callback);
-                    }
-                });
-    }
-
-    public void loadBehind(final getDataCallback callback) {
+    public void loadBehind(final DataCallback callback) {
         StatusData
                 .homeTimeline(0, max_id)
                 .subscribe(new Subscriber<Statuses>() {
@@ -101,7 +75,7 @@ public class BaseStatusStore {
                 });
     }
 
-    private void load(Statuses statuses, getDataCallback callback) {
+    protected void load(Statuses statuses, DataCallback callback) {
         int previousSize = statusSortedList.size();
         statusSortedList.addAll(statuses.getStatuses());
         if (callback != null) {
@@ -109,8 +83,8 @@ public class BaseStatusStore {
         }
     }
 
-    public static abstract class getDataCallback {
-        public abstract void onDone(int count);
+    public interface DataCallback {
+        void onDone(int count);
     }
 
     public class StatusCallback extends SortedList.Callback<Status> {

@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 import pw.bits.weisper.adapter.PictureFlowAdapter;
 import pw.bits.weisper.event.PictureFlowPositionChangeEvent;
 import pw.bits.weisper.model.bean.Status;
+import pw.bits.weisper.store.BaseStatusStore;
 import pw.bits.weisper.store.FlowStatusStore;
 
 /**
@@ -66,21 +67,11 @@ public class PictureFlowListView extends SwipeRefreshLayout {
                 int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
                 if (!isLoading && lastVisibleItemPosition >= recyclerView.getAdapter().getItemCount() - 1) {
                     isLoading = true;
-                    FlowStatusStore.instance.loadBehind(new FlowStatusStore.getDataCallback() {
-                        @Override
-                        public void onDone(int count) {
-                            isLoading = false;
-                        }
-                    });
+                    FlowStatusStore.instance.loadBehind(count -> isLoading = false);
                 }
             }
         });
 
-        setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(new FlowStatusStore.getDataCallback() {
-            @Override
-            public void onDone(int count) {
-                setRefreshing(false);
-            }
-        }));
+        setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
     }
 }
