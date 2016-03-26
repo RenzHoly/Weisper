@@ -11,7 +11,6 @@ import org.greenrobot.eventbus.EventBus;
 import pw.bits.weisper.adapter.PictureFlowAdapter;
 import pw.bits.weisper.event.PictureFlowPositionChangeEvent;
 import pw.bits.weisper.model.bean.Status;
-import pw.bits.weisper.store.BaseStatusStore;
 import pw.bits.weisper.store.FlowStatusStore;
 
 /**

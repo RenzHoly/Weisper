@@ -57,4 +57,12 @@ public class FlowStatusStore extends BaseStatusStore {
                     }
                 });
     }
+
+    public void loadFront(DataCallback callback) {
+        super.loadFront(StatusData.homeTimeline(0, 0), callback);
+    }
+
+    public void loadBehind(DataCallback callback) {
+        super.loadBehind(StatusData.homeTimeline(0, max_id), callback);
+    }
 }
