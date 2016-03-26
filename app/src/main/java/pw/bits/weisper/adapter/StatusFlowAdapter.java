@@ -1,13 +1,10 @@
 package pw.bits.weisper.adapter;
 
 import android.content.Context;
-import android.support.v7.util.SortedList;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import pw.bits.weisper.R;
-import pw.bits.weisper.model.bean.Status;
 import pw.bits.weisper.view.holder.StatusAbstractViewHolder;
 import pw.bits.weisper.view.holder.StatusLoadViewHolder;
 import pw.bits.weisper.view.holder.StatusNormalViewHolder;
@@ -15,18 +12,12 @@ import pw.bits.weisper.view.holder.StatusNormalViewHolder;
 /**
  * Created by rzh on 16/3/13.
  */
-public class StatusFlowAdapter extends RecyclerView.Adapter<StatusAbstractViewHolder> {
-    private Context context;
-    private SortedList<Status> list;
+public class StatusFlowAdapter extends BaseStatusAdapter<StatusAbstractViewHolder> {
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_LOAD = 1;
 
     public StatusFlowAdapter(Context context) {
-        this.context = context;
-    }
-
-    public void setList(SortedList<Status> list) {
-        this.list = list;
+        super(context);
     }
 
     @Override
@@ -44,11 +35,6 @@ public class StatusFlowAdapter extends RecyclerView.Adapter<StatusAbstractViewHo
     @Override
     public void onBindViewHolder(StatusAbstractViewHolder holder, int position) {
         holder.bindView(list.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
     }
 
     @Override

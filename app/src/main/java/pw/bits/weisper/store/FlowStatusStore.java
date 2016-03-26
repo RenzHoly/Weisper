@@ -5,8 +5,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import pw.bits.weisper.adapter.PictureFlowAdapter;
-import pw.bits.weisper.adapter.StatusFlowAdapter;
 import pw.bits.weisper.event.StatusEvent;
 import pw.bits.weisper.model.bean.Status;
 import pw.bits.weisper.model.bean.Statuses;
@@ -20,27 +18,12 @@ public class FlowStatusStore extends BaseStatusStore {
     public static FlowStatusStore instance = new FlowStatusStore();
     private Timer timer;
 
-    public void bind(StatusFlowAdapter adapter) {
-        adapter.setList(statusSortedList);
-        adapters.add(adapter);
-    }
-
-    public void bind(PictureFlowAdapter adapter) {
-        adapter.setList(statusSortedList);
-        adapters.add(adapter);
-    }
-
     public void start() {
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                loadFront(new DataCallback() {
-                    @Override
-                    public void onDone(int count) {
-                        EventBus.getDefault().post(new StatusEvent(count));
-                    }
-                });
+                loadFront(count -> EventBus.getDefault().post(new StatusEvent(count)));
             }
         }, 20 * 1000, 20 * 1000);
     }
@@ -49,7 +32,6 @@ public class FlowStatusStore extends BaseStatusStore {
         timer.cancel();
         timer.purge();
     }
-
 
     public void loadMiddle(final Status status, final DataCallback callback) {
         int index = statusSortedList.indexOf(status);

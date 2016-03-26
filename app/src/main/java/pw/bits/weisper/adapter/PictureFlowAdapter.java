@@ -2,7 +2,6 @@ package pw.bits.weisper.adapter;
 
 import android.content.Context;
 import android.support.v7.util.SortedList;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -16,21 +15,11 @@ import pw.bits.weisper.view.holder.PictureFlowViewHolder;
 /**
  * Created by rzh on 16/3/14.
  */
-public class PictureFlowAdapter extends RecyclerView.Adapter<PictureFlowViewHolder> {
-    private Context context;
-    private SortedList<Status> list;
+public class PictureFlowAdapter extends BaseStatusAdapter<PictureFlowViewHolder> {
     private Map<Long, Integer> heightCache = new HashMap<>();
 
     public PictureFlowAdapter(Context context) {
-        this.context = context;
-    }
-
-    public void setList(SortedList<Status> list) {
-        this.list = list;
-    }
-
-    public SortedList<Status> getList() {
-        return list;
+        super(context);
     }
 
     @Override
@@ -47,13 +36,12 @@ public class PictureFlowAdapter extends RecyclerView.Adapter<PictureFlowViewHold
     }
 
     @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    @Override
     public void onViewRecycled(PictureFlowViewHolder holder) {
         super.onViewRecycled(holder);
         heightCache.put(list.get(holder.getAdapterPosition()).id, holder.itemView.getLayoutParams().height);
+    }
+
+    public SortedList<Status> getList() {
+        return list;
     }
 }

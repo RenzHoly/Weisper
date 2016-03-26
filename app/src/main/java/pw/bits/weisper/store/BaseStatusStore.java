@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import pw.bits.weisper.adapter.BaseStatusAdapter;
 import pw.bits.weisper.model.bean.Status;
 import pw.bits.weisper.model.bean.Statuses;
 import pw.bits.weisper.model.data.StatusData;
@@ -16,9 +17,14 @@ import rx.Subscriber;
  */
 public class BaseStatusStore {
     protected SortedList<Status> statusSortedList = new StatusSortedList(new StatusCallback());
-    protected List<RecyclerView.Adapter> adapters = new ArrayList<>();
+    protected List<BaseStatusAdapter> adapters = new ArrayList<>();
     private long since_id = 0;
     private long max_id = 0;
+
+    public void bind(BaseStatusAdapter adapter) {
+        adapter.setList(statusSortedList);
+        adapters.add(adapter);
+    }
 
     public void loadFront(final DataCallback callback) {
         StatusData
