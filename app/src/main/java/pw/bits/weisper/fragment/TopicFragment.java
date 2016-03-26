@@ -27,6 +27,7 @@ public class TopicFragment extends ChangeTitleFragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         topic_status_list.setTopic(getArguments().getString("topic", null));
+        topic_status_list.refresh();
     }
 
     @Override
