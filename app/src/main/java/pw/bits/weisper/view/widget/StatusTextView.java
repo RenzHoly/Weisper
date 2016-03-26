@@ -97,7 +97,7 @@ public class StatusTextView extends TextView {
         if (emotion == null) {
             return;
         }
-        Integer resId = Emotions.instance().map.get(emotion);
+        Integer resId = Emotions.get(emotion);
         Bitmap bitmap = null;
         if (resId != null) {
             bitmap = BitmapFactory.decodeResource(getContext().getResources(), resId);

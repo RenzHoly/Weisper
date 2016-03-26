@@ -1,5 +1,7 @@
 package pw.bits.weisper.library;
 
+import android.support.annotation.DrawableRes;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,18 +11,14 @@ import pw.bits.library.R;
  * Created by rzh on 16/3/15.
  */
 public class Emotions {
-    private static Emotions instance;
+    private static Map<String, Integer> map = new HashMap<>();
 
-    public Map<String, Integer> map = new HashMap<>();
-
-    public static Emotions instance() {
-        if (instance == null) {
-            instance = new Emotions();
-        }
-        return instance;
+    @DrawableRes
+    public static Integer get(String key) {
+        return map.get(key);
     }
 
-    public Emotions() {
+    static {
         map.put("→_→", R.mipmap.emotion_000);
         map.put("[微笑]", R.mipmap.emotion_001);
         map.put("[嘻嘻]", R.mipmap.emotion_002);
