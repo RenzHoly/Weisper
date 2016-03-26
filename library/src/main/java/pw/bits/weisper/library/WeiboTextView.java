@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  */
 public class WeiboTextView extends TextView {
     private static final String user = "@[\u4e00-\u9fa5\\w\\-]+";
-    private static final String topic = "#[\u4e00-\u9fa5\\w]+#";
+    private static final String topic = "#[\u4e00-\u9fa5\\w\\-]+#";
     private static final String emotion = "\\[[\u4e00-\u9fa5\\w]+\\]";
     private static final String Link = "https?://[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
 
@@ -117,7 +117,7 @@ public class WeiboTextView extends TextView {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
-    public static abstract class Clickable extends ClickableSpan {
+    public static abstract class Clickable extends ClickableSpan implements Cloneable {
         private String value;
 
         @Override
@@ -129,7 +129,12 @@ public class WeiboTextView extends TextView {
 
         public Clickable click(String value) {
             this.value = value;
-            return this;
+            try {
+                return (Clickable) this.clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 
