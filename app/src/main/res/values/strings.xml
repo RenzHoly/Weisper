@@ -12,4 +12,9 @@
     <string name="login_failed">登录失败</string>
     <string name="oauth_url" formatted="false"><![CDATA[https://api.weibo.com/oauth2/authorize?client_id=%s&response_type=token&redirect_uri=%s&key_hash=%s&packagename=%s&display=mobile&scope=%s]]></string>
     <string name="action_change_theme">Theme</string>
+    <string name="action_status_repost">Repost</string>
+    <string name="action_status_comment">Comment</string>
+    <string name="action_status_like">Like</string>
+    <string name="action_status_share">Share</string>
+    <string name="action_status_detail">Detail</string>
 </resources>
