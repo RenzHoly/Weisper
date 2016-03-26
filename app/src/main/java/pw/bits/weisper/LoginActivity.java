@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,27 +49,32 @@ public class LoginActivity extends AppCompatActivity {
                 return true;
             }
         });
-        webView.loadUrl(getOauthLoginPage());
+        webView.loadUrl(getOauthLoginUrl());
     }
 
     private void handleRedirectedUrl(String url) {
         Matcher token = Pattern.compile("(?<=access_token=)[^&]+").matcher(url);
         Matcher expires_in = Pattern.compile("(?<=expires_in=)[^&]+").matcher(url);
+        CharSequence message;
         if (token.find() && expires_in.find()) {
             Hawk.put("access-token", token.group());
-            Toast.makeText(this, String.format("登录有效期 %d 天", Long.valueOf(expires_in.group()) / 60 / 60 / 24), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, MainActivity.class));
+            message = String.format(Locale.getDefault(), getString(R.string.login_success), Long.valueOf(expires_in.group()) / 60 / 60 / 24);
+        } else {
+            message = getString(R.string.login_failed);
         }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         finish();
     }
 
-    public String getOauthLoginPage() {
-        String client_id = getString(R.string.client_id);
-        String redirect_uri = getString(R.string.redirect_uri);
-        String key_hash = getString(R.string.key_hash);
-        String package_name = getString(R.string.package_name);
-        String scope = getString(R.string.scope);
-        return String.format("https://api.weibo.com/oauth2/authorize?client_id=%s&response_type=token&redirect_uri=%s&key_hash=%s&packagename=%s&display=mobile&scope=%s", client_id, redirect_uri, key_hash, package_name, scope);
+    private String getOauthLoginUrl() {
+        return String.format(
+                getString(R.string.oauth_url),
+                getString(R.string.client_id),
+                getString(R.string.redirect_uri),
+                getString(R.string.key_hash),
+                getString(R.string.package_name),
+                getString(R.string.scope)
+        );
     }
 }

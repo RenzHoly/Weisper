@@ -8,4 +8,7 @@
     <string name="package_name">com.eico.weico</string>
     <string name="scope">email,direct_messages_read,direct_messages_write,friendships_groups_read,friendships_groups_write,statuses_to_me_read,follow_app_official_microblog,invitation_write</string>
     <string name="client_id">211160679</string>
+    <string name="login_success">登录有效期 %d 天</string>
+    <string name="login_failed">登录失败</string>
+    <string name="oauth_url" formatted="false"><![CDATA[https://api.weibo.com/oauth2/authorize?client_id=%s&response_type=token&redirect_uri=%s&key_hash=%s&packagename=%s&display=mobile&scope=%s]]></string>
 </resources>
