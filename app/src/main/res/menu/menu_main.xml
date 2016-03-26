@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/action_user_profile"
-        android:icon="@drawable/ic_account_circle_white_24dp"
+        android:icon="?attr/ic_account_circle"
         android:title="@string/action_user_profile"
         app:showAsAction="ifRoom" />
 
