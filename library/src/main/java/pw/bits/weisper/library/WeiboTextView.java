@@ -24,7 +24,7 @@ public class WeiboTextView extends TextView {
     private static final String user = "@[\u4e00-\u9fa5\\w\\-]+";
     private static final String topic = "#[\u4e00-\u9fa5\\w\\-]+#";
     private static final String emotion = "\\[[\u4e00-\u9fa5\\w]+\\]";
-    private static final String Link = "https?://[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
+    private static final String link = "https?://[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
 
     private Clickable clickUser;
     private Clickable clickTopic;
@@ -52,7 +52,7 @@ public class WeiboTextView extends TextView {
     @Override
     public void setText(CharSequence text, BufferType type) {
         SpannableString spannableString = new SpannableString("\uFEFF" + text);
-        match(spannableString, String.format("(%s)|(%s)|(%s)|(%s)", user, topic, emotion, Link));
+        match(spannableString, String.format("(%s)|(%s)|(%s)|(%s)", user, topic, emotion, link));
         super.setText(spannableString, type);
     }
 
