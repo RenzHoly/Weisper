@@ -1,0 +1,35 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:floating="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="pw.bits.weisper.MainActivity">
+    <item
+        android:id="@+id/action_status_repost"
+        android:icon="@drawable/ic_repeat_white_24dp"
+        android:title="Repost"
+        floating:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_status_comment"
+        android:icon="@drawable/ic_chat_bubble_outline_white_24dp"
+        android:title="Comment"
+        floating:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_status_like"
+        android:icon="@drawable/ic_favorite_border_white_24dp"
+        android:title="Like"
+        floating:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_status_share"
+        android:icon="@drawable/ic_share_white_24dp"
+        android:title="Share"
+        floating:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_status_detail"
+        android:icon="@drawable/ic_adjust_white_24dp"
+        android:title="Detail"
+        floating:showAsAction="always" />
+
+</menu>

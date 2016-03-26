@@ -1,0 +1,12 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <pw.bits.weisper.view.list.PictureFlowListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <include
+        android:id="@+id/pinned_view"
+        layout="@layout/widget_pinned_status" />
+</FrameLayout>
