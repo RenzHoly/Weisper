@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.AttributeSet;
-import android.util.Log;
+
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,7 +22,7 @@ public class StatusTextView extends WeiboTextView {
     private static Clickable clickUser = new Clickable() {
         @Override
         public void onClick(String value) {
-            Log.i("click user", value);
+            Logger.i("click user", value);
             EventBus.getDefault().post(new OpenUserEvent(value));
         }
     };
@@ -29,7 +30,7 @@ public class StatusTextView extends WeiboTextView {
     private static Clickable clickTopic = new Clickable() {
         @Override
         public void onClick(String value) {
-            Log.i("click topic", value);
+            Logger.i("click topic", value);
             EventBus.getDefault().post(new OpenTopicEvent(value));
         }
     };
@@ -37,7 +38,7 @@ public class StatusTextView extends WeiboTextView {
     private static Clickable clickLink = new Clickable() {
         @Override
         public void onClick(String value) {
-            Log.i("click link", value);
+            Logger.i("click link", value);
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(value));
             context.startActivity(browserIntent);
         }
