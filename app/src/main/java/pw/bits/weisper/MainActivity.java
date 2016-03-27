@@ -100,11 +100,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_switch_status: {
-                fm.beginTransaction().show(statusFlowFragment).hide(pictureFlowFragment).commit();
+                fm.beginTransaction()
+                        .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)
+                        .show(statusFlowFragment)
+                        .hide(pictureFlowFragment)
+                        .commit();
                 return true;
             }
             case R.id.action_switch_picture: {
-                fm.beginTransaction().show(pictureFlowFragment).hide(statusFlowFragment).commit();
+                fm.beginTransaction()
+                        .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)
+                        .show(pictureFlowFragment)
+                        .hide(statusFlowFragment)
+                        .commit();
                 return true;
             }
             case R.id.action_user_profile: {
@@ -129,7 +137,11 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("screen_name", event.getScreenName());
         userFragment.setArguments(bundle);
-        fm.beginTransaction().add(R.id.main_layout, userFragment).addToBackStack(null).commit();
+        fm.beginTransaction()
+                .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)
+                .add(R.id.main_layout, userFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Subscribe
@@ -139,7 +151,11 @@ public class MainActivity extends AppCompatActivity {
         bundle.putStringArrayList("pictures", event.getPictureUrls());
         bundle.putInt("position", event.getPosition());
         pictureFragment.setArguments(bundle);
-        fm.beginTransaction().add(R.id.main_layout, pictureFragment).addToBackStack(null).commit();
+        fm.beginTransaction()
+                .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)
+                .add(R.id.main_layout, pictureFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Subscribe
@@ -148,7 +164,11 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("topic", event.getTopic());
         topicFragment.setArguments(bundle);
-        fm.beginTransaction().add(R.id.main_layout, topicFragment).addToBackStack(null).commit();
+        fm.beginTransaction()
+                .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)
+                .add(R.id.main_layout, topicFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
