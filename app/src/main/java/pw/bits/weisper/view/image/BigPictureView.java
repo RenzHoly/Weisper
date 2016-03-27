@@ -13,6 +13,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 
 import pw.bits.weisper.R;
 import pw.bits.weisper.library.LongPictureView;
+import pw.bits.weisper.library.ZoomImageView;
 
 /**
  * Created by rzh on 16/3/23.
@@ -56,7 +57,7 @@ public class BigPictureView extends FrameLayout {
                             addView(image);
                             image.setPicture(resource);
                         } else {
-                            ImageView image = new ImageView(getContext());
+                            ZoomImageView image = new ZoomImageView(getContext());
                             image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                             addView(image);
                             image.setImageBitmap(resource);
