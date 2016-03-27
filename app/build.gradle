@@ -50,5 +50,4 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
     compile 'com.github.orhanobut:logger:1.12'
-    compile 'com.commit451:PhotoView:1.2.5'
 }
