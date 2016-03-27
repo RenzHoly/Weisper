@@ -27,7 +27,10 @@ public class AvatarImageView extends de.hdodenhof.circleimageview.CircleImageVie
         super(context, attrs, defStyle);
     }
 
-    public void setUser(final User user) {
+    public void setUser(User user) {
+        if (user == null) {
+            return;
+        }
         Glide.with(getContext())
                 .load(user.profile_image_url)
                 .asBitmap()
