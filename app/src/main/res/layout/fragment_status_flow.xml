@@ -1,18 +1,5 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<pw.bits.weisper.view.list.StatusFlowListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/status_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
-
-    <pw.bits.weisper.view.list.StatusFlowListView
-        android:id="@+id/status_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <pw.bits.weisper.view.widget.FloatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:cardBackgroundColor="?attr/colorPrimary"
-        app:cardElevation="8dp" />
-</FrameLayout>
+    android:background="@android:color/white" />

@@ -1,13 +1,13 @@
 package pw.bits.weisper.view.holder;
 
 import android.text.Html;
-import android.view.MotionEvent;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.Locale;
@@ -15,7 +15,6 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pw.bits.weisper.R;
-import pw.bits.weisper.event.FloatingBarEvent;
 import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.view.image.AvatarImageView;
 import pw.bits.weisper.view.image.ThumbnailsLayout;
@@ -69,11 +68,10 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
 
     private int parentWidth = 0;
 
-    private View.OnTouchListener onTouchListener = (v, event) -> {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            EventBus.getDefault().post(new FloatingBarEvent(event.getRawX(), event.getRawY()));
-        }
-        return event.getAction() != MotionEvent.ACTION_UP;
+    private View.OnClickListener onClickListener = v -> {
+        PopupMenu popup = new PopupMenu(itemView.getContext(), status_attitudes_count, Gravity.END);
+        popup.getMenuInflater().inflate(R.menu.menu_toolbar, popup.getMenu());
+        popup.show();
     };
 
     public StatusNormalViewHolder(View itemView, int parentWidth) {
@@ -102,7 +100,9 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
 
         user_profile_image.setUser(status.user);
 
-        status_layout.setOnTouchListener(onTouchListener);
+        status_layout.setOnClickListener(onClickListener);
+        status_text.setOnClickListener(onClickListener);
+        retweeted_status_text.setOnClickListener(onClickListener);
 
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) itemView.getLayoutParams();
         status_pictures_container.setPictures(status.retweeted_status == null ? status.pic_urls : status.retweeted_status.pic_urls, parentWidth - lp.leftMargin - lp.rightMargin);
