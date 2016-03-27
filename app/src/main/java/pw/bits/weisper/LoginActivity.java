@@ -55,9 +55,11 @@ public class LoginActivity extends AppCompatActivity {
     private void handleRedirectedUrl(String url) {
         Matcher token = Pattern.compile("(?<=access_token=)[^&]+").matcher(url);
         Matcher expires_in = Pattern.compile("(?<=expires_in=)[^&]+").matcher(url);
+        Matcher uid = Pattern.compile("(?<=uid=)[^&]+").matcher(url);
         CharSequence message;
-        if (token.find() && expires_in.find()) {
+        if (token.find() && expires_in.find() && uid.find()) {
             Hawk.put("access-token", token.group());
+            Hawk.put("uid", Long.parseLong(uid.group()));
             startActivity(new Intent(this, MainActivity.class));
             message = String.format(Locale.getDefault(), getString(R.string.login_success), Long.valueOf(expires_in.group()) / 60 / 60 / 24);
         } else {

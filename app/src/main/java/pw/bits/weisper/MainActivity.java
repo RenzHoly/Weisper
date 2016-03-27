@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
+import pw.bits.weisper.event.CloseUserEvent;
 import pw.bits.weisper.event.OpenPictureEvent;
 import pw.bits.weisper.event.OpenTopicEvent;
 import pw.bits.weisper.event.OpenUserEvent;
@@ -39,6 +40,7 @@ import pw.bits.weisper.fragment.UserFragment;
 import pw.bits.weisper.library.StatusData;
 import pw.bits.weisper.library.bean.User;
 import pw.bits.weisper.store.FlowStatusStore;
+import rx.Observable;
 import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                     .readTimeout(15, TimeUnit.SECONDS)
                     .build();
             Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(client));
-            setAvatar(null);
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -146,12 +147,16 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.main_layout, userFragment)
                 .addToBackStack(null)
                 .commit();
-        setAvatar(event.getScreenName());
-
+        setAvatar(StatusData.usersShow(event.getScreenName()));
     }
 
-    private void setAvatar(String screen_name) {
-        StatusData.usersShow(screen_name).subscribe(new Subscriber<User>() {
+    @Subscribe
+    public void onEvent(CloseUserEvent event) {
+        setAvatar(StatusData.usersShow(Hawk.get("uid", 0L)));
+    }
+
+    private void setAvatar(Observable<User> observable) {
+        observable.subscribe(new Subscriber<User>() {
             @Override
             public void onCompleted() {
 
@@ -200,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         FlowStatusStore.instance.start();
+        setAvatar(StatusData.usersShow(Hawk.get("uid", 0L)));
     }
 
     @Override

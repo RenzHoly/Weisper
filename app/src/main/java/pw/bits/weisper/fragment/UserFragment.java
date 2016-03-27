@@ -5,9 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pw.bits.weisper.R;
+import pw.bits.weisper.event.CloseUserEvent;
 import pw.bits.weisper.view.list.UserStatusListView;
 
 /**
@@ -33,5 +36,11 @@ public class UserFragment extends ChangeTitleFragment {
     @Override
     CharSequence getTitle() {
         return String.format("@%s", getArguments().getString("screen_name", "ME"));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().post(new CloseUserEvent());
     }
 }

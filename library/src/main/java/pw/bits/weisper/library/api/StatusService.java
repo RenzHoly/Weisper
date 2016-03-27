@@ -33,6 +33,7 @@ public interface StatusService {
 
     @GET("users/show.json")
     Observable<User> usersShow(
-            @Query(value = "screen_name") String screen_name
+            @Query(value = "screen_name") String screen_name,
+            @Query(value = "uid") Long uid
     );
 }
