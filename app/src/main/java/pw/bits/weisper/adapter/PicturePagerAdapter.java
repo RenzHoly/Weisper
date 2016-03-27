@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import pw.bits.weisper.R;
 import pw.bits.weisper.view.image.BigPictureView;
 
 /**
@@ -23,7 +22,7 @@ public class PicturePagerAdapter extends PagerAdapter {
         this.pictures = pictures;
         LayoutInflater lf = LayoutInflater.from(context);
         for (String picture : pictures) {
-            viewList.add((BigPictureView) lf.inflate(R.layout.item_picture, null));
+            viewList.add(new BigPictureView(context));
         }
     }
 

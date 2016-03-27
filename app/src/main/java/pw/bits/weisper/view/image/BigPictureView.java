@@ -8,15 +8,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
-
-import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLContext;
-import javax.microedition.khronos.egl.EGLDisplay;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import pw.bits.weisper.R;
+import pw.bits.weisper.library.LongPictureView;
 
 /**
  * Created by rzh on 16/3/23.
@@ -35,65 +31,45 @@ public class BigPictureView extends FrameLayout {
     }
 
     public void setPicture(String url) {
-        final ImageView image = (ImageView) findViewById(R.id.item_picture_image);
-        Glide.with(getContext())
-                .load(url)
-                .transform(new BitmapTransformation(getContext()) {
-                    @Override
-                    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-                        if (toTransform.getHeight() > maximumTextureSize) {
-                            Bitmap scaled = Bitmap.createScaledBitmap(toTransform, (int) ((maximumTextureSize / (float) toTransform.getHeight()) * toTransform.getWidth()), maximumTextureSize, true);
-                            toTransform.recycle();
-                            return scaled;
-                        }
-                        return toTransform;
-                    }
-
-                    @Override
-                    public String getId() {
-                        return "scale";
-                    }
-                })
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .error(R.drawable.picture_error)
-                .into(image);
-    }
-
-    private static int maximumTextureSize = getMaximumTextureSize();
-
-    private static int getMaximumTextureSize() {
-        EGL10 egl = (EGL10) EGLContext.getEGL();
-        EGLDisplay display = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-
-        // Initialise
-        int[] version = new int[2];
-        egl.eglInitialize(display, version);
-
-        // Query total number of configurations
-        int[] totalConfigurations = new int[1];
-        egl.eglGetConfigs(display, null, 0, totalConfigurations);
-
-        // Query actual list configurations
-        EGLConfig[] configurationsList = new EGLConfig[totalConfigurations[0]];
-        egl.eglGetConfigs(display, configurationsList, totalConfigurations[0], totalConfigurations);
-
-        int[] textureSize = new int[1];
-        int maximumTextureSize = 0;
-
-        // Iterate through all the configurations to located the maximum texture size
-        for (int i = 0; i < totalConfigurations[0]; i++) {
-            // Only need to check for width since opengl textures are always squared
-            egl.eglGetConfigAttrib(display, configurationsList[i], EGL10.EGL_MAX_PBUFFER_WIDTH, textureSize);
-
-            // Keep track of the maximum texture size
-            if (maximumTextureSize < textureSize[0]) {
-                maximumTextureSize = textureSize[0];
-            }
+        if (isGif(url)) {
+            ImageView image = new ImageView(getContext());
+            image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+            addView(image);
+            Glide.with(getContext())
+                    .load(url)
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .error(R.drawable.picture_error)
+                    .into(image);
+            return;
         }
 
-        // Release
-        egl.eglTerminate(display);
+        Glide.with(getContext())
+                .load(url)
+                .asBitmap()
+                .error(R.drawable.picture_error)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        if (isLong(resource)) {
+                            LongPictureView image = new LongPictureView(getContext());
+                            image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                            addView(image);
+                            image.setPicture(resource);
+                        } else {
+                            ImageView image = new ImageView(getContext());
+                            image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                            addView(image);
+                            image.setImageBitmap(resource);
+                        }
+                    }
+                });
+    }
 
-        return maximumTextureSize;
+    private boolean isGif(String url) {
+        return url.matches("^.*\\.[gG][iI][fF]$");
+    }
+
+    private boolean isLong(Bitmap resource) {
+        return resource.getHeight() >= resource.getWidth() * 2;
     }
 }
