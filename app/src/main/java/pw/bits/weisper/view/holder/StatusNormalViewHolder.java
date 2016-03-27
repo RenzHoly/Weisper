@@ -101,8 +101,6 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
         user_profile_image.setUser(status.user);
 
         status_layout.setOnClickListener(onClickListener);
-        status_text.setOnClickListener(onClickListener);
-        retweeted_status_text.setOnClickListener(onClickListener);
 
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) itemView.getLayoutParams();
         status_pictures_container.setPictures(status.retweeted_status == null ? status.pic_urls : status.retweeted_status.pic_urls, parentWidth - lp.leftMargin - lp.rightMargin);

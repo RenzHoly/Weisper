@@ -5,12 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
+import android.text.method.MovementMethod;
 import android.text.style.CharacterStyle;
 import android.text.style.ClickableSpan;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -46,7 +47,7 @@ public class WeiboTextView extends TextView {
     }
 
     private void init() {
-        setMovementMethod(LinkMovementMethod.getInstance());
+        setMovementMethod(WeiboMovementMethod.instance);
     }
 
     @Override
@@ -148,5 +149,15 @@ public class WeiboTextView extends TextView {
 
     public void setClickLink(Clickable clickLink) {
         this.clickLink = clickLink;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        boolean value = super.onTouchEvent(event);
+        MovementMethod method = getMovementMethod();
+        if (method instanceof WeiboMovementMethod) {
+            return ((WeiboMovementMethod) method).isLink();
+        }
+        return value;
     }
 }
