@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -13,6 +12,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 
 import pw.bits.weisper.R;
 import pw.bits.weisper.library.LongPictureView;
+import uk.co.senab.photoview.PhotoView;
 
 /**
  * Created by rzh on 16/3/23.
@@ -32,7 +32,7 @@ public class BigPictureView extends FrameLayout {
 
     public void setPicture(String url) {
         if (isGif(url)) {
-            ImageView image = new ImageView(getContext());
+            PhotoView image = new PhotoView(getContext());
             image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             addView(image);
             Glide.with(getContext())
@@ -56,7 +56,7 @@ public class BigPictureView extends FrameLayout {
                             addView(image);
                             image.setPicture(resource);
                         } else {
-                            ImageView image = new ImageView(getContext());
+                            PhotoView image = new PhotoView(getContext());
                             image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                             addView(image);
                             image.setImageBitmap(resource);
