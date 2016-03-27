@@ -13,6 +13,8 @@ import pw.bits.weisper.store.FlowStatusStore;
  * Created by rzh on 16/3/19.
  */
 public class StatusFlowListView extends SwipeRefreshLayout {
+    private RecyclerView recyclerView;
+
     public StatusFlowListView(Context context) {
         super(context);
         init(context);
@@ -24,7 +26,7 @@ public class StatusFlowListView extends SwipeRefreshLayout {
     }
 
     private void init(Context context) {
-        RecyclerView recyclerView = new RecyclerView(context);
+        recyclerView = new RecyclerView(context);
         addView(recyclerView);
 
         StatusFlowAdapter adapter = new StatusFlowAdapter(getContext());
@@ -46,5 +48,9 @@ public class StatusFlowListView extends SwipeRefreshLayout {
         });
 
         setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
+    }
+
+    public void smoothScrollToTop() {
+        recyclerView.smoothScrollToPosition(0);
     }
 }
