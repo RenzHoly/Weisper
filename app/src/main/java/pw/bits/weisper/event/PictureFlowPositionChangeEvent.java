@@ -1,6 +1,7 @@
 package pw.bits.weisper.event;
 
-import pw.bits.weisper.model.bean.User;
+import pw.bits.weisper.library.bean.Status;
+import pw.bits.weisper.library.bean.User;
 
 /**
  * Created by rzh on 16/3/20.
@@ -10,9 +11,9 @@ public class PictureFlowPositionChangeEvent {
     private String text;
     private boolean isOverlapping;
 
-    public PictureFlowPositionChangeEvent(User user, String text, boolean isOverlapping) {
-        this.user = user;
-        this.text = text;
+    public PictureFlowPositionChangeEvent(Status status, boolean isOverlapping) {
+        this.user = status.user;
+        this.text = status.text;
         this.isOverlapping = isOverlapping;
     }
 

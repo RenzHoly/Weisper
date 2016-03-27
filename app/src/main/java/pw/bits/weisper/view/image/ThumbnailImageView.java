@@ -12,7 +12,7 @@ import java.util.List;
 
 import pw.bits.weisper.R;
 import pw.bits.weisper.event.OpenPictureEvent;
-import pw.bits.weisper.model.bean.Picture;
+import pw.bits.weisper.library.bean.Picture;
 
 /**
  * Created by rzh on 16/3/19.

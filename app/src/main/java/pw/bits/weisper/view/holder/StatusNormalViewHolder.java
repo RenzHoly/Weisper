@@ -16,7 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pw.bits.weisper.R;
 import pw.bits.weisper.event.FloatingBarEvent;
-import pw.bits.weisper.model.bean.Status;
+import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.view.image.AvatarImageView;
 import pw.bits.weisper.view.image.ThumbnailsLayout;
 import pw.bits.weisper.view.widget.StatusTextView;

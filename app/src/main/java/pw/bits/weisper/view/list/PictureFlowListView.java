@@ -10,7 +10,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import pw.bits.weisper.adapter.PictureFlowAdapter;
 import pw.bits.weisper.event.PictureFlowPositionChangeEvent;
-import pw.bits.weisper.model.bean.Status;
 import pw.bits.weisper.store.FlowStatusStore;
 
 /**
@@ -50,8 +49,7 @@ public class PictureFlowListView extends SwipeRefreshLayout {
                 int nowPosition = linearLayoutManager.findFirstVisibleItemPosition();
                 if (nowPosition != previousPosition || nowPosition == 0) {
                     previousPosition = nowPosition;
-                    Status status = adapter.getList().get(linearLayoutManager.findFirstVisibleItemPosition());
-                    EventBus.getDefault().post(new PictureFlowPositionChangeEvent(status.user, status.text, false));
+                    EventBus.getDefault().post(new PictureFlowPositionChangeEvent(adapter.getStatus(linearLayoutManager.findFirstVisibleItemPosition()), false));
                 }
             }
         });

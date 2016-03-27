@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 
-import pw.bits.weisper.model.bean.Status;
+import pw.bits.weisper.library.bean.Status;
 
 /**
  * Created by rzh on 16/3/27.

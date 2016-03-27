@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import pw.bits.weisper.R;
 import pw.bits.weisper.event.OpenUserEvent;
-import pw.bits.weisper.model.bean.User;
+import pw.bits.weisper.library.bean.User;
 
 /**
  * Created by rzh on 16/3/19.

@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import pw.bits.weisper.model.bean.Picture;
+import pw.bits.weisper.library.bean.Picture;
 
 /**
  * Created by rzh on 16/3/21.

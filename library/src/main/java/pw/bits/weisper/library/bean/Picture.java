@@ -1,4 +1,4 @@
-package pw.bits.weisper.model.bean;
+package pw.bits.weisper.library.bean;
 
 /**
  * Created by rzh on 16/3/14.

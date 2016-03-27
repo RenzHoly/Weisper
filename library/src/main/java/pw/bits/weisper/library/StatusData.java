@@ -1,10 +1,10 @@
-package pw.bits.weisper.model.data;
+package pw.bits.weisper.library;
 
 import com.google.gson.GsonBuilder;
 import com.orhanobut.hawk.Hawk;
 
-import pw.bits.weisper.model.api.StatusService;
-import pw.bits.weisper.model.bean.Statuses;
+import pw.bits.weisper.library.api.StatusService;
+import pw.bits.weisper.library.bean.Statuses;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;

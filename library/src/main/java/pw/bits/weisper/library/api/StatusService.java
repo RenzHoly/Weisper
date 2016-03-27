@@ -1,6 +1,6 @@
-package pw.bits.weisper.model.api;
+package pw.bits.weisper.library.api;
 
-import pw.bits.weisper.model.bean.Statuses;
+import pw.bits.weisper.library.bean.Statuses;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;

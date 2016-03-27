@@ -1,4 +1,4 @@
-package pw.bits.weisper.model.bean;
+package pw.bits.weisper.library.bean;
 
 import java.util.ArrayList;
 import java.util.List;

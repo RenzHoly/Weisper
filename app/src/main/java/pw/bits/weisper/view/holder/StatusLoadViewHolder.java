@@ -2,7 +2,7 @@ package pw.bits.weisper.view.holder;
 
 import android.view.View;
 
-import pw.bits.weisper.model.bean.Status;
+import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.store.FlowStatusStore;
 
 /**

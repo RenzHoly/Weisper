@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pw.bits.weisper.adapter.BaseStatusAdapter;
-import pw.bits.weisper.model.bean.Status;
-import pw.bits.weisper.model.bean.Statuses;
+import pw.bits.weisper.library.bean.Status;
+import pw.bits.weisper.library.bean.Statuses;
 import rx.Observable;
 import rx.Subscriber;
 

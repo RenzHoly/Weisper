@@ -1,7 +1,6 @@
 package pw.bits.weisper.adapter;
 
 import android.content.Context;
-import android.support.v7.util.SortedList;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pw.bits.weisper.R;
-import pw.bits.weisper.model.bean.Status;
+import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.view.holder.PictureFlowViewHolder;
 
 /**
@@ -41,7 +40,7 @@ public class PictureFlowAdapter extends BaseStatusAdapter<PictureFlowViewHolder>
         heightCache.put(list.get(holder.getAdapterPosition()).id, holder.itemView.getLayoutParams().height);
     }
 
-    public SortedList<Status> getList() {
-        return list;
+    public Status getStatus(int position) {
+        return list.get(position);
     }
 }

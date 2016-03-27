@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import pw.bits.weisper.adapter.StatusFlowAdapter;
-import pw.bits.weisper.model.data.StatusData;
+import pw.bits.weisper.library.StatusData;
 import pw.bits.weisper.store.BaseStatusStore;
 
 /**
