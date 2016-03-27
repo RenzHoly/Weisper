@@ -46,7 +46,7 @@ public class StatusFlowFragment extends Fragment {
         }
         final Snackbar snackbar = Snackbar.make(status_list, String.format("更新了 %d 条", count), Snackbar.LENGTH_LONG);
         snackbar.setAction("查看", v -> {
-            status_list.smoothScrollToTop();
+            status_list.scrollToTop();
             snackbar.dismiss();
         });
         snackbar.show();

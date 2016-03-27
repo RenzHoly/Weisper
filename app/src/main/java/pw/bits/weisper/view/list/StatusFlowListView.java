@@ -50,7 +50,7 @@ public class StatusFlowListView extends SwipeRefreshLayout {
         setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
     }
 
-    public void smoothScrollToTop() {
-        recyclerView.smoothScrollToPosition(0);
+    public void scrollToTop() {
+        recyclerView.scrollToPosition(0);
     }
 }
