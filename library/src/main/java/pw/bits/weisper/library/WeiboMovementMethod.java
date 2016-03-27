@@ -14,7 +14,7 @@ import android.widget.TextView;
  */
 public class WeiboMovementMethod extends LinkMovementMethod {
     public static final WeiboMovementMethod instance = new WeiboMovementMethod();
-    private static BackgroundColorSpan mGray = new BackgroundColorSpan(0xAAAAAA);
+    private static BackgroundColorSpan graySpan = new BackgroundColorSpan(0xAAAAAA);
     private static boolean isLink = false;
 
     @Override
@@ -36,15 +36,15 @@ public class WeiboMovementMethod extends LinkMovementMethod {
                 int end = buffer.getSpanEnd(spans[0]);
                 isLink = true;
                 if (action == MotionEvent.ACTION_DOWN) {
-                    buffer.setSpan(mGray, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    buffer.setSpan(graySpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 } else {
                     spans[0].onClick(widget);
-                    buffer.removeSpan(mGray);
+                    buffer.removeSpan(graySpan);
                 }
                 return true;
             }
         } else {
-            buffer.removeSpan(mGray);
+            buffer.removeSpan(graySpan);
         }
         return Touch.onTouchEvent(widget, buffer, event);
     }
