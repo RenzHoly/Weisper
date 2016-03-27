@@ -11,7 +11,6 @@ import rx.Observable;
 public interface StatusService {
     @GET("statuses/home_timeline.json")
     Observable<Statuses> homeTimeline(
-            @Query(value = "access_token") String access_token,
             @Query(value = "count") Integer count,
             @Query(value = "since_id") Long since_id,
             @Query(value = "max_id") Long max_id
@@ -19,7 +18,6 @@ public interface StatusService {
 
     @GET("statuses/user_timeline.json")
     Observable<Statuses> userTimeLine(
-            @Query(value = "access_token") String access_token,
             @Query(value = "count") Integer count,
             @Query(value = "since_id") Long since_id,
             @Query(value = "max_id") Long max_id,
@@ -28,7 +26,6 @@ public interface StatusService {
 
     @GET("search/topics.json")
     Observable<Statuses> searchTopics(
-            @Query(value = "access_token") String access_token,
             @Query(value = "count") Integer count,
             @Query(value = "q") String topic
     );
