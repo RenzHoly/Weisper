@@ -1,6 +1,7 @@
 package pw.bits.weisper.library.api;
 
 import pw.bits.weisper.library.bean.Statuses;
+import pw.bits.weisper.library.bean.User;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -28,5 +29,10 @@ public interface StatusService {
     Observable<Statuses> searchTopics(
             @Query(value = "count") Integer count,
             @Query(value = "q") String topic
+    );
+
+    @GET("users/show.json")
+    Observable<User> usersShow(
+            @Query(value = "screen_name") String screen_name
     );
 }

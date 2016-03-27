@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import pw.bits.weisper.library.api.StatusService;
 import pw.bits.weisper.library.bean.Statuses;
+import pw.bits.weisper.library.bean.User;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -58,6 +59,12 @@ public class StatusData {
 
     public static Observable<Statuses> searchTopics(String topic) {
         return service.searchTopics(50, topic)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<User> usersShow(String screen_name) {
+        return service.usersShow(screen_name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

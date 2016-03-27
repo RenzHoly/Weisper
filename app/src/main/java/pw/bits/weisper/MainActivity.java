@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
@@ -35,7 +36,10 @@ import pw.bits.weisper.fragment.PictureFragment;
 import pw.bits.weisper.fragment.StatusFlowFragment;
 import pw.bits.weisper.fragment.TopicFragment;
 import pw.bits.weisper.fragment.UserFragment;
+import pw.bits.weisper.library.StatusData;
+import pw.bits.weisper.library.bean.User;
 import pw.bits.weisper.store.FlowStatusStore;
+import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fm = getSupportFragmentManager();
@@ -49,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer_layout;
+
+    @Bind(R.id.toolbar_avatar)
+    ImageView toolbar_avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     .readTimeout(15, TimeUnit.SECONDS)
                     .build();
             Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(client));
+            setAvatar(null);
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -115,10 +123,6 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
                 return true;
             }
-            case R.id.action_user_profile: {
-                EventBus.getDefault().post(new OpenUserEvent(null));
-                return true;
-            }
             case R.id.action_change_theme: {
                 current_theme++;
                 current_theme = current_theme % themes.length;
@@ -142,6 +146,27 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.main_layout, userFragment)
                 .addToBackStack(null)
                 .commit();
+        setAvatar(event.getScreenName());
+
+    }
+
+    private void setAvatar(String screen_name) {
+        StatusData.usersShow(screen_name).subscribe(new Subscriber<User>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(User user) {
+                Glide.with(getBaseContext()).load(user.profile_image_url).dontTransform().into(toolbar_avatar);
+            }
+        });
     }
 
     @Subscribe
