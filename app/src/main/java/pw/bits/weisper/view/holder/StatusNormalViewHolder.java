@@ -77,7 +77,7 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
     public void bindView(Status status) {
         status_text.setText(status.text);
         user_screen_name.setText(status.user.screen_name);
-        status_source.setText(String.format("%s 来自 %s", new PrettyTime(Locale.getDefault()).format(status.created_at).replace(" ", ""), Html.fromHtml(status.source)));
+        status_source.setText(String.format("%s 来自 %s", new PrettyTime(Locale.CHINA).format(status.created_at).replace(" ", ""), Html.fromHtml(status.source)));
 
         setStatusInfo(status_reposts_icon, status_reposts_count, status.reposts_count);
         setStatusInfo(status_comments_icon, status_comments_count, status.comments_count);
