@@ -12,27 +12,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.v7.widget.Toolbar
+            <include
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:gravity="center"
-                app:layout_scrollFlags="enterAlways">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <pw.bits.weisper.view.image.AvatarImageView
-                        android:id="@+id/toolbar_avatar"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_margin="12dp" />
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
-
+                layout="@layout/widget_toolbar" />
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
