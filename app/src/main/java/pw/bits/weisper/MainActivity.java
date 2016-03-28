@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
@@ -37,11 +36,8 @@ import pw.bits.weisper.fragment.StatusFlowFragment;
 import pw.bits.weisper.fragment.TopicFragment;
 import pw.bits.weisper.fragment.UserFragment;
 import pw.bits.weisper.library.StatusData;
-import pw.bits.weisper.library.bean.User;
 import pw.bits.weisper.store.FlowStatusStore;
 import pw.bits.weisper.view.widget.Toolbar;
-import rx.Observable;
-import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fm = getSupportFragmentManager();
@@ -55,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer_layout;
-
-    @Bind(R.id.toolbar_avatar)
-    ImageView toolbar_avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,31 +140,12 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.main_layout, userFragment)
                 .addToBackStack(null)
                 .commit();
-        setAvatar(StatusData.usersShow(event.getScreenName()));
+        toolbar.setAvatar(StatusData.usersShow(event.getScreenName()));
     }
 
     @Subscribe
     public void onEvent(CloseUserEvent event) {
-        setAvatar(StatusData.usersShow(Hawk.get("uid", 0L)));
-    }
-
-    private void setAvatar(Observable<User> observable) {
-        observable.subscribe(new Subscriber<User>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(User user) {
-                Glide.with(getBaseContext()).load(user.profile_image_url).dontTransform().into(toolbar_avatar);
-            }
-        });
+        toolbar.setAvatar(StatusData.usersShow(Hawk.get("uid", 0L)));
     }
 
     @Subscribe
@@ -205,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         FlowStatusStore.instance.start();
-        setAvatar(StatusData.usersShow(Hawk.get("uid", 0L)));
+        toolbar.setAvatar(StatusData.usersShow(Hawk.get("uid", 0L)));
     }
 
     @Override
