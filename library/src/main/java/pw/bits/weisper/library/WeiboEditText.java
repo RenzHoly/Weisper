@@ -27,7 +27,11 @@ public class WeiboEditText extends EditText {
     private void init() {
         setOnFocusChangeListener((v, hasFocus) -> post(() -> {
             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(WeiboEditText.this, hasFocus ? InputMethodManager.SHOW_IMPLICIT : InputMethodManager.HIDE_IMPLICIT_ONLY);
+            if (hasFocus) {
+                imm.showSoftInput(WeiboEditText.this, InputMethodManager.SHOW_IMPLICIT);
+            } else {
+                imm.hideSoftInputFromWindow(getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+            }
         }));
     }
 }
