@@ -5,7 +5,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -18,6 +17,7 @@ import pw.bits.weisper.R;
 import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.view.image.AvatarImageView;
 import pw.bits.weisper.view.image.ThumbnailsLayout;
+import pw.bits.weisper.view.widget.StatusPopupMenu;
 import pw.bits.weisper.view.widget.StatusTextView;
 
 /**
@@ -68,12 +68,6 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
 
     private int parentWidth = 0;
 
-    private View.OnClickListener onClickListener = v -> {
-        PopupMenu popup = new PopupMenu(itemView.getContext(), status_attitudes_count, Gravity.END);
-        popup.getMenuInflater().inflate(R.menu.menu_toolbar, popup.getMenu());
-        popup.show();
-    };
-
     public StatusNormalViewHolder(View itemView, int parentWidth) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -100,7 +94,11 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
 
         user_profile_image.setUser(status.user);
 
-        status_layout.setOnClickListener(onClickListener);
+        status_layout.setOnClickListener(v -> {
+            StatusPopupMenu popup = new StatusPopupMenu(itemView.getContext(), status_attitudes_count, Gravity.END);
+            popup.setStatus(status);
+            popup.show();
+        });
 
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) itemView.getLayoutParams();
         status_pictures_container.setPictures(status.retweeted_status == null ? status.pic_urls : status.retweeted_status.pic_urls, parentWidth - lp.leftMargin - lp.rightMargin);

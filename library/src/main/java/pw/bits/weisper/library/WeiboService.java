@@ -3,6 +3,9 @@ package pw.bits.weisper.library;
 import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.library.bean.Statuses;
 import pw.bits.weisper.library.bean.User;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -14,35 +17,36 @@ import rx.Observable;
 public interface WeiboService {
     @GET("statuses/home_timeline.json")
     Observable<Statuses> statusesHomeTimeline(
-            @Query(value = "count") Integer count,
-            @Query(value = "since_id") Long since_id,
-            @Query(value = "max_id") Long max_id
+            @Query("count") Integer count,
+            @Query("since_id") Long since_id,
+            @Query("max_id") Long max_id
     );
 
     @GET("statuses/user_timeline.json")
     Observable<Statuses> statusesUserTimeLine(
-            @Query(value = "count") Integer count,
-            @Query(value = "since_id") Long since_id,
-            @Query(value = "max_id") Long max_id,
-            @Query(value = "screen_name") String screen_name
+            @Query("count") Integer count,
+            @Query("since_id") Long since_id,
+            @Query("max_id") Long max_id,
+            @Query("screen_name") String screen_name
     );
 
     @GET("search/topics.json")
     Observable<Statuses> searchTopics(
-            @Query(value = "count") Integer count,
-            @Query(value = "q") String topic
+            @Query("count") Integer count,
+            @Query("q") String topic
     );
 
     @GET("users/show.json")
     Observable<User> usersShow(
-            @Query(value = "screen_name") String screen_name,
-            @Query(value = "uid") Long uid
+            @Query("screen_name") String screen_name,
+            @Query("uid") Long uid
     );
 
+    @FormUrlEncoded
     @POST("statuses/repost.json")
     Observable<Status> statusesRepost(
-            @Query(value = "id") Long id,
-            @Query(value = "status") String status,
-            @Query(value = "is_comment") Boolean is_comment
+            @Field("id") Long id,
+            @Field("status") String status,
+            @Field("is_comment") Integer is_comment
     );
 }

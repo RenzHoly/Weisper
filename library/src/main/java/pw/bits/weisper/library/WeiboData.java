@@ -76,7 +76,7 @@ public class WeiboData {
     }
 
     public static Observable<Status> statusesRepost(Long id, String status, Boolean is_comment) {
-        return service.statusesRepost(id, status, is_comment)
+        return service.statusesRepost(id, status, is_comment ? 1 : 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
