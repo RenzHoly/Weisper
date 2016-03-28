@@ -1,10 +1,13 @@
 package pw.bits.weisper.view.image;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -38,7 +41,19 @@ public class ThumbnailImageView extends ImageView {
                 .centerCrop()
                 .placeholder(R.drawable.picture_placeholder)
                 .error(R.drawable.picture_error)
+                .listener(new RequestListener<String, Bitmap>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        setOnClickListener(v -> EventBus.getDefault().post(new OpenPictureEvent(pictures, position)));
+                        return false;
+                    }
+                })
                 .into(this);
-        setOnClickListener(v -> EventBus.getDefault().post(new OpenPictureEvent(pictures, position)));
+        setOnClickListener(null);
     }
 }

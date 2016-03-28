@@ -59,7 +59,6 @@ public class EditorFragment extends Fragment {
             }
         }));
         editor.requestFocus();
-        background.setOnClickListener(v -> {
-        });
+        background.setOnClickListener(null);
     }
 }
