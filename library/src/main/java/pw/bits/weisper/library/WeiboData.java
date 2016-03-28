@@ -6,6 +6,7 @@ import com.orhanobut.hawk.Hawk;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.library.bean.Statuses;
 import pw.bits.weisper.library.bean.User;
 import retrofit2.Retrofit;
@@ -44,14 +45,14 @@ public class WeiboData {
 
     private static WeiboService service = retrofit.create(WeiboService.class);
 
-    public static Observable<Statuses> homeTimeline(long since_id, long max_id) {
-        return service.homeTimeline(20, since_id, max_id)
+    public static Observable<Statuses> statusesHomeTimeline(long since_id, long max_id) {
+        return service.statusesHomeTimeline(20, since_id, max_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<Statuses> userTimeline(String screen_name, long since_id, long max_id) {
-        return service.userTimeLine(20, since_id, max_id, screen_name)
+    public static Observable<Statuses> statusesUserTimeLine(String screen_name, long since_id, long max_id) {
+        return service.statusesUserTimeLine(20, since_id, max_id, screen_name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -70,6 +71,12 @@ public class WeiboData {
 
     public static Observable<User> usersShow(Long uid) {
         return service.usersShow(null, uid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<Status> statusesRepost(Long id, String status, Boolean is_comment) {
+        return service.statusesRepost(id, status, is_comment)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

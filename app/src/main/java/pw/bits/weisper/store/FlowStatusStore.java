@@ -36,7 +36,7 @@ public class FlowStatusStore extends BaseStatusStore {
     public void loadMiddle(final Status status, final DataCallback callback) {
         int index = statusSortedList.indexOf(status);
         WeiboData
-                .homeTimeline(statusSortedList.get(index + 1).id, statusSortedList.get(index - 1).id - 1)
+                .statusesHomeTimeline(statusSortedList.get(index + 1).id, statusSortedList.get(index - 1).id - 1)
                 .subscribe(new Subscriber<Statuses>() {
                     @Override
                     public void onCompleted() {
@@ -59,10 +59,10 @@ public class FlowStatusStore extends BaseStatusStore {
     }
 
     public void loadFront(DataCallback callback) {
-        super.loadFront(WeiboData.homeTimeline(0, 0), callback);
+        super.loadFront(WeiboData.statusesHomeTimeline(0, 0), callback);
     }
 
     public void loadBehind(DataCallback callback) {
-        super.loadBehind(WeiboData.homeTimeline(0, max_id), callback);
+        super.loadBehind(WeiboData.statusesHomeTimeline(0, max_id), callback);
     }
 }
