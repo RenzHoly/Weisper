@@ -27,9 +27,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
 import pw.bits.weisper.event.CloseUserEvent;
+import pw.bits.weisper.event.OpenEditorEvent;
 import pw.bits.weisper.event.OpenPictureEvent;
 import pw.bits.weisper.event.OpenTopicEvent;
 import pw.bits.weisper.event.OpenUserEvent;
+import pw.bits.weisper.fragment.EditorFragment;
 import pw.bits.weisper.fragment.PictureFlowFragment;
 import pw.bits.weisper.fragment.PictureFragment;
 import pw.bits.weisper.fragment.StatusFlowFragment;
@@ -171,6 +173,19 @@ public class MainActivity extends AppCompatActivity {
         fm.beginTransaction()
                 .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)
                 .add(R.id.main_layout, topicFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Subscribe
+    public void onEvent(OpenEditorEvent event) {
+        Fragment editorFragment = new EditorFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("id", event.getId());
+        editorFragment.setArguments(bundle);
+        fm.beginTransaction()
+                .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)
+                .add(R.id.main_layout, editorFragment)
                 .addToBackStack(null)
                 .commit();
     }
