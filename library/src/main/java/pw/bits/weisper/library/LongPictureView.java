@@ -80,14 +80,21 @@ public class LongPictureView extends RecyclerView {
         }
     }
 
-    public class PictureViewHolder extends ViewHolder {
+    public static class PictureViewHolder extends ViewHolder {
         public PictureViewHolder(View itemView) {
             super(itemView);
         }
 
         public void bindView(Bitmap bitmap) {
             ((ImageView) itemView).setImageBitmap(bitmap);
+            itemView.setOnClickListener(listener);
         }
+    }
+
+    private static OnClickListener listener;
+
+    public void setOnItemClickListener(OnClickListener listener) {
+        LongPictureView.listener = listener;
     }
 
     private static int getMaxTextureSize() {

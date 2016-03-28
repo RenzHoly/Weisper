@@ -11,7 +11,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
+import org.greenrobot.eventbus.EventBus;
+
 import pw.bits.weisper.R;
+import pw.bits.weisper.event.ClosePictureEvent;
 import pw.bits.weisper.library.LongPictureView;
 import pw.bits.weisper.library.ZoomImageView;
 
@@ -31,6 +34,8 @@ public class BigPictureView extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    private static OnClickListener listener = v -> EventBus.getDefault().post(new ClosePictureEvent());
+
     public void setPicture(String url) {
         if (isGif(url)) {
             ImageView image = new ImageView(getContext());
@@ -41,6 +46,7 @@ public class BigPictureView extends FrameLayout {
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .error(R.drawable.picture_error)
                     .into(image);
+            image.setOnClickListener(listener);
             return;
         }
 
@@ -56,11 +62,13 @@ public class BigPictureView extends FrameLayout {
                             image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                             addView(image);
                             image.setPicture(resource);
+                            image.setOnItemClickListener(listener);
                         } else {
                             ZoomImageView image = new ZoomImageView(getContext());
                             image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                             addView(image);
                             image.setImageBitmap(resource);
+                            image.setOnClickListener(listener);
                         }
                     }
                 });

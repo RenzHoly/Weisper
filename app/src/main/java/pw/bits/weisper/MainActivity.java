@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
+import pw.bits.weisper.event.ClosePictureEvent;
 import pw.bits.weisper.event.CloseUserEvent;
 import pw.bits.weisper.event.OpenEditorEvent;
 import pw.bits.weisper.event.OpenPictureEvent;
@@ -160,8 +161,13 @@ public class MainActivity extends AppCompatActivity {
         fm.beginTransaction()
                 .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)
                 .add(R.id.main_layout, pictureFragment)
-                .addToBackStack(null)
+                .addToBackStack("picture")
                 .commit();
+    }
+
+    @Subscribe
+    public void onEvent(ClosePictureEvent event) {
+        fm.popBackStackImmediate("picture", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     @Subscribe

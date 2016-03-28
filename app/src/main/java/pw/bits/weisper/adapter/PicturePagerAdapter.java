@@ -2,7 +2,6 @@ package pw.bits.weisper.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,7 +19,6 @@ public class PicturePagerAdapter extends PagerAdapter {
 
     public PicturePagerAdapter(Context context, List<String> pictures) {
         this.pictures = pictures;
-        LayoutInflater lf = LayoutInflater.from(context);
         for (String picture : pictures) {
             viewList.add(new BigPictureView(context));
         }
