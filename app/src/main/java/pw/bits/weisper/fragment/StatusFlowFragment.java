@@ -55,7 +55,7 @@ public class StatusFlowFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        FlowStatusStore.instance.loadFront(count -> EventBus.getDefault().post(new StatusEvent(count)));
+        FlowStatusStore.instance.loadFront(null);
     }
 
     @Override
