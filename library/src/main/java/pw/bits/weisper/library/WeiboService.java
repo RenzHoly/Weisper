@@ -1,4 +1,4 @@
-package pw.bits.weisper.library.api;
+package pw.bits.weisper.library;
 
 import pw.bits.weisper.library.bean.Statuses;
 import pw.bits.weisper.library.bean.User;
@@ -9,7 +9,7 @@ import rx.Observable;
 /**
  * Created by rzh on 16/3/13.
  */
-public interface StatusService {
+public interface WeiboService {
     @GET("statuses/home_timeline.json")
     Observable<Statuses> homeTimeline(
             @Query(value = "count") Integer count,

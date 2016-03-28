@@ -6,7 +6,6 @@ import com.orhanobut.hawk.Hawk;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import pw.bits.weisper.library.api.StatusService;
 import pw.bits.weisper.library.bean.Statuses;
 import pw.bits.weisper.library.bean.User;
 import retrofit2.Retrofit;
@@ -19,7 +18,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by rzh on 16/3/14.
  */
-public class StatusData {
+public class WeiboData {
     private static OkHttpClient httpClient = new OkHttpClient.Builder()
             .addInterceptor(chain -> {
                 Request original = chain.request();
@@ -43,7 +42,7 @@ public class StatusData {
             .baseUrl("https://api.weibo.com/2/")
             .build();
 
-    private static StatusService service = retrofit.create(StatusService.class);
+    private static WeiboService service = retrofit.create(WeiboService.class);
 
     public static Observable<Statuses> homeTimeline(long since_id, long max_id) {
         return service.homeTimeline(20, since_id, max_id)

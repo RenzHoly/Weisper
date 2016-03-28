@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import pw.bits.weisper.adapter.StatusFlowAdapter;
-import pw.bits.weisper.library.StatusData;
+import pw.bits.weisper.library.WeiboData;
 import pw.bits.weisper.store.BaseStatusStore;
 
 /**
@@ -62,11 +62,11 @@ public class UserStatusListView extends SwipeRefreshLayout {
 
     private class UserStatusStore extends BaseStatusStore {
         public void loadBehind(DataCallback callback) {
-            super.loadBehind(StatusData.userTimeline(screen_name, 0, max_id), callback);
+            super.loadBehind(WeiboData.userTimeline(screen_name, 0, max_id), callback);
         }
 
         public void loadFront(DataCallback callback) {
-            super.loadFront(StatusData.userTimeline(screen_name, since_id, 0), callback);
+            super.loadFront(WeiboData.userTimeline(screen_name, since_id, 0), callback);
         }
     }
 }
