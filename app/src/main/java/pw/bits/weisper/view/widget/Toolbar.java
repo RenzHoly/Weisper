@@ -6,7 +6,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import org.greenrobot.eventbus.EventBus;
+
 import pw.bits.weisper.R;
+import pw.bits.weisper.event.OpenUserEvent;
 import pw.bits.weisper.library.bean.User;
 import rx.Observable;
 import rx.Subscriber;
@@ -49,6 +52,7 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
             @Override
             public void onNext(User user) {
                 Glide.with(getContext()).load(user.profile_image_url).dontTransform().into(avatar);
+                avatar.setOnClickListener(v -> EventBus.getDefault().post(new OpenUserEvent(user.screen_name)));
             }
         });
     }
