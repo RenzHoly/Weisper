@@ -136,6 +136,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     public void onEvent(OpenUserEvent event) {
+        for (Fragment fragment : fm.getFragments()) {
+            String currentUser;
+            try {
+                currentUser = fragment.getArguments().getString("screen_name");
+            } catch (NullPointerException ignored) {
+                continue;
+            }
+            if (fragment instanceof UserFragment && event.getScreenName().equals(currentUser)) {
+                return;
+            }
+        }
         Fragment userFragment = new UserFragment();
         Bundle bundle = new Bundle();
         bundle.putString("screen_name", event.getScreenName());
