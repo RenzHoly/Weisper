@@ -1,6 +1,7 @@
 package pw.bits.weisper;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,6 +30,7 @@ import okhttp3.OkHttpClient;
 import pw.bits.weisper.event.ClosePictureEvent;
 import pw.bits.weisper.event.CloseUserEvent;
 import pw.bits.weisper.event.OpenEditorEvent;
+import pw.bits.weisper.event.OpenLinkEvent;
 import pw.bits.weisper.event.OpenPictureEvent;
 import pw.bits.weisper.event.OpenTopicEvent;
 import pw.bits.weisper.event.OpenUserEvent;
@@ -196,6 +198,12 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.main_layout, editorFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Subscribe
+    public void onEvent(OpenLinkEvent event) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(event.getValue()));
+        startActivity(browserIntent);
     }
 
     @Override
