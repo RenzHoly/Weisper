@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="16dp"
     android:layout_marginStart="16dp"
-    android:background="@android:color/white"
+    android:background="?attr/colorBackground"
     android:orientation="horizontal"
     android:paddingTop="16dp">
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@id/user_profile_image"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/colorText"
         android:textSize="14sp" />
 
     <TextView
@@ -105,7 +105,7 @@
         android:fontFamily="serif"
         android:lineSpacingExtra="2sp"
         android:paddingTop="8dp"
-        android:textColor="#FF222222"
+        android:textColor="?attr/colorText"
         android:textSize="16sp" />
 
     <LinearLayout
@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="serif"
             android:lineSpacingExtra="2sp"
-            android:textColor="#FF222222"
+            android:textColor="?attr/colorText"
             android:textSize="16sp" />
     </LinearLayout>
 

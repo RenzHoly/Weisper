@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="#FFEEEEEE"
+    android:background="?attr/colorBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingEnd="16dp"
@@ -25,6 +25,6 @@
         android:lines="1"
         android:maxLines="1"
         android:singleLine="true"
-        android:textColor="#FF222222"
+        android:textColor="?attr/colorText"
         android:textSize="16sp" />
 </LinearLayout>
