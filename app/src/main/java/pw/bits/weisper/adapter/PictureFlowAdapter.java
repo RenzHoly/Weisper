@@ -8,13 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pw.bits.weisper.R;
-import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.view.holder.PictureFlowViewHolder;
 
 /**
  * Created by rzh on 16/3/14.
  */
-public class PictureFlowAdapter extends BaseStatusAdapter<PictureFlowViewHolder> {
+public class PictureFlowAdapter extends FlowAdapter<PictureFlowViewHolder> {
     private Map<Long, Integer> heightCache = new HashMap<>();
 
     public PictureFlowAdapter(Context context) {
@@ -38,9 +37,5 @@ public class PictureFlowAdapter extends BaseStatusAdapter<PictureFlowViewHolder>
     public void onViewRecycled(PictureFlowViewHolder holder) {
         super.onViewRecycled(holder);
         heightCache.put(list.get(holder.getAdapterPosition()).id, holder.itemView.getLayoutParams().height);
-    }
-
-    public Status getStatus(int position) {
-        return list.get(position);
     }
 }

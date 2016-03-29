@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+import pw.bits.weisper.adapter.FlowAdapter;
 import pw.bits.weisper.adapter.StatusFlowAdapter;
 import pw.bits.weisper.store.FlowStatusStore;
 
@@ -14,22 +15,15 @@ import pw.bits.weisper.store.FlowStatusStore;
 public class StatusFlowListView extends FlowListView {
     public StatusFlowListView(Context context) {
         super(context);
-        init(context);
     }
 
     public StatusFlowListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
     }
 
-    private void init(Context context) {
-        recyclerView = new RecyclerView(context);
-        addView(recyclerView);
-
-        StatusFlowAdapter adapter = new StatusFlowAdapter(getContext());
-        FlowStatusStore.instance.bind(adapter);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+    @Override
+    protected void init() {
+        super.init();
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             private boolean isLoading = false;
@@ -47,7 +41,8 @@ public class StatusFlowListView extends FlowListView {
         setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
     }
 
-    public void scrollToTop() {
-        scrollToPosition(0);
+    @Override
+    protected FlowAdapter newFlowAdapter() {
+        return new StatusFlowAdapter(getContext());
     }
 }

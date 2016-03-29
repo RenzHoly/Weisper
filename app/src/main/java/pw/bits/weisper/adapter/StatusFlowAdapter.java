@@ -12,7 +12,7 @@ import pw.bits.weisper.view.holder.StatusNormalViewHolder;
 /**
  * Created by rzh on 16/3/13.
  */
-public class StatusFlowAdapter extends BaseStatusAdapter<StatusAbstractViewHolder> {
+public class StatusFlowAdapter extends FlowAdapter<StatusAbstractViewHolder> {
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_LOAD = 1;
 

@@ -46,7 +46,7 @@ public class StatusFlowFragment extends StorePositionFragment {
                 String.format(Locale.getDefault(), getString(R.string.snackbar_updated), event.getAddedCount()),
                 Snackbar.LENGTH_LONG);
         snackbar.setAction(R.string.snackbar_show, v -> {
-            status_list.scrollToTop();
+            status_list.scrollToPosition(0);
             snackbar.dismiss();
         });
         snackbar.show();

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import pw.bits.weisper.adapter.BaseStatusAdapter;
+import pw.bits.weisper.adapter.FlowAdapter;
 import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.library.bean.Statuses;
 import rx.Observable;
@@ -17,11 +17,11 @@ import rx.Subscriber;
  */
 public class BaseStatusStore {
     protected SortedList<Status> statusSortedList = new StatusSortedList(new StatusCallback());
-    protected List<BaseStatusAdapter> adapters = new ArrayList<>();
+    protected List<FlowAdapter> adapters = new ArrayList<>();
     protected long since_id = 0;
     protected long max_id = 0;
 
-    public void bind(BaseStatusAdapter adapter) {
+    public void bind(FlowAdapter adapter) {
         adapter.setList(statusSortedList);
         adapters.add(adapter);
     }

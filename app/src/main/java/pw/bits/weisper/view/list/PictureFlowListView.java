@@ -7,8 +7,10 @@ import android.util.AttributeSet;
 
 import org.greenrobot.eventbus.EventBus;
 
+import pw.bits.weisper.adapter.FlowAdapter;
 import pw.bits.weisper.adapter.PictureFlowAdapter;
 import pw.bits.weisper.event.PictureFlowPositionChangeEvent;
+import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.store.FlowStatusStore;
 
 /**
@@ -17,22 +19,15 @@ import pw.bits.weisper.store.FlowStatusStore;
 public class PictureFlowListView extends FlowListView {
     public PictureFlowListView(Context context) {
         super(context);
-        init(context);
     }
 
     public PictureFlowListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
     }
 
-    private void init(Context context) {
-        recyclerView = new RecyclerView(context);
-        addView(recyclerView);
-
-        final PictureFlowAdapter adapter = new PictureFlowAdapter(getContext());
-        FlowStatusStore.instance.bind(adapter);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+    @Override
+    protected void init() {
+        super.init();
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             private int previousPosition = -1;
@@ -48,7 +43,7 @@ public class PictureFlowListView extends FlowListView {
                 int nowPosition = linearLayoutManager.findFirstVisibleItemPosition();
                 if (nowPosition != previousPosition || nowPosition == 0) {
                     previousPosition = nowPosition;
-                    EventBus.getDefault().post(new PictureFlowPositionChangeEvent(adapter.getStatus(linearLayoutManager.findFirstVisibleItemPosition()), false));
+                    EventBus.getDefault().post(new PictureFlowPositionChangeEvent((Status) adapter.getList().get(linearLayoutManager.findFirstVisibleItemPosition()), false));
                 }
             }
         });
@@ -69,5 +64,10 @@ public class PictureFlowListView extends FlowListView {
         });
 
         setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
+    }
+
+    @Override
+    protected FlowAdapter newFlowAdapter() {
+        return new PictureFlowAdapter(getContext());
     }
 }

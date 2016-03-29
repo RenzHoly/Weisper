@@ -9,16 +9,20 @@ import pw.bits.weisper.library.bean.Status;
 /**
  * Created by rzh on 16/3/27.
  */
-public abstract class BaseStatusAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
+public abstract class FlowAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
     protected Context context;
     protected SortedList<Status> list;
 
-    public BaseStatusAdapter(Context context) {
+    public FlowAdapter(Context context) {
         this.context = context;
     }
 
     public void setList(SortedList<Status> list) {
         this.list = list;
+    }
+
+    public SortedList<Status> getList() {
+        return list;
     }
 
     @Override
