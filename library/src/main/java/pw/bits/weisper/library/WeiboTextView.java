@@ -7,7 +7,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.MovementMethod;
-import android.text.style.CharacterStyle;
 import android.text.style.ClickableSpan;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
@@ -65,7 +64,7 @@ public class WeiboTextView extends TextView {
         Matcher matcher = userPattern.matcher(spannableString);
         while (matcher.find()) {
             String user = matcher.group();
-            setSpan(spannableString, new WeiboClickableSpan(user, clickUser), matcher, user);
+            setSpan(spannableString, new WeiboClickableSpan(user, clickUser), matcher.start(0), user.length());
         }
     }
 
@@ -73,7 +72,7 @@ public class WeiboTextView extends TextView {
         Matcher matcher = topicPattern.matcher(spannableString);
         while (matcher.find()) {
             String topic = matcher.group();
-            setSpan(spannableString, new WeiboClickableSpan(topic, clickTopic), matcher, topic);
+            setSpan(spannableString, new WeiboClickableSpan(topic, clickTopic), matcher.start(0), topic.length());
         }
     }
 
@@ -90,7 +89,7 @@ public class WeiboTextView extends TextView {
                 int size = (int) Math.ceil(getTextSize());
                 ImageSpan imageSpan = new ImageSpan(getContext(), Bitmap.createScaledBitmap(bitmap, size, size, true), DynamicDrawableSpan.ALIGN_BASELINE);
                 bitmap.recycle();
-                setSpan(spannableString, imageSpan, matcher, emotion);
+                setSpan(spannableString, imageSpan, matcher.start(0), emotion.length());
             }
         }
     }
@@ -99,16 +98,12 @@ public class WeiboTextView extends TextView {
         Matcher matcher = linkPattern.matcher(spannableString);
         while (matcher.find()) {
             String link = matcher.group();
-            setSpan(spannableString, new WeiboClickableSpan(link, clickLink), matcher, link);
+            setSpan(spannableString, new WeiboClickableSpan(link, clickLink), matcher.start(0), link.length());
         }
     }
 
-    private void setSpan(SpannableString spannableString, CharacterStyle span, Matcher matcher, String string) {
-        spannableString.setSpan(
-                span,
-                matcher.start(0),
-                matcher.start(0) + string.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    private void setSpan(SpannableString spannableString, Object span, int start, int length) {
+        spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     private static class WeiboClickableSpan extends ClickableSpan {
