@@ -6,10 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-import org.greenrobot.eventbus.EventBus;
-
 import pw.bits.weisper.adapter.FlowAdapter;
-import pw.bits.weisper.event.FlowPositionChangeEvent;
 import pw.bits.weisper.store.FlowStatusStore;
 
 /**
@@ -47,20 +44,6 @@ public abstract class FlowListView extends SwipeRefreshLayout {
             }
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private int previousPosition = -1;
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int nowPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                if (previousPosition != nowPosition) {
-                    previousPosition = nowPosition;
-                    EventBus.getDefault().post(new FlowPositionChangeEvent(nowPosition));
-                }
-            }
-        });
-
         addView(recyclerView);
 
         setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
@@ -71,4 +54,8 @@ public abstract class FlowListView extends SwipeRefreshLayout {
     }
 
     protected abstract FlowAdapter newFlowAdapter();
+
+    public RecyclerView.LayoutManager getLayoutManager() {
+        return recyclerView.getLayoutManager();
+    }
 }

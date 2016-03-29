@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
@@ -45,6 +46,18 @@ public class PictureFlowFragment extends StorePositionFragment {
         StatusTextView statusTextView = (StatusTextView) pinned_view.findViewById(R.id.status_text);
         avatarImageView.setUser(event.getUser());
         statusTextView.setText(event.getText());
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
