@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="serif"
         android:lineSpacingExtra="2sp"
-        android:textColor="#FF222222"
+        android:textColor="?attr/colorText"
         android:textSize="16sp" />
 
     <pw.bits.weisper.library.WeiboEditText

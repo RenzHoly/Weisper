@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         if (Hawk.get("access-token", null) != null) {
             EventBus.getDefault().register(this);
             fm.beginTransaction()
-                    .add(R.id.main_layout, statusFlowFragment)
+                    .setCustomAnimations(R.anim.slow_fade_in, R.anim.fast_fade_out, R.anim.slow_fade_in, R.anim.fast_fade_out)
+                    .replace(R.id.main_layout, statusFlowFragment)
                     .commit();
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .connectTimeout(15, TimeUnit.SECONDS)
