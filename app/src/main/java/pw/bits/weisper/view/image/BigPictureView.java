@@ -3,8 +3,10 @@ package pw.bits.weisper.view.image;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -39,8 +41,12 @@ public class BigPictureView extends FrameLayout {
     public void setPicture(String url) {
         if (isGif(url)) {
             ImageView image = new ImageView(getContext());
-            image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-            addView(image);
+            image.setAdjustViewBounds(true);
+            image.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+            ScrollView scroll = new ScrollView(getContext());
+            scroll.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER));
+            scroll.addView(image);
+            addView(scroll);
             Glide.with(getContext())
                     .load(url)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
