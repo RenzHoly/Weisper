@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Weisper</string>
-    <string name="action_switch_status">Status</string>
-    <string name="action_switch_picture">Picture</string>
-    <string name="action_user_profile">Profile</string>
+    <string name="action_switch_status">全部</string>
+    <string name="action_switch_picture">图片</string>
     <string name="redirect_uri">http://oauth.weico.cc</string>
     <string name="key_hash">1e6e33db08f9192306c4afa0a61ad56c</string>
     <string name="package_name">com.eico.weico</string>
@@ -11,10 +10,11 @@
     <string name="login_success">登录有效期 %d 天</string>
     <string name="login_failed">登录失败</string>
     <string name="oauth_url" formatted="false"><![CDATA[https://api.weibo.com/oauth2/authorize?client_id=%s&response_type=token&redirect_uri=%s&key_hash=%s&packagename=%s&display=mobile&scope=%s]]></string>
-    <string name="action_change_theme">Theme</string>
-    <string name="action_status_repost">Repost</string>
-    <string name="action_status_comment">Comment</string>
-    <string name="action_status_like">Like</string>
-    <string name="action_status_share">Share</string>
-    <string name="action_status_detail">Detail</string>
+    <string name="action_change_theme">主题</string>
+    <string name="action_status_repost">转发</string>
+    <string name="action_status_comment">评论</string>
+    <string name="action_status_like">收藏</string>
+    <string name="action_status_share">分享</string>
+    <string name="action_status_detail">查看</string>
+    <string name="send">发送</string>
 </resources>
