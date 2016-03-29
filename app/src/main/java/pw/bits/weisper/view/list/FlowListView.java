@@ -62,6 +62,8 @@ public abstract class FlowListView extends SwipeRefreshLayout {
         });
 
         addView(recyclerView);
+
+        setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
     }
 
     public void scrollToPosition(int position) {

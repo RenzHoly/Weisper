@@ -34,15 +34,20 @@ public class PictureFlowListView extends FlowListView {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (recyclerView.getChildAt(0).getTop() == 0) {
-                    EventBus.getDefault().post(new PictureFlowPositionChangeEvent(true));
-                    return;
-                }
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int nowPosition = linearLayoutManager.findFirstVisibleItemPosition();
+                int nowPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
                 if (nowPosition != previousPosition || nowPosition == 0) {
                     previousPosition = nowPosition;
-                    EventBus.getDefault().post(new PictureFlowPositionChangeEvent((Status) adapter.getList().get(linearLayoutManager.findFirstVisibleItemPosition()), false));
+                    EventBus.getDefault().post(new PictureFlowPositionChangeEvent((Status) adapter.getList().get(nowPosition), false));
+                }
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (recyclerView.getChildAt(0).getTop() == 0) {
+                    EventBus.getDefault().post(new PictureFlowPositionChangeEvent(true));
                 }
             }
         });
