@@ -23,10 +23,10 @@ import java.util.regex.Pattern;
  * Created by rzh on 16/3/15.
  */
 public class WeiboTextView extends TextView {
-    private static final String userPattern = "@[\u4e00-\u9fa5\\w\\-]+";
-    private static final String topicPattern = "#[\u4e00-\u9fa5\\w\\-]+#";
-    private static final String emotionPattern = "\\[[\u4e00-\u9fa5\\w]+\\]";
-    private static final String linkPattern = "https?://[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
+    private static final Pattern userPattern = Pattern.compile("@[\u4e00-\u9fa5\\w\\-]+");
+    private static final Pattern topicPattern = Pattern.compile("#[\u4e00-\u9fa5\\w\\-]+#");
+    private static final Pattern emotionPattern = Pattern.compile("\\[[\u4e00-\u9fa5\\w]+\\]");
+    private static final Pattern linkPattern = Pattern.compile("https?://[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)");
 
     private OnClickSpanListener clickUser;
     private OnClickSpanListener clickTopic;
@@ -62,8 +62,7 @@ public class WeiboTextView extends TextView {
     }
 
     private void matchUser(SpannableString spannableString) {
-        Pattern pattern = Pattern.compile(userPattern);
-        Matcher matcher = pattern.matcher(spannableString);
+        Matcher matcher = userPattern.matcher(spannableString);
         while (matcher.find()) {
             String user = matcher.group();
             setSpan(spannableString, new WeiboClickableSpan(user, clickUser), matcher, user);
@@ -71,8 +70,7 @@ public class WeiboTextView extends TextView {
     }
 
     private void matchTopic(SpannableString spannableString) {
-        Pattern pattern = Pattern.compile(topicPattern);
-        Matcher matcher = pattern.matcher(spannableString);
+        Matcher matcher = topicPattern.matcher(spannableString);
         while (matcher.find()) {
             String topic = matcher.group();
             setSpan(spannableString, new WeiboClickableSpan(topic, clickTopic), matcher, topic);
@@ -80,8 +78,7 @@ public class WeiboTextView extends TextView {
     }
 
     private void matchEmotion(SpannableString spannableString) {
-        Pattern pattern = Pattern.compile(emotionPattern);
-        Matcher matcher = pattern.matcher(spannableString);
+        Matcher matcher = emotionPattern.matcher(spannableString);
         while (matcher.find()) {
             String emotion = matcher.group();
             Integer resId = Emotions.get(emotion);
@@ -90,17 +87,16 @@ public class WeiboTextView extends TextView {
                 bitmap = BitmapFactory.decodeResource(getContext().getResources(), resId);
             }
             if (bitmap != null) {
-                int size = (int) Math.ceil(getTextSize()) + 1;
-                bitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
-                ImageSpan imageSpan = new ImageSpan(getContext(), bitmap, DynamicDrawableSpan.ALIGN_BASELINE);
+                int size = (int) Math.ceil(getTextSize());
+                ImageSpan imageSpan = new ImageSpan(getContext(), Bitmap.createScaledBitmap(bitmap, size, size, true), DynamicDrawableSpan.ALIGN_BASELINE);
+                bitmap.recycle();
                 setSpan(spannableString, imageSpan, matcher, emotion);
             }
         }
     }
 
     private void matchLink(SpannableString spannableString) {
-        Pattern pattern = Pattern.compile(linkPattern);
-        Matcher matcher = pattern.matcher(spannableString);
+        Matcher matcher = linkPattern.matcher(spannableString);
         while (matcher.find()) {
             String link = matcher.group();
             setSpan(spannableString, new WeiboClickableSpan(link, clickLink), matcher, link);
