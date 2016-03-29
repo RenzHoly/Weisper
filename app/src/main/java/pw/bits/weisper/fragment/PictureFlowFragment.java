@@ -1,7 +1,6 @@
 package pw.bits.weisper.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,19 @@ import butterknife.ButterKnife;
 import pw.bits.weisper.R;
 import pw.bits.weisper.event.PictureFlowPositionChangeEvent;
 import pw.bits.weisper.view.image.AvatarImageView;
+import pw.bits.weisper.view.list.FlowListView;
+import pw.bits.weisper.view.list.PictureFlowListView;
 import pw.bits.weisper.view.widget.StatusTextView;
 
 /**
  * Created by rzh on 16/3/14.
  */
-public class PictureFlowFragment extends Fragment {
+public class PictureFlowFragment extends StorePositionFragment {
     @Bind(R.id.pinned_view)
     ViewGroup pinned_view;
+
+    @Bind(R.id.picture_list)
+    PictureFlowListView picture_list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,5 +58,10 @@ public class PictureFlowFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected FlowListView getListView() {
+        return picture_list;
     }
 }

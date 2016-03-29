@@ -73,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
             EventBus.getDefault().register(this);
             fm.beginTransaction()
                     .add(R.id.main_layout, statusFlowFragment)
-                    .add(R.id.main_layout, pictureFlowFragment)
-                    .hide(pictureFlowFragment)
                     .commit();
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .connectTimeout(15, TimeUnit.SECONDS)
@@ -109,16 +107,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_switch_status: {
                 fm.beginTransaction()
                         .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)
-                        .show(statusFlowFragment)
-                        .hide(pictureFlowFragment)
+                        .replace(R.id.main_layout, statusFlowFragment)
                         .commit();
                 return true;
             }
             case R.id.action_switch_picture: {
                 fm.beginTransaction()
                         .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)
-                        .show(pictureFlowFragment)
-                        .hide(statusFlowFragment)
+                        .replace(R.id.main_layout, pictureFlowFragment)
                         .commit();
                 return true;
             }

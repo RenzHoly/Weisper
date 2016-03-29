@@ -1,7 +1,6 @@
 package pw.bits.weisper.view.list;
 
 import android.content.Context;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -12,9 +11,7 @@ import pw.bits.weisper.store.FlowStatusStore;
 /**
  * Created by rzh on 16/3/19.
  */
-public class StatusFlowListView extends SwipeRefreshLayout {
-    private RecyclerView recyclerView;
-
+public class StatusFlowListView extends FlowListView {
     public StatusFlowListView(Context context) {
         super(context);
         init(context);
@@ -51,6 +48,6 @@ public class StatusFlowListView extends SwipeRefreshLayout {
     }
 
     public void scrollToTop() {
-        recyclerView.scrollToPosition(0);
+        scrollToPosition(0);
     }
 }

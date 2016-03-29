@@ -3,6 +3,7 @@
     android:layout_height="match_parent">
 
     <pw.bits.weisper.view.list.PictureFlowListView
+        android:id="@+id/picture_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

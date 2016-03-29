@@ -1,7 +1,6 @@
 package pw.bits.weisper.view.list;
 
 import android.content.Context;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -15,7 +14,7 @@ import pw.bits.weisper.store.FlowStatusStore;
 /**
  * Created by rzh on 16/3/19.
  */
-public class PictureFlowListView extends SwipeRefreshLayout {
+public class PictureFlowListView extends FlowListView {
     public PictureFlowListView(Context context) {
         super(context);
         init(context);
@@ -27,7 +26,7 @@ public class PictureFlowListView extends SwipeRefreshLayout {
     }
 
     private void init(Context context) {
-        RecyclerView recyclerView = new RecyclerView(context);
+        recyclerView = new RecyclerView(context);
         addView(recyclerView);
 
         final PictureFlowAdapter adapter = new PictureFlowAdapter(getContext());
