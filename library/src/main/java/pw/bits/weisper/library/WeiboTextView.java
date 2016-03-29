@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextPaint;
 import android.text.method.MovementMethod;
 import android.text.style.CharacterStyle;
 import android.text.style.ClickableSpan;
@@ -118,7 +119,7 @@ public class WeiboTextView extends TextView {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
-    public static abstract class Clickable extends ClickableSpan implements Cloneable {
+    public static abstract class Clickable extends NoUnderlineSpan implements Cloneable {
         private String value;
 
         @Override
@@ -136,6 +137,14 @@ public class WeiboTextView extends TextView {
                 e.printStackTrace();
             }
             return null;
+        }
+    }
+
+    private static abstract class NoUnderlineSpan extends ClickableSpan {
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setUnderlineText(false);
         }
     }
 
