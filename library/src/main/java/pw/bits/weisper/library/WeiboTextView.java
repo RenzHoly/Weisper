@@ -28,9 +28,9 @@ public class WeiboTextView extends TextView {
     private static final String emotion = "\\[[\u4e00-\u9fa5\\w]+\\]";
     private static final String link = "https?://[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
 
-    private Clickable clickUser;
-    private Clickable clickTopic;
-    private Clickable clickLink;
+    private WeiboClickableSpan clickUser;
+    private WeiboClickableSpan clickTopic;
+    private WeiboClickableSpan clickLink;
 
     public WeiboTextView(Context context) {
         super(context);
@@ -119,7 +119,7 @@ public class WeiboTextView extends TextView {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
-    public static abstract class Clickable extends NoUnderlineSpan implements Cloneable {
+    public static abstract class WeiboClickableSpan extends ClickableSpan implements Cloneable {
         private String value;
 
         @Override
@@ -129,18 +129,16 @@ public class WeiboTextView extends TextView {
 
         public abstract void onClick(String value);
 
-        public Clickable click(String value) {
+        public WeiboClickableSpan click(String value) {
             this.value = value;
             try {
-                return (Clickable) this.clone();
+                return (WeiboClickableSpan) this.clone();
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
             return null;
         }
-    }
 
-    private static abstract class NoUnderlineSpan extends ClickableSpan {
         @Override
         public void updateDrawState(TextPaint ds) {
             super.updateDrawState(ds);
@@ -148,15 +146,15 @@ public class WeiboTextView extends TextView {
         }
     }
 
-    public void setClickUser(Clickable clickUser) {
+    public void setClickUser(WeiboClickableSpan clickUser) {
         this.clickUser = clickUser;
     }
 
-    public void setClickTopic(Clickable clickTopic) {
+    public void setClickTopic(WeiboClickableSpan clickTopic) {
         this.clickTopic = clickTopic;
     }
 
-    public void setClickLink(Clickable clickLink) {
+    public void setClickLink(WeiboClickableSpan clickLink) {
         this.clickLink = clickLink;
     }
 

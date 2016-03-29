@@ -19,7 +19,7 @@ import pw.bits.weisper.library.WeiboTextView;
 public class StatusTextView extends WeiboTextView {
     private static Context context;
 
-    private static Clickable clickUser = new Clickable() {
+    private static WeiboClickableSpan clickUser = new WeiboClickableSpan() {
         @Override
         public void onClick(String value) {
             Logger.i("click user", value);
@@ -27,7 +27,7 @@ public class StatusTextView extends WeiboTextView {
         }
     };
 
-    private static Clickable clickTopic = new Clickable() {
+    private static WeiboClickableSpan clickTopic = new WeiboClickableSpan() {
         @Override
         public void onClick(String value) {
             Logger.i("click topic", value);
@@ -35,7 +35,7 @@ public class StatusTextView extends WeiboTextView {
         }
     };
 
-    private static Clickable clickLink = new Clickable() {
+    private static WeiboClickableSpan clickLink = new WeiboClickableSpan() {
         @Override
         public void onClick(String value) {
             Logger.i("click link", value);
