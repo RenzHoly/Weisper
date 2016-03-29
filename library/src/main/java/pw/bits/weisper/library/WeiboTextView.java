@@ -23,14 +23,14 @@ import java.util.regex.Pattern;
  * Created by rzh on 16/3/15.
  */
 public class WeiboTextView extends TextView {
-    private static final String user = "@[\u4e00-\u9fa5\\w\\-]+";
-    private static final String topic = "#[\u4e00-\u9fa5\\w\\-]+#";
-    private static final String emotion = "\\[[\u4e00-\u9fa5\\w]+\\]";
-    private static final String link = "https?://[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
+    private static final String userPattern = "@[\u4e00-\u9fa5\\w\\-]+";
+    private static final String topicPattern = "#[\u4e00-\u9fa5\\w\\-]+#";
+    private static final String emotionPattern = "\\[[\u4e00-\u9fa5\\w]+\\]";
+    private static final String linkPattern = "https?://[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)";
 
-    private WeiboClickableSpan clickUser;
-    private WeiboClickableSpan clickTopic;
-    private WeiboClickableSpan clickLink;
+    private OnClickSpanListener clickUser;
+    private OnClickSpanListener clickTopic;
+    private OnClickSpanListener clickLink;
 
     public WeiboTextView(Context context) {
         super(context);
@@ -54,7 +54,7 @@ public class WeiboTextView extends TextView {
     @Override
     public void setText(CharSequence text, BufferType type) {
         SpannableString spannableString = new SpannableString("\uFEFF" + text);
-        match(spannableString, String.format("(%s)|(%s)|(%s)|(%s)", user, topic, emotion, link));
+        match(spannableString, String.format("(%s)|(%s)|(%s)|(%s)", userPattern, topicPattern, emotionPattern, linkPattern));
         super.setText(spannableString, type);
     }
 
@@ -74,7 +74,7 @@ public class WeiboTextView extends TextView {
         if (user == null) {
             return;
         }
-        setSpan(spannableString, clickUser.click(user), matcher, user);
+        setSpan(spannableString, new WeiboClickableSpan(user, clickUser), matcher, user);
     }
 
     private void setTopicSpan(SpannableString spannableString, Matcher matcher) {
@@ -82,7 +82,7 @@ public class WeiboTextView extends TextView {
         if (topic == null) {
             return;
         }
-        setSpan(spannableString, clickTopic.click(topic), matcher, topic);
+        setSpan(spannableString, new WeiboClickableSpan(topic, clickTopic), matcher, topic);
     }
 
     private void setLinkSpan(SpannableString spannableString, Matcher matcher) {
@@ -90,7 +90,7 @@ public class WeiboTextView extends TextView {
         if (link == null) {
             return;
         }
-        setSpan(spannableString, clickLink.click(link), matcher, link);
+        setSpan(spannableString, new WeiboClickableSpan(link, clickLink), matcher, link);
     }
 
     private void setEmotionSpan(SpannableString spannableString, Matcher matcher) {
@@ -119,24 +119,18 @@ public class WeiboTextView extends TextView {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
-    public static abstract class WeiboClickableSpan extends ClickableSpan implements Cloneable {
+    private static class WeiboClickableSpan extends ClickableSpan {
         private String value;
+        private OnClickSpanListener listener;
+
+        public WeiboClickableSpan(String value, OnClickSpanListener listener) {
+            this.value = value;
+            this.listener = listener;
+        }
 
         @Override
         public void onClick(View widget) {
-            onClick(value);
-        }
-
-        public abstract void onClick(String value);
-
-        public WeiboClickableSpan click(String value) {
-            this.value = value;
-            try {
-                return (WeiboClickableSpan) this.clone();
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
-            return null;
+            listener.onClick(value);
         }
 
         @Override
@@ -146,16 +140,20 @@ public class WeiboTextView extends TextView {
         }
     }
 
-    public void setClickUser(WeiboClickableSpan clickUser) {
+    public void setClickUser(OnClickSpanListener clickUser) {
         this.clickUser = clickUser;
     }
 
-    public void setClickTopic(WeiboClickableSpan clickTopic) {
+    public void setClickTopic(OnClickSpanListener clickTopic) {
         this.clickTopic = clickTopic;
     }
 
-    public void setClickLink(WeiboClickableSpan clickLink) {
+    public void setClickLink(OnClickSpanListener clickLink) {
         this.clickLink = clickLink;
+    }
+
+    public interface OnClickSpanListener {
+        void onClick(String value);
     }
 
     @Override

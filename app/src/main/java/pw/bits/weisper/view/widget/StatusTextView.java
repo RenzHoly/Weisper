@@ -19,29 +19,20 @@ import pw.bits.weisper.library.WeiboTextView;
 public class StatusTextView extends WeiboTextView {
     private static Context context;
 
-    private static WeiboClickableSpan clickUser = new WeiboClickableSpan() {
-        @Override
-        public void onClick(String value) {
-            Logger.i("click user", value);
-            EventBus.getDefault().post(new OpenUserEvent(value));
-        }
+    private static OnClickSpanListener clickUser = value -> {
+        Logger.i("click user", value);
+        EventBus.getDefault().post(new OpenUserEvent(value));
     };
 
-    private static WeiboClickableSpan clickTopic = new WeiboClickableSpan() {
-        @Override
-        public void onClick(String value) {
-            Logger.i("click topic", value);
-            EventBus.getDefault().post(new OpenTopicEvent(value));
-        }
+    private static OnClickSpanListener clickTopic = value -> {
+        Logger.i("click topic", value);
+        EventBus.getDefault().post(new OpenTopicEvent(value));
     };
 
-    private static WeiboClickableSpan clickLink = new WeiboClickableSpan() {
-        @Override
-        public void onClick(String value) {
-            Logger.i("click link", value);
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(value));
-            context.startActivity(browserIntent);
-        }
+    private static OnClickSpanListener clickLink = value -> {
+        Logger.i("click link", value);
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(value));
+        context.startActivity(browserIntent);
     };
 
     public StatusTextView(Context context) {
