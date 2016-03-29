@@ -54,60 +54,56 @@ public class WeiboTextView extends TextView {
     @Override
     public void setText(CharSequence text, BufferType type) {
         SpannableString spannableString = new SpannableString("\uFEFF" + text);
-        match(spannableString, String.format("(%s)|(%s)|(%s)|(%s)", userPattern, topicPattern, emotionPattern, linkPattern));
+        matchUser(spannableString);
+        matchTopic(spannableString);
+        matchEmotion(spannableString);
+        matchLink(spannableString);
         super.setText(spannableString, type);
     }
 
-    private void match(SpannableString spannableString, String regex) {
-        Pattern pattern = Pattern.compile(regex);
+    private void matchUser(SpannableString spannableString) {
+        Pattern pattern = Pattern.compile(userPattern);
         Matcher matcher = pattern.matcher(spannableString);
         while (matcher.find()) {
-            setUserSpan(spannableString, matcher);
-            setTopicSpan(spannableString, matcher);
-            setEmotionSpan(spannableString, matcher);
-            setLinkSpan(spannableString, matcher);
+            String user = matcher.group();
+            setSpan(spannableString, new WeiboClickableSpan(user, clickUser), matcher, user);
         }
     }
 
-    private void setUserSpan(SpannableString spannableString, Matcher matcher) {
-        String user = matcher.group(1);
-        if (user == null) {
-            return;
+    private void matchTopic(SpannableString spannableString) {
+        Pattern pattern = Pattern.compile(topicPattern);
+        Matcher matcher = pattern.matcher(spannableString);
+        while (matcher.find()) {
+            String topic = matcher.group();
+            setSpan(spannableString, new WeiboClickableSpan(topic, clickTopic), matcher, topic);
         }
-        setSpan(spannableString, new WeiboClickableSpan(user, clickUser), matcher, user);
     }
 
-    private void setTopicSpan(SpannableString spannableString, Matcher matcher) {
-        String topic = matcher.group(2);
-        if (topic == null) {
-            return;
+    private void matchEmotion(SpannableString spannableString) {
+        Pattern pattern = Pattern.compile(emotionPattern);
+        Matcher matcher = pattern.matcher(spannableString);
+        while (matcher.find()) {
+            String emotion = matcher.group();
+            Integer resId = Emotions.get(emotion);
+            Bitmap bitmap = null;
+            if (resId != null) {
+                bitmap = BitmapFactory.decodeResource(getContext().getResources(), resId);
+            }
+            if (bitmap != null) {
+                int size = (int) Math.ceil(getTextSize()) + 1;
+                bitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
+                ImageSpan imageSpan = new ImageSpan(getContext(), bitmap, DynamicDrawableSpan.ALIGN_BASELINE);
+                setSpan(spannableString, imageSpan, matcher, emotion);
+            }
         }
-        setSpan(spannableString, new WeiboClickableSpan(topic, clickTopic), matcher, topic);
     }
 
-    private void setLinkSpan(SpannableString spannableString, Matcher matcher) {
-        String link = matcher.group(4);
-        if (link == null) {
-            return;
-        }
-        setSpan(spannableString, new WeiboClickableSpan(link, clickLink), matcher, link);
-    }
-
-    private void setEmotionSpan(SpannableString spannableString, Matcher matcher) {
-        String emotion = matcher.group(3);
-        if (emotion == null) {
-            return;
-        }
-        Integer resId = Emotions.get(emotion);
-        Bitmap bitmap = null;
-        if (resId != null) {
-            bitmap = BitmapFactory.decodeResource(getContext().getResources(), resId);
-        }
-        if (bitmap != null) {
-            int size = (int) Math.ceil(getTextSize()) + 1;
-            bitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
-            ImageSpan imageSpan = new ImageSpan(getContext(), bitmap, DynamicDrawableSpan.ALIGN_BASELINE);
-            setSpan(spannableString, imageSpan, matcher, emotion);
+    private void matchLink(SpannableString spannableString) {
+        Pattern pattern = Pattern.compile(linkPattern);
+        Matcher matcher = pattern.matcher(spannableString);
+        while (matcher.find()) {
+            String link = matcher.group();
+            setSpan(spannableString, new WeiboClickableSpan(link, clickLink), matcher, link);
         }
     }
 
