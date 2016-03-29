@@ -1,16 +1,18 @@
 package pw.bits.weisper.event;
 
+import pw.bits.weisper.library.bean.Status;
+
 /**
  * Created by rzh on 16/3/28.
  */
 public class OpenEditorEvent {
-    private long id;
+    private Status status;
 
-    public OpenEditorEvent(long id) {
-        this.id = id;
+    public OpenEditorEvent(Status status) {
+        this.status = status;
     }
 
-    public long getId() {
-        return id;
+    public Status getStatus() {
+        return status;
     }
 }

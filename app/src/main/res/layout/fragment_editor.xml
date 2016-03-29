@@ -5,6 +5,15 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+    <pw.bits.weisper.library.WeiboTextView
+        android:id="@+id/origin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:lineSpacingExtra="2sp"
+        android:textColor="#FF222222"
+        android:textSize="16sp" />
+
     <pw.bits.weisper.library.WeiboEditText
         android:id="@+id/editor"
         android:layout_width="match_parent"

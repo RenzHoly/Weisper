@@ -187,7 +187,9 @@ public class MainActivity extends AppCompatActivity {
     public void onEvent(OpenEditorEvent event) {
         Fragment editorFragment = new EditorFragment();
         Bundle bundle = new Bundle();
-        bundle.putLong("id", event.getId());
+        bundle.putLong("id", event.getStatus().id);
+        bundle.putString("text", event.getStatus().text);
+        bundle.putString("user", event.getStatus().user.screen_name);
         editorFragment.setArguments(bundle);
         fm.beginTransaction()
                 .setCustomAnimations(R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out, R.anim.grow_fade_in_from_bottom, R.anim.fast_fade_out)

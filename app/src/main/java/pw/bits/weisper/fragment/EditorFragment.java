@@ -7,7 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.orhanobut.logger.Logger;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,6 +29,9 @@ public class EditorFragment extends Fragment {
     @Bind(R.id.editor)
     EditText editor;
 
+    @Bind(R.id.origin)
+    TextView origin;
+
     @Bind(R.id.send)
     Button send;
 
@@ -42,7 +48,8 @@ public class EditorFragment extends Fragment {
     }
 
     private void setupView() {
-        send.setOnClickListener(v -> WeiboData.statusesRepost(getArguments().getLong("id", -1), editor.getText().toString(), false).subscribe(new Subscriber<Status>() {
+        send.setOnClickListener(v -> WeiboData.statusesRepost(getArguments().getLong("id", -1),
+                String.format("%s//@%s:%s", editor.getText().toString(), getArguments().getString("user"), origin.getText()), false).subscribe(new Subscriber<Status>() {
             @Override
             public void onCompleted() {
             }
@@ -50,6 +57,7 @@ public class EditorFragment extends Fragment {
             @Override
             public void onError(Throwable e) {
                 Toast.makeText(getContext(), "转发失败", Toast.LENGTH_SHORT).show();
+                Logger.e(e.getMessage());
             }
 
             @Override
@@ -58,6 +66,7 @@ public class EditorFragment extends Fragment {
                 getFragmentManager().popBackStackImmediate();
             }
         }));
+        origin.setText(getArguments().getString("text"));
         editor.requestFocus();
         background.setOnClickListener(null);
     }

@@ -86,7 +86,7 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
         retweeted_status.setVisibility(status.retweeted_status == null ? View.GONE : View.VISIBLE);
         if (status.retweeted_status != null) {
             if (status.retweeted_status.user != null) {
-                retweeted_status_text.setText(String.format("@%s：%s", status.retweeted_status.user.screen_name, status.retweeted_status.text));
+                retweeted_status_text.setText(String.format("@%s:%s", status.retweeted_status.user.screen_name, status.retweeted_status.text));
             } else {
                 retweeted_status_text.setText("抱歉，此微博已被作者删除");
             }

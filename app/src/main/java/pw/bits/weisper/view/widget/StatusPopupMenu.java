@@ -35,7 +35,7 @@ public class StatusPopupMenu extends PopupMenu {
         setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_status_repost: {
-                    EventBus.getDefault().post(new OpenEditorEvent(status.id));
+                    EventBus.getDefault().post(new OpenEditorEvent(status));
                     return true;
                 }
                 default: {
