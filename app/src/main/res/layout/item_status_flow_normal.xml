@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/status_comments_icon"
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/status_attitudes_icon"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <pw.bits.weisper.view.widget.StatusTextView
@@ -102,7 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/user_profile_image"
-        android:gravity="start"
+        android:fontFamily="serif"
         android:lineSpacingExtra="2sp"
         android:paddingTop="8dp"
         android:textColor="#FF222222"
@@ -126,7 +126,7 @@
             android:id="@+id/retweeted_status_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
+            android:fontFamily="serif"
             android:lineSpacingExtra="2sp"
             android:textColor="#FF222222"
             android:textSize="16sp" />
