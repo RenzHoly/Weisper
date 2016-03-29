@@ -3,6 +3,8 @@ package pw.bits.weisper.library;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -10,6 +12,7 @@ import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
+import android.text.style.ReplacementSpan;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -99,6 +102,7 @@ public class WeiboTextView extends TextView {
         while (matcher.find()) {
             String link = matcher.group();
             setSpan(spannableString, new WeiboClickableSpan(link, clickLink), matcher.start(0), link.length());
+            setSpan(spannableString, new WeiboLinkSpan(), matcher.start(0), link.length());
         }
     }
 
@@ -124,6 +128,21 @@ public class WeiboTextView extends TextView {
         public void updateDrawState(TextPaint ds) {
             super.updateDrawState(ds);
             ds.setUnderlineText(false);
+        }
+    }
+
+    private class WeiboLinkSpan extends ReplacementSpan {
+        private static final String linkReplacement = "\uD83D\uDD17LINK";
+
+        @Override
+        public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
+            return (int) paint.measureText(linkReplacement, 0, linkReplacement.length());
+        }
+
+        @Override
+        public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
+            paint.setColor(getLinkTextColors().getDefaultColor());
+            canvas.drawText(linkReplacement, x, y, paint);
         }
     }
 
