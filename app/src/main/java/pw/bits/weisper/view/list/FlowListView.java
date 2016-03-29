@@ -13,8 +13,8 @@ import pw.bits.weisper.store.FlowStatusStore;
  * Created by rzh on 16/3/30.
  */
 public abstract class FlowListView extends SwipeRefreshLayout {
-    protected RecyclerView recyclerView;
-    protected FlowAdapter adapter;
+    protected RecyclerView recyclerView = new RecyclerView(getContext());
+    protected FlowAdapter adapter = newFlowAdapter();
 
     public FlowListView(Context context) {
         super(context);
@@ -27,11 +27,23 @@ public abstract class FlowListView extends SwipeRefreshLayout {
     }
 
     protected void init() {
-        recyclerView = new RecyclerView(getContext());
-        FlowAdapter adapter = newFlowAdapter();
-        recyclerView.setAdapter(adapter);
         FlowStatusStore.instance.bind(adapter);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            private boolean isLoading = false;
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (!isLoading && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() >= recyclerView.getAdapter().getItemCount() - 5) {
+                    isLoading = true;
+                    FlowStatusStore.instance.loadBehind(count -> isLoading = false);
+                }
+            }
+        });
+
         addView(recyclerView);
     }
 

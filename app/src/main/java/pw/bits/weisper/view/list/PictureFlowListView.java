@@ -11,7 +11,6 @@ import pw.bits.weisper.adapter.FlowAdapter;
 import pw.bits.weisper.adapter.PictureFlowAdapter;
 import pw.bits.weisper.event.PictureFlowPositionChangeEvent;
 import pw.bits.weisper.library.bean.Status;
-import pw.bits.weisper.store.FlowStatusStore;
 
 /**
  * Created by rzh on 16/3/19.
@@ -47,23 +46,6 @@ public class PictureFlowListView extends FlowListView {
                 }
             }
         });
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private boolean isLoading = false;
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
-                if (!isLoading && lastVisibleItemPosition >= recyclerView.getAdapter().getItemCount() - 1) {
-                    isLoading = true;
-                    FlowStatusStore.instance.loadBehind(count -> isLoading = false);
-                }
-            }
-        });
-
-        setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
     }
 
     @Override

@@ -1,8 +1,6 @@
 package pw.bits.weisper.view.list;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import pw.bits.weisper.adapter.FlowAdapter;
@@ -24,19 +22,6 @@ public class StatusFlowListView extends FlowListView {
     @Override
     protected void init() {
         super.init();
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private boolean isLoading = false;
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (!isLoading && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() >= recyclerView.getAdapter().getItemCount() - 1) {
-                    isLoading = true;
-                    FlowStatusStore.instance.loadBehind(count -> isLoading = false);
-                }
-            }
-        });
 
         setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
     }
