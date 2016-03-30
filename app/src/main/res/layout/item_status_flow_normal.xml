@@ -3,11 +3,10 @@
     android:id="@+id/status_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="16dp"
-    android:layout_marginStart="16dp"
+    android:layout_marginBottom="1px"
     android:background="?attr/colorBackgroundItem"
     android:orientation="horizontal"
-    android:paddingTop="16dp">
+    android:padding="16dp">
 
     <pw.bits.weisper.view.image.AvatarImageView
         android:id="@+id/user_profile_image"
@@ -138,11 +137,4 @@
         android:layout_height="0dp"
         android:layout_below="@id/retweeted_status"
         android:paddingTop="8dp" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_below="@id/status_pictures_container"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/darker_gray" />
 </RelativeLayout>

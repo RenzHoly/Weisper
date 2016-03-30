@@ -5,12 +5,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorText">#FF222222</item>
-        <item name="colorBackgroundItem">#FFEEEEEE</item>
+        <item name="colorBackgroundItem">#FFFFFFFF</item>
     </style>
 
     <style name="Theme2" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="colorText">#FF222222</item>
-        <item name="colorBackgroundItem">#FFEEEEEE</item>
+        <item name="colorBackgroundItem">#FFFFFFFF</item>
     </style>
 
     <style name="Theme3" parent="@style/Theme.AppCompat.NoActionBar">
