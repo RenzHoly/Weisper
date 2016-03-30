@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.hawk.LogLevel;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.main_layout, statusFlowFragment)
                     .commit();
             OkHttpClient client = new OkHttpClient().newBuilder()
+                    .addNetworkInterceptor(new StethoInterceptor())
                     .connectTimeout(15, TimeUnit.SECONDS)
                     .readTimeout(15, TimeUnit.SECONDS)
                     .build();

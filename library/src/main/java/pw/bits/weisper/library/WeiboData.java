@@ -1,5 +1,6 @@
 package pw.bits.weisper.library;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.hawk.Hawk;
 
@@ -32,6 +33,7 @@ public class WeiboData {
                         .build();
                 return chain.proceed(request);
             })
+            .addNetworkInterceptor(new StethoInterceptor())
             .build();
 
     private static Retrofit retrofit = new Retrofit.Builder()

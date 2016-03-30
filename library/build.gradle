@@ -41,4 +41,6 @@ dependencies {
 
     compile 'com.github.orhanobut:hawk:1.21'
     compile 'io.reactivex:rxandroid:1.1.0'
+
+    compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
 }
