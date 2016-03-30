@@ -4,6 +4,10 @@ import android.content.Context;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import pw.bits.weisper.event.RemoveLoadViewHolderEvent;
 import pw.bits.weisper.library.bean.Status;
 
 /**
@@ -15,6 +19,7 @@ public abstract class FlowAdapter<T extends RecyclerView.ViewHolder> extends Rec
 
     public FlowAdapter(Context context) {
         this.context = context;
+        EventBus.getDefault().register(this);
     }
 
     public void setList(SortedList<Status> list) {
@@ -28,5 +33,10 @@ public abstract class FlowAdapter<T extends RecyclerView.ViewHolder> extends Rec
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    @Subscribe
+    void onEvent(RemoveLoadViewHolderEvent event) {
+        list.removeItemAt(event.getPosition());
     }
 }

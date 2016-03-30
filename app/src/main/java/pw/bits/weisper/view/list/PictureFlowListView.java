@@ -33,7 +33,6 @@ public class PictureFlowListView extends FlowListView {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
                 int nowPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
                 if (nowPosition != previousPosition || nowPosition == 0) {
                     previousPosition = nowPosition;
@@ -45,7 +44,6 @@ public class PictureFlowListView extends FlowListView {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
                 if (recyclerView.getChildAt(0).getTop() == 0) {
                     EventBus.getDefault().post(new PictureFlowPositionChangeEvent(true));
                 }

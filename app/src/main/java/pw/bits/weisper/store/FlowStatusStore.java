@@ -6,7 +6,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import pw.bits.weisper.event.StatusEvent;
-import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.library.bean.Statuses;
 import pw.bits.weisper.library.WeiboData;
 import rx.Subscriber;
@@ -33,10 +32,12 @@ public class FlowStatusStore extends BaseStatusStore {
         timer.purge();
     }
 
-    public void loadMiddle(final Status status, final DataCallback callback) {
-        int index = statusSortedList.indexOf(status);
+    public void loadMiddle(int sincePosition, int maxPosition, DataCallback callback) {
+        if (sincePosition + 1 >= statusSortedList.size() || maxPosition - 1 < 0) {
+            return;
+        }
         WeiboData
-                .statusesHomeTimeline(statusSortedList.get(index + 1).id, statusSortedList.get(index - 1).id - 1)
+                .statusesHomeTimeline(statusSortedList.get(sincePosition + 1).id, statusSortedList.get(maxPosition - 1).id - 1)
                 .subscribe(new Subscriber<Statuses>() {
                     @Override
                     public void onCompleted() {
@@ -50,9 +51,6 @@ public class FlowStatusStore extends BaseStatusStore {
 
                     @Override
                     public void onNext(Statuses statuses) {
-                        if (statuses.getStatuses().size() == 0) {
-                            statusSortedList.remove(status);
-                        }
                         load(statuses, callback);
                     }
                 });

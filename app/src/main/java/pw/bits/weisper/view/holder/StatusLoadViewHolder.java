@@ -2,6 +2,9 @@ package pw.bits.weisper.view.holder;
 
 import android.view.View;
 
+import org.greenrobot.eventbus.EventBus;
+
+import pw.bits.weisper.event.RemoveLoadViewHolderEvent;
 import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.store.FlowStatusStore;
 
@@ -14,7 +17,12 @@ public class StatusLoadViewHolder extends StatusAbstractViewHolder {
     }
 
     @Override
-    public void bindView(final Status status) {
-        itemView.setOnClickListener(v -> FlowStatusStore.instance.loadMiddle(status, null));
+    public void bindView(Status status) {
+        int position = getAdapterPosition();
+        itemView.setOnClickListener(v -> FlowStatusStore.instance.loadMiddle(position, position, count -> {
+            if (count == 0) {
+                EventBus.getDefault().post(new RemoveLoadViewHolderEvent(position));
+            }
+        }));
     }
 }
