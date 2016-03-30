@@ -18,6 +18,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.hawk.LogLevel;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,6 +45,7 @@ import pw.bits.weisper.fragment.UserFragment;
 import pw.bits.weisper.library.WeiboData;
 import pw.bits.weisper.store.FlowStatusStore;
 import pw.bits.weisper.view.widget.Toolbar;
+import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fm = getSupportFragmentManager();
@@ -87,6 +89,23 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        WeiboData.convertLink().subscribe(new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(String s) {
+                Logger.i(s);
+            }
+        });
     }
 
     private void setupView() {
