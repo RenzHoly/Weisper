@@ -2,4 +2,5 @@
 <resources>
     <attr name="colorText" format="color" />
     <attr name="colorBackgroundItem" format="color" />
+    <attr name="colorBackgroundList" format="color" />
 </resources>

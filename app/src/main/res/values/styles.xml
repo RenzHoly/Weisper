@@ -6,15 +6,18 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorText">#FF222222</item>
         <item name="colorBackgroundItem">#FFFFFFFF</item>
+        <item name="colorBackgroundList">#FFAAAAAA</item>
     </style>
 
     <style name="Theme2" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="colorText">#FF222222</item>
         <item name="colorBackgroundItem">#FFFFFFFF</item>
+        <item name="colorBackgroundList">#FFAAAAAA</item>
     </style>
 
     <style name="Theme3" parent="@style/Theme.AppCompat.NoActionBar">
         <item name="colorText">#FFEEEEEE</item>
         <item name="colorBackgroundItem">#FF333333</item>
+        <item name="colorBackgroundList">#FF666666</item>
     </style>
 </resources>
