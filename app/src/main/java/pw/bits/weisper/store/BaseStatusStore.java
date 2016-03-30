@@ -56,7 +56,7 @@ public class BaseStatusStore {
         });
     }
 
-    public void loadBehind(Observable<Statuses> observable, DataCallback callback) {
+    protected void loadBehind(Observable<Statuses> observable, DataCallback callback) {
         observable.subscribe(new Subscriber<Statuses>() {
             @Override
             public void onCompleted() {

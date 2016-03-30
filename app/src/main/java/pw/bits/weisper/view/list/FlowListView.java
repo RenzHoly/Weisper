@@ -48,7 +48,7 @@ public abstract class FlowListView extends SwipeRefreshLayout {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 LinearLayoutManager layoutManager = ((LinearLayoutManager) recyclerView.getLayoutManager());
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    FlowStatusStore.instance.loadMiddle(layoutManager.findLastVisibleItemPosition(), layoutManager.findFirstVisibleItemPosition(), null);
+                    FlowStatusStore.instance.loadBatch(layoutManager.findFirstVisibleItemPosition(), layoutManager.findLastVisibleItemPosition(), null);
                 }
             }
         });

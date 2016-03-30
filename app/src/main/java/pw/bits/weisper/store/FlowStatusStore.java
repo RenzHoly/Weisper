@@ -32,12 +32,41 @@ public class FlowStatusStore extends BaseStatusStore {
         timer.purge();
     }
 
-    public void loadMiddle(int sincePosition, int maxPosition, DataCallback callback) {
-        if (sincePosition + 1 >= statusSortedList.size() || maxPosition - 1 < 0) {
+    public void loadMiddle(int position, DataCallback callback) {
+        if (position + 1 >= statusSortedList.size() || position - 1 < 0) {
             return;
         }
         WeiboData
-                .statusesHomeTimeline(statusSortedList.get(sincePosition + 1).id, statusSortedList.get(maxPosition - 1).id - 1)
+                .statusesHomeTimeline(statusSortedList.get(position + 1).id, statusSortedList.get(position - 1).id - 1)
+                .subscribe(new Subscriber<Statuses>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Statuses statuses) {
+                        load(statuses, callback);
+                    }
+                });
+    }
+
+    public void loadBatch(int start, int end, DataCallback callback) {
+        long ids[] = new long[end - start + 1];
+        if (ids.length < 1) {
+            load(new Statuses(), callback);
+            return;
+        }
+        for (int i = start; i <= end; i++) {
+            ids[i - start] = statusSortedList.get(i).id;
+        }
+        WeiboData
+                .statusesShowBatch(ids)
                 .subscribe(new Subscriber<Statuses>() {
                     @Override
                     public void onCompleted() {

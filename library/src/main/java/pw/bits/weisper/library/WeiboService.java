@@ -3,7 +3,6 @@ package pw.bits.weisper.library;
 import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.library.bean.Statuses;
 import pw.bits.weisper.library.bean.User;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -48,5 +47,10 @@ public interface WeiboService {
             @Field("id") Long id,
             @Field("status") String status,
             @Field("is_comment") Integer is_comment
+    );
+
+    @GET("statuses/show_batch.json")
+    Observable<Statuses> statusesShowBatch(
+            @Query("ids") String ids
     );
 }

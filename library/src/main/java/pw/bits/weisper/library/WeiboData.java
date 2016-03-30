@@ -82,4 +82,15 @@ public class WeiboData {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public static Observable<Statuses> statusesShowBatch(long[] ids) {
+        String string = "";
+        for (int i = 0; i < ids.length - 1; i++) {
+            string += ids[i] + ",";
+        }
+        string += ids[ids.length - 1];
+        return service.statusesShowBatch(string)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }
