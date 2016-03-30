@@ -104,6 +104,14 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
             popup.show();
         });
 
+        if (status.retweeted_status != null) {
+            retweeted_status.setOnClickListener(v -> {
+                StatusPopupMenu popup = new StatusPopupMenu(itemView.getContext(), status_attitudes_count, Gravity.END);
+                popup.setStatus(status.retweeted_status);
+                popup.show();
+            });
+        }
+
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) itemView.getLayoutParams();
         status_pictures_container.setPictures(status.retweeted_status == null ? status.pic_urls : status.retweeted_status.pic_urls, parentWidth - lp.leftMargin - lp.rightMargin);
     }
