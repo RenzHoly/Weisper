@@ -66,13 +66,13 @@ public class WeiboData {
     }
 
     public static Observable<User> usersShow(String screen_name) {
-        return service.usersShow(screen_name, null)
+        return service.usersShow(screen_name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public static Observable<User> usersShow(Long uid) {
-        return service.usersShow(null, uid)
+        return service.usersShow(uid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
