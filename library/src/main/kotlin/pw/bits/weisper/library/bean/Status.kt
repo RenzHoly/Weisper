@@ -1,7 +1,7 @@
 package pw.bits.weisper.library.bean
 
 import com.google.gson.annotations.SerializedName
-import java.util.Date
+import java.util.*
 
 /**
  * Created by rzh on 16/3/13.
@@ -46,7 +46,7 @@ data class Status(val id: Long, val fake: Boolean = false) {
     //表态数
 
     @SerializedName("pic_urls")
-    val pictures: List<Picture> ? = null
+    val pictures: List<Picture> = ArrayList()
     //微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
 
     override fun equals(other: Any?): Boolean {
