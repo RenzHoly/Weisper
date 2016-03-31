@@ -33,11 +33,11 @@ public class FlowStatusStore extends BaseStatusStore {
     }
 
     public void loadMiddle(int position, DataCallback callback) {
-        if (position + 1 >= statusSortedList.size() || position - 1 < 0) {
+        if (position + 1 >= getStatusSortedList().size() || position - 1 < 0) {
             return;
         }
         WeiboModel.INSTANCE
-                .statusesHomeTimeline(statusSortedList.get(position + 1).getId(), statusSortedList.get(position - 1).getId() - 1)
+                .statusesHomeTimeline(getStatusSortedList().get(position + 1).getId(), getStatusSortedList().get(position - 1).getId() - 1)
                 .subscribe(new Subscriber<Statuses>() {
                     @Override
                     public void onCompleted() {
@@ -63,7 +63,7 @@ public class FlowStatusStore extends BaseStatusStore {
             return;
         }
         for (int i = start; i <= end; i++) {
-            ids[i - start] = statusSortedList.get(i).getId();
+            ids[i - start] = getStatusSortedList().get(i).getId();
         }
         WeiboModel.INSTANCE
                 .statusesShowBatch(ids)
@@ -90,6 +90,6 @@ public class FlowStatusStore extends BaseStatusStore {
     }
 
     public void loadBehind(DataCallback callback) {
-        super.loadBehind(WeiboModel.INSTANCE.statusesHomeTimeline(0, max_id), callback);
+        super.loadBehind(WeiboModel.INSTANCE.statusesHomeTimeline(0, getMax()), callback);
     }
 }

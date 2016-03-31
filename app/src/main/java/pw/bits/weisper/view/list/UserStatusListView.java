@@ -62,11 +62,11 @@ public class UserStatusListView extends SwipeRefreshLayout {
 
     private class UserStatusStore extends BaseStatusStore {
         public void loadBehind(DataCallback callback) {
-            super.loadBehind(WeiboModel.INSTANCE.statusesUserTimeLine(screen_name, 0, max_id), callback);
+            super.loadBehind(WeiboModel.INSTANCE.statusesUserTimeLine(screen_name, 0, getMax()), callback);
         }
 
         public void loadFront(DataCallback callback) {
-            super.loadFront(WeiboModel.INSTANCE.statusesUserTimeLine(screen_name, since_id, 0), callback);
+            super.loadFront(WeiboModel.INSTANCE.statusesUserTimeLine(screen_name, getSince(), 0), callback);
         }
     }
 }
