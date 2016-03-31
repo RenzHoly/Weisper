@@ -40,20 +40,20 @@ class StatusNormalViewHolder(itemView: View, parentWidth: Int) : StatusAbstractV
 
     override fun bindView(status: Status) {
         val user = status.user
-        val retweeted_status = status.retweeted_status
-        val retweeted_status_user = retweeted_status.user
+        val retweeted_status = status.retweeted
+        val retweeted_status_user = retweeted_status?.user
 
         status_text.text = status.text
-        user_screen_name.text = user.screen_name
+        user_screen_name.text = user?.screen_name
         if (status.source.length > 0) {
-            status_source.text = String.format("%s 来自 %s", PrettyTime(Locale.CHINA).format(status.created_at).replace(" ", ""), Html.fromHtml(status.source))
+            status_source.text = String.format("%s 来自 %s", PrettyTime(Locale.CHINA).format(status.time).replace(" ", ""), Html.fromHtml(status.source))
         } else {
-            status_source.text = PrettyTime(Locale.CHINA).format(status.created_at).replace(" ", "")
+            status_source.text = PrettyTime(Locale.CHINA).format(status.time).replace(" ", "")
         }
 
-        setStatusInfo(status_reposts_icon, status_reposts_count, status.reposts_count!!)
-        setStatusInfo(status_comments_icon, status_comments_count, status.comments_count!!)
-        setStatusInfo(status_attitudes_icon, status_attitudes_count, status.attitudes_count!!)
+        setStatusInfo(status_reposts_icon, status_reposts_count, status.reposts)
+        setStatusInfo(status_comments_icon, status_comments_count, status.comments)
+        setStatusInfo(status_attitudes_icon, status_attitudes_count, status.attitudes)
 
         retweeted_status_layout.visibility = if (retweeted_status == null) View.GONE else View.VISIBLE
         if (retweeted_status != null) {
@@ -81,7 +81,7 @@ class StatusNormalViewHolder(itemView: View, parentWidth: Int) : StatusAbstractV
         }
 
         val lp = itemView.layoutParams as ViewGroup.MarginLayoutParams
-        status_pictures_container.setPictures(if (retweeted_status == null) status.pic_urls else retweeted_status.pic_urls, parentWidth - lp.leftMargin - lp.rightMargin)
+        status_pictures_container.setPictures(if (retweeted_status == null) status.pictures else retweeted_status.pictures, parentWidth - lp.leftMargin - lp.rightMargin)
     }
 
     private fun setStatusInfo(icon: ImageView, text: TextView, count: Int) {

@@ -41,9 +41,7 @@ public class BaseStatusStore {
             @Override
             public void onNext(Statuses statuses) {
                 if (since_id != 0 && statuses.getMaxId() > since_id) {
-                    Status emptyStatus = new Status();
-                    emptyStatus.id = (statuses.getMaxId() + since_id) / 2;
-                    emptyStatus.idstr = String.valueOf(emptyStatus.id);
+                    Status emptyStatus = new Status((statuses.getMaxId() + since_id) / 2, true);
                     statusSortedList.add(emptyStatus);
                 }
                 if (statuses.getSinceId() > since_id)
@@ -92,7 +90,7 @@ public class BaseStatusStore {
     public class StatusCallback extends SortedList.Callback<Status> {
         @Override
         public int compare(Status o1, Status o2) {
-            return o2.id.compareTo(o1.id);
+            return (int) (o2.getId() - o1.getId());
         }
 
         @Override
@@ -125,15 +123,15 @@ public class BaseStatusStore {
 
         @Override
         public boolean areContentsTheSame(Status oldItem, Status newItem) {
-            return oldItem.idstr.equals(newItem.idstr) &&
-                    oldItem.reposts_count.equals(newItem.reposts_count) &&
-                    oldItem.comments_count.equals(newItem.comments_count) &&
-                    oldItem.attitudes_count.equals(newItem.attitudes_count);
+            return oldItem.getStr().equals(newItem.getStr()) &&
+                    oldItem.getReposts() == newItem.getReposts() &&
+                    oldItem.getComments() == newItem.getComments() &&
+                    oldItem.getAttitudes() == newItem.getAttitudes();
         }
 
         @Override
         public boolean areItemsTheSame(Status item1, Status item2) {
-            return item1.idstr.equals(item2.idstr);
+            return item1.getStr().equals(item2.getStr());
         }
     }
 

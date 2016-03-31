@@ -17,13 +17,13 @@ public class Statuses {
         if (statuses.size() == 0) {
             return 0L;
         }
-        return statuses.get(0).id;
+        return statuses.get(0).getId();
     }
 
     public Long getMaxId() {
         if (statuses.size() == 0) {
             return 0L;
         }
-        return statuses.get(statuses.size() - 1).id - 1;
+        return statuses.get(statuses.size() - 1).getId() - 1;
     }
 }

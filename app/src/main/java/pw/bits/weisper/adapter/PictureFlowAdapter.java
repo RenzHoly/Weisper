@@ -27,8 +27,8 @@ public class PictureFlowAdapter extends FlowAdapter<PictureFlowViewHolder> {
 
     @Override
     public void onBindViewHolder(PictureFlowViewHolder holder, int position) {
-        if (heightCache.get(list.get(position).id) != null) {
-            holder.itemView.getLayoutParams().height = heightCache.get(list.get(position).id);
+        if (heightCache.get(list.get(position).getId()) != null) {
+            holder.itemView.getLayoutParams().height = heightCache.get(list.get(position).getId());
         }
         holder.bindView(list.get(position));
     }
@@ -36,6 +36,6 @@ public class PictureFlowAdapter extends FlowAdapter<PictureFlowViewHolder> {
     @Override
     public void onViewRecycled(PictureFlowViewHolder holder) {
         super.onViewRecycled(holder);
-        heightCache.put(list.get(holder.getAdapterPosition()).id, holder.itemView.getLayoutParams().height);
+        heightCache.put(list.get(holder.getAdapterPosition()).getId(), holder.itemView.getLayoutParams().height);
     }
 }

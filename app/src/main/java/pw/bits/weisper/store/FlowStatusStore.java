@@ -37,7 +37,7 @@ public class FlowStatusStore extends BaseStatusStore {
             return;
         }
         WeiboData
-                .statusesHomeTimeline(statusSortedList.get(position + 1).id, statusSortedList.get(position - 1).id - 1)
+                .statusesHomeTimeline(statusSortedList.get(position + 1).getId(), statusSortedList.get(position - 1).getId() - 1)
                 .subscribe(new Subscriber<Statuses>() {
                     @Override
                     public void onCompleted() {
@@ -63,7 +63,7 @@ public class FlowStatusStore extends BaseStatusStore {
             return;
         }
         for (int i = start; i <= end; i++) {
-            ids[i - start] = statusSortedList.get(i).id;
+            ids[i - start] = statusSortedList.get(i).getId();
         }
         WeiboData
                 .statusesShowBatch(ids)

@@ -12,8 +12,8 @@ public class PictureFlowPositionChangeEvent {
     private boolean isOverlapping;
 
     public PictureFlowPositionChangeEvent(Status status, boolean isOverlapping) {
-        this.user = status.user;
-        this.text = status.text;
+        this.user = status.getUser();
+        this.text = status.getText();
         this.isOverlapping = isOverlapping;
     }
 

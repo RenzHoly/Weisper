@@ -36,15 +36,15 @@ public class PictureFlowViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindView(Status status) {
-        List<Picture> pictures = status.retweeted_status == null ? status.pic_urls : status.retweeted_status.pic_urls;
+        List<Picture> pictures = status.getRetweeted() == null ? status.getPictures() : status.getRetweeted().getPictures();
 
         itemView.setVisibility(pictures.size() == 0 ? View.GONE : View.VISIBLE);
         if (pictures.size() == 0) {
             itemView.getLayoutParams().height = 0;
         }
 
-        user_profile_image.setUser(status.user);
-        status_text.setText(status.text);
+        user_profile_image.setUser(status.getUser());
+        status_text.setText(status.getText());
         picture_flow_layout.setPictures(pictures, parentWidth);
     }
 }
