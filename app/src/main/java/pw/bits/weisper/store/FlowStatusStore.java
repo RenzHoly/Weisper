@@ -7,7 +7,7 @@ import java.util.TimerTask;
 
 import pw.bits.weisper.event.StatusEvent;
 import pw.bits.weisper.library.bean.Statuses;
-import pw.bits.weisper.library.WeiboData;
+import pw.bits.weisper.library.WeiboModel;
 import rx.Subscriber;
 
 /**
@@ -36,7 +36,7 @@ public class FlowStatusStore extends BaseStatusStore {
         if (position + 1 >= statusSortedList.size() || position - 1 < 0) {
             return;
         }
-        WeiboData
+        WeiboModel.INSTANCE
                 .statusesHomeTimeline(statusSortedList.get(position + 1).getId(), statusSortedList.get(position - 1).getId() - 1)
                 .subscribe(new Subscriber<Statuses>() {
                     @Override
@@ -65,7 +65,7 @@ public class FlowStatusStore extends BaseStatusStore {
         for (int i = start; i <= end; i++) {
             ids[i - start] = statusSortedList.get(i).getId();
         }
-        WeiboData
+        WeiboModel.INSTANCE
                 .statusesShowBatch(ids)
                 .subscribe(new Subscriber<Statuses>() {
                     @Override
@@ -86,10 +86,10 @@ public class FlowStatusStore extends BaseStatusStore {
     }
 
     public void loadFront(DataCallback callback) {
-        super.loadFront(WeiboData.statusesHomeTimeline(0, 0), callback);
+        super.loadFront(WeiboModel.INSTANCE.statusesHomeTimeline(0, 0), callback);
     }
 
     public void loadBehind(DataCallback callback) {
-        super.loadBehind(WeiboData.statusesHomeTimeline(0, max_id), callback);
+        super.loadBehind(WeiboModel.INSTANCE.statusesHomeTimeline(0, max_id), callback);
     }
 }
