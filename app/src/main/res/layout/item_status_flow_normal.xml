@@ -108,7 +108,7 @@
         android:textSize="16sp" />
 
     <LinearLayout
-        android:id="@+id/retweeted_status"
+        android:id="@+id/retweeted_status_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/status_text"
@@ -135,6 +135,6 @@
         android:id="@+id/status_pictures_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/retweeted_status"
+        android:layout_below="@id/retweeted_status_layout"
         android:paddingTop="8dp" />
 </RelativeLayout>
