@@ -1,6 +1,5 @@
 package pw.bits.weisper.view.holder;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import pw.bits.weisper.view.widget.StatusTextView;
 /**
  * Created by rzh on 16/3/19.
  */
-public class PictureFlowViewHolder extends RecyclerView.ViewHolder {
+public class PictureFlowViewHolder extends StatusAbstractViewHolder {
     @Bind(R.id.picture_flow_layout)
     PictureFlowLayout picture_flow_layout;
 

@@ -219,14 +219,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        FlowStatusStore.instance.start();
+        FlowStatusStore.INSTANCE.start();
         toolbar.setAvatar(WeiboModel.INSTANCE.usersShow(Hawk.get("uid", 0L)));
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        FlowStatusStore.instance.stop();
+        FlowStatusStore.INSTANCE.stop();
     }
 
     @Override

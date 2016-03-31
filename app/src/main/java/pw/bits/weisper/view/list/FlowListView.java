@@ -8,13 +8,14 @@ import android.util.AttributeSet;
 
 import pw.bits.weisper.adapter.FlowAdapter;
 import pw.bits.weisper.store.FlowStatusStore;
+import pw.bits.weisper.view.holder.StatusAbstractViewHolder;
 
 /**
  * Created by rzh on 16/3/30.
  */
 public abstract class FlowListView extends SwipeRefreshLayout {
     protected RecyclerView recyclerView = new RecyclerView(getContext());
-    protected FlowAdapter adapter = newFlowAdapter();
+    protected FlowAdapter<StatusAbstractViewHolder> adapter = newFlowAdapter();
 
     public FlowListView(Context context) {
         super(context);
@@ -27,7 +28,7 @@ public abstract class FlowListView extends SwipeRefreshLayout {
     }
 
     protected void init() {
-        FlowStatusStore.instance.bind(adapter);
+        FlowStatusStore.INSTANCE.bind(adapter);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -38,7 +39,7 @@ public abstract class FlowListView extends SwipeRefreshLayout {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (!isLoading && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() >= recyclerView.getAdapter().getItemCount() - 5) {
                     isLoading = true;
-                    FlowStatusStore.instance.loadBehind(count -> isLoading = false);
+                    FlowStatusStore.INSTANCE.loadBehind(count -> isLoading = false);
                 }
             }
         });
@@ -48,21 +49,21 @@ public abstract class FlowListView extends SwipeRefreshLayout {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 LinearLayoutManager layoutManager = ((LinearLayoutManager) recyclerView.getLayoutManager());
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    FlowStatusStore.instance.loadBatch(layoutManager.findFirstVisibleItemPosition(), layoutManager.findLastVisibleItemPosition(), null);
+                    FlowStatusStore.INSTANCE.loadBatch(layoutManager.findFirstVisibleItemPosition(), layoutManager.findLastVisibleItemPosition(), null);
                 }
             }
         });
 
         addView(recyclerView);
 
-        setOnRefreshListener(() -> FlowStatusStore.instance.loadFront(count -> setRefreshing(false)));
+        setOnRefreshListener(() -> FlowStatusStore.INSTANCE.loadFront(count -> setRefreshing(false)));
     }
 
     public void scrollToPosition(int position) {
         recyclerView.scrollToPosition(position);
     }
 
-    protected abstract FlowAdapter newFlowAdapter();
+    protected abstract FlowAdapter<StatusAbstractViewHolder> newFlowAdapter();
 
     public RecyclerView.LayoutManager getLayoutManager() {
         return recyclerView.getLayoutManager();

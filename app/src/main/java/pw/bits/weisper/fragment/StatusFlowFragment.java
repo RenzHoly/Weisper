@@ -54,7 +54,7 @@ public class StatusFlowFragment extends StorePositionFragment {
     @Override
     public void onResume() {
         super.onResume();
-        FlowStatusStore.instance.loadFront(null);
+        FlowStatusStore.INSTANCE.loadFront(null);
     }
 
     @Override

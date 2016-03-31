@@ -9,11 +9,12 @@ import org.greenrobot.eventbus.Subscribe;
 
 import pw.bits.weisper.event.RemoveLoadViewHolderEvent;
 import pw.bits.weisper.library.bean.Status;
+import pw.bits.weisper.view.holder.StatusAbstractViewHolder;
 
 /**
  * Created by rzh on 16/3/27.
  */
-public abstract class FlowAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
+public abstract class FlowAdapter<T extends StatusAbstractViewHolder> extends RecyclerView.Adapter<T> {
     protected Context context;
     protected SortedList<Status> list;
 
