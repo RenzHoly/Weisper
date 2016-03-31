@@ -123,7 +123,7 @@ public class BaseStatusStore {
 
         @Override
         public boolean areContentsTheSame(Status oldItem, Status newItem) {
-            return oldItem.getStr().equals(newItem.getStr()) &&
+            return oldItem.getId() == newItem.getId() &&
                     oldItem.getReposts() == newItem.getReposts() &&
                     oldItem.getComments() == newItem.getComments() &&
                     oldItem.getAttitudes() == newItem.getAttitudes();
@@ -131,7 +131,7 @@ public class BaseStatusStore {
 
         @Override
         public boolean areItemsTheSame(Status item1, Status item2) {
-            return item1.getStr().equals(item2.getStr());
+            return item1.getId() == item2.getId();
         }
     }
 
