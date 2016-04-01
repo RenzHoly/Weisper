@@ -16,23 +16,23 @@ import rx.Observable
 interface WeiboService {
     @GET("statuses/home_timeline.json")
     fun statusesHomeTimeline(
-            @Query("count") count: Int,
             @Query("since_id") since_id: Long,
-            @Query("max_id") max_id: Long
+            @Query("max_id") max_id: Long,
+            @Query("count") count: Int = 20
     ): Observable<Statuses>
 
     @GET("statuses/user_timeline.json")
     fun statusesUserTimeLine(
-            @Query("count") count: Int,
             @Query("since_id") since_id: Long,
             @Query("max_id") max_id: Long,
-            @Query("screen_name") screen_name: String
+            @Query("screen_name") screen_name: String,
+            @Query("count") count: Int = 20
     ): Observable<Statuses>
 
     @GET("search/topics.json")
     fun searchTopics(
-            @Query("count") count: Int,
-            @Query("q") topic: String
+            @Query("q") topic: String,
+            @Query("count") count: Int = 50
     ): Observable<Statuses>
 
     @GET("users/show.json")

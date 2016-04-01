@@ -41,15 +41,15 @@ object WeiboModel {
     }
 
     fun statusesHomeTimeline(since_id: Long, max_id: Long): Observable<Statuses> {
-        return service.statusesHomeTimeline(20, since_id, max_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        return service.statusesHomeTimeline(since_id, max_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     fun statusesUserTimeLine(screen_name: String, since_id: Long, max_id: Long): Observable<Statuses> {
-        return service.statusesUserTimeLine(20, since_id, max_id, screen_name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        return service.statusesUserTimeLine(since_id, max_id, screen_name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     fun searchTopics(topic: String): Observable<Statuses> {
-        return service.searchTopics(50, topic).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        return service.searchTopics(topic).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     fun usersShow(screen_name: String): Observable<User> {
