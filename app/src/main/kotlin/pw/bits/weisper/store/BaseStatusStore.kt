@@ -80,7 +80,7 @@ open class BaseStatusStore {
 
     inner class StatusCallback : SortedList.Callback<Status>() {
         override fun compare(o1: Status, o2: Status): Int {
-            return (o2.id - o1.id).toInt()
+            return o2.id.compareTo(o1.id)
         }
 
         override fun onInserted(position: Int, count: Int) {

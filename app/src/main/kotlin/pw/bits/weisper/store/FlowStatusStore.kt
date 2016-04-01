@@ -53,7 +53,7 @@ object FlowStatusStore : BaseStatusStore() {
         })
     }
 
-    fun loadBatch(start: Int, end: Int, callback: BaseStatusStore.DataCallback) {
+    fun loadBatch(start: Int, end: Int, callback: BaseStatusStore.DataCallback?) {
         val ids = LongArray(end - start + 1)
         if (ids.size < 1) {
             load(Statuses(), callback)
