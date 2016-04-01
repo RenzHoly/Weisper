@@ -2,13 +2,11 @@ package pw.bits.weisper.store
 
 import org.greenrobot.eventbus.EventBus
 
-import java.util.Timer
-import java.util.TimerTask
-
 import pw.bits.weisper.event.StatusEvent
 import pw.bits.weisper.library.bean.Statuses
 import pw.bits.weisper.library.WeiboModel
 import rx.Subscriber
+import java.util.*
 
 /**
  * Created by rzh on 16/3/16.
@@ -54,13 +52,14 @@ object FlowStatusStore : BaseStatusStore() {
     }
 
     fun loadBatch(start: Int, end: Int, callback: BaseStatusStore.DataCallback?) {
-        val ids = LongArray(end - start + 1)
-        if (ids.size < 1) {
+        val ids = ArrayList<Long>()
+        for (i in start..end) {
+            if (!statusSortedList.get(i).fake)
+                ids.add(statusSortedList.get(i).id)
+        }
+        if (ids.size == 0) {
             load(Statuses(), callback)
             return
-        }
-        for (i in start..end) {
-            ids[i - start] = statusSortedList.get(i).id
         }
         WeiboModel.statusesShowBatch(ids).subscribe(object : Subscriber<Statuses>() {
             override fun onCompleted() {

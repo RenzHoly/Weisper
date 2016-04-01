@@ -64,7 +64,7 @@ object WeiboModel {
         return service.statusesRepost(id, status, if (is_comment) 1 else 0).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun statusesShowBatch(ids: LongArray): Observable<Statuses> {
+    fun statusesShowBatch(ids: List<Long>): Observable<Statuses> {
         return service.statusesShowBatch(ids.joinToString(",")).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 }
