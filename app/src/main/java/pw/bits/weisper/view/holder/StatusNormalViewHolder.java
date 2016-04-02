@@ -1,5 +1,6 @@
 package pw.bits.weisper.view.holder;
 
+import android.databinding.DataBindingUtil;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
@@ -13,6 +14,7 @@ import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pw.bits.weisper.BR;
 import pw.bits.weisper.R;
 import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.view.image.AvatarImageView;
@@ -75,6 +77,9 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
     }
 
     public void bindView(Status status) {
+
+        DataBindingUtil.bind(itemView).setVariable(BR.status, status);
+
         status_text.setText(status.text);
         user_screen_name.setText(status.user.screen_name);
         if (status.source.length() > 0) {
