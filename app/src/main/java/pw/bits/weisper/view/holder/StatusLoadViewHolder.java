@@ -21,7 +21,7 @@ public class StatusLoadViewHolder extends StatusAbstractViewHolder {
         int position = getAdapterPosition();
         itemView.setOnClickListener(v -> FlowStatusStore.INSTANCE.loadMiddle(position, count -> {
             if (count == 0) {
-                EventBus.getDefault().post(new RemoveLoadViewHolderEvent(position));
+                EventBus.getDefault().post(new RemoveLoadViewHolderEvent(status));
             }
         }));
     }

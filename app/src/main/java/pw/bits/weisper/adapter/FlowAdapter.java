@@ -38,6 +38,6 @@ public abstract class FlowAdapter<T extends StatusAbstractViewHolder> extends Re
 
     @Subscribe
     void onEvent(RemoveLoadViewHolderEvent event) {
-        list.removeItemAt(event.getPosition());
+        list.remove(event.getStatus());
     }
 }
