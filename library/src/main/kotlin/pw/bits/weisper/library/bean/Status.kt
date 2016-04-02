@@ -15,19 +15,19 @@ data class Status(
         val fake: Boolean = false) {
 
     @SerializedName("created_at")
-    val time: Date = Date()
+    val time: Date? = null
     //微博创建时间
 
-    val text: String = ""
+    val text: String? = null
     //微博信息内容
 
-    val source: String = ""
+    val source: String? = null
     //微博来源
 
-    val favorited: Boolean = false
+    val favorited: Boolean? = null
     //是否已收藏，true：是，false：否
 
-    val truncated: Boolean = false
+    val truncated: Boolean? = null
     //是否被截断，true：是，false：否
 
     val geo: Geo? = null
@@ -41,15 +41,15 @@ data class Status(
     //被转发的原微博信息字段，当该微博为转发微博时返回 详细
 
     @SerializedName("reposts_count")
-    val reposts: Int = 0
+    val reposts: Int? = null
     //转发数
 
     @SerializedName("comments_count")
-    val comments: Int = 0
+    val comments: Int? = null
     //评论数
 
     @SerializedName("attitudes_count")
-    val attitudes: Int = 0
+    val attitudes: Int? = null
     //表态数
 
     @SerializedName("pic_urls")

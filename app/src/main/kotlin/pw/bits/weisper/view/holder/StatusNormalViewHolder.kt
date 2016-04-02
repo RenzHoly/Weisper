@@ -42,18 +42,19 @@ class StatusNormalViewHolder(itemView: View, parentWidth: Int) : StatusAbstractV
         val user = status.user
         val retweeted_status = status.retweeted
         val retweeted_status_user = retweeted_status?.user
+        val source = status.source
 
         status_text.text = status.text
         user_screen_name.text = user?.screen_name
-        if (status.source.length > 0) {
+        if (source != null && source.length > 0) {
             status_source.text = String.format("%s 来自 %s", PrettyTime(Locale.CHINA).format(status.time).replace(" ", ""), Html.fromHtml(status.source))
         } else {
             status_source.text = PrettyTime(Locale.CHINA).format(status.time).replace(" ", "")
         }
 
-        setStatusInfo(status_reposts_icon, status_reposts_count, status.reposts)
-        setStatusInfo(status_comments_icon, status_comments_count, status.comments)
-        setStatusInfo(status_attitudes_icon, status_attitudes_count, status.attitudes)
+        setStatusInfo(status_reposts_icon, status_reposts_count, status.reposts ?: 0)
+        setStatusInfo(status_comments_icon, status_comments_count, status.comments ?: 0)
+        setStatusInfo(status_attitudes_icon, status_attitudes_count, status.attitudes ?: 0)
 
         retweeted_status_layout.visibility = if (retweeted_status == null) View.GONE else View.VISIBLE
         if (retweeted_status != null) {
