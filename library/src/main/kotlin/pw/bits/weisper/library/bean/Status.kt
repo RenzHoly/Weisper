@@ -1,12 +1,19 @@
 package pw.bits.weisper.library.bean
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
 /**
  * Created by rzh on 16/3/13.
  */
-data class Status(val id: Long, val fake: Boolean = false) {
+data class Status(
+        val id: Long,
+        //微博ID
+
+        @Expose
+        val fake: Boolean = false) {
+
     @SerializedName("created_at")
     val time: Date = Date()
     //微博创建时间
