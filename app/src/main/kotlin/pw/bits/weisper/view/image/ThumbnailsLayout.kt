@@ -22,22 +22,21 @@ class ThumbnailsLayout : FrameLayout {
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    fun setPictures(pictures: List<Picture>, width: Int) {
+    fun setPictures(pictures: List<Picture>?, width: Int) {
         removeAllViews()
 
-        if (pictures.size > 0) {
+        if (pictures != null && pictures.size > 0) {
             addView(LayoutInflater.from(context).inflate(layouts[pictures.size - 1], null))
+            for (i in 0..pictures.size - 1) {
+                val image = findViewById(ids[i]) as ThumbnailImageView
+                image.setImage(pictures, i)
+            }
             visibility = View.VISIBLE
         } else {
             visibility = View.GONE
         }
 
-        for (i in 0..pictures.size - 1) {
-            val image = findViewById(ids[i]) as ThumbnailImageView
-            image.setImage(pictures, i)
-        }
-
-        when (pictures.size) {
+        when (pictures?.size) {
             1, 2 -> layoutParams.height = width / 2
             3 -> layoutParams.height = width / 3
             4, 9 -> layoutParams.height = width
