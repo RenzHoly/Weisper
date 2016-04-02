@@ -33,7 +33,7 @@ object FlowStatusStore : BaseStatusStore() {
     }
 
     fun loadMiddle(position: Int, callback: BaseStatusStore.DataCallback) {
-        if (position + 1 >= statusSortedList.size() || position - 1 < 0) {
+        if (position !in 1..statusSortedList.size() - 2) {
             return
         }
         WeiboModel.statusesHomeTimeline(statusSortedList.get(position + 1).id, statusSortedList.get(position - 1).id - 1).subscribe(object : Subscriber<Statuses>() {
