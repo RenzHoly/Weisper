@@ -24,7 +24,7 @@ public class StatusFlowAdapter extends FlowAdapter<StatusAbstractViewHolder> {
     public StatusAbstractViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case TYPE_NORMAL:
-                return new StatusNormalViewHolder(LayoutInflater.from(this.context).inflate(R.layout.item_status_flow_normal, parent, false), parent.getWidth());
+                return new StatusNormalViewHolder(LayoutInflater.from(this.context).inflate(R.layout.item_status_flow_normal, parent, false));
             case TYPE_LOAD:
                 return new StatusLoadViewHolder(LayoutInflater.from(this.context).inflate(R.layout.item_status_flow_load, parent, false));
             default:

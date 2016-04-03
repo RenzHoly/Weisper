@@ -1,9 +1,11 @@
 package pw.bits.weisper.view.image;
 
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.util.List;
@@ -27,7 +29,10 @@ public class ThumbnailsLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setPictures(final List<Picture> pictures, int width) {
+    @BindingAdapter("pictures")
+    public static void setPictures(ThumbnailsLayout view, List<Picture> pictures) {
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        int height = view.getWidth() - lp.leftMargin - lp.rightMargin;
         int layouts[] = new int[]{
                 R.layout.item_status_pictures_1,
                 R.layout.item_status_pictures_2,
@@ -50,55 +55,53 @@ public class ThumbnailsLayout extends FrameLayout {
                 R.id.status_pictures_8,
         };
 
-        removeAllViews();
+        view.removeAllViews();
         int size = 0;
         if (pictures != null && pictures.size() > 0) {
             size = pictures.size();
-            addView(LayoutInflater.from(getContext()).inflate(layouts[size - 1], null));
-            setVisibility(View.VISIBLE);
+            view.addView(LayoutInflater.from(view.getContext()).inflate(layouts[size - 1], null));
+            view.setVisibility(View.VISIBLE);
         } else {
-            setVisibility(View.GONE);
+            view.setVisibility(View.GONE);
         }
         for (int i = 0; i < size; i++) {
-            final int position = i;
-            int resId = ids[i];
-            ThumbnailImageView thumbnailImageView = (ThumbnailImageView) findViewById(resId);
-            thumbnailImageView.setImage(pictures, position);
+            ThumbnailImageView thumbnailImageView = (ThumbnailImageView) view.findViewById(ids[i]);
+            thumbnailImageView.setImage(pictures, i);
         }
 
         switch (size) {
             case 0: {
-                getLayoutParams().height = 0;
+                view.getLayoutParams().height = 0;
                 break;
             }
             case 1:
             case 2: {
-                getLayoutParams().height = width / 2;
+                view.getLayoutParams().height = height / 2;
                 break;
             }
             case 3: {
-                getLayoutParams().height = width / 3;
+                view.getLayoutParams().height = height / 3;
                 break;
             }
             case 4:
             case 9: {
-                getLayoutParams().height = width;
+                view.getLayoutParams().height = height;
                 break;
             }
             case 5: {
-                getLayoutParams().height = width * 5 / 6;
+                view.getLayoutParams().height = height * 5 / 6;
                 break;
             }
             case 6: {
-                getLayoutParams().height = width * 2 / 3;
+                view.getLayoutParams().height = height * 2 / 3;
                 break;
             }
             case 7: {
-                getLayoutParams().height = width * 4 / 3;
+                view.getLayoutParams().height = height * 4 / 3;
                 break;
             }
             case 8: {
-                getLayoutParams().height = width * 7 / 6;
+                view.getLayoutParams().height = height * 7 / 6;
                 break;
             }
         }
