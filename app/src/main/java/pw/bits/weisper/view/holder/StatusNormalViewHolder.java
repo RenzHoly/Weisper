@@ -1,16 +1,11 @@
 package pw.bits.weisper.view.holder;
 
 import android.databinding.DataBindingUtil;
-import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.ocpsoft.prettytime.PrettyTime;
-
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,12 +29,6 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
 
     @Bind(R.id.retweeted_status_text)
     StatusTextView retweeted_status_text;
-
-    @Bind(R.id.user_screen_name)
-    TextView user_screen_name;
-
-    @Bind(R.id.status_source)
-    TextView status_source;
 
     @Bind(R.id.user_profile_image)
     AvatarImageView user_profile_image;
@@ -80,12 +69,6 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
         DataBindingUtil.bind(itemView).setVariable(BR.status, status);
 
         status_text.setText(status.text);
-        user_screen_name.setText(status.user.screen_name);
-        if (status.source.length() > 0) {
-            status_source.setText(String.format("%s 来自 %s", new PrettyTime(Locale.CHINA).format(status.date).replace(" ", ""), Html.fromHtml(status.source)));
-        } else {
-            status_source.setText(new PrettyTime(Locale.CHINA).format(status.date).replace(" ", ""));
-        }
 
         setStatusInfo(status_reposts_icon, status_reposts_count, status.reposts);
         setStatusInfo(status_comments_icon, status_comments_count, status.comments);

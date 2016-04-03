@@ -26,7 +26,6 @@
             app:civ_border_width="0.5dp" />
 
         <TextView
-            android:id="@+id/user_screen_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -36,11 +35,11 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/status_source"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/user_profile_image"
             android:layout_toEndOf="@id/user_profile_image"
+            android:text="@{status.getSource()}"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp" />
 

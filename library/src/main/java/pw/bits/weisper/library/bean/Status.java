@@ -1,12 +1,16 @@
 package pw.bits.weisper.library.bean;
 
 import android.support.annotation.Nullable;
+import android.text.Html;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by rzh on 16/3/13.
@@ -22,7 +26,7 @@ public class Status {
     public String text;
     //微博信息内容
 
-    public String source;
+    String source;
     //微博来源
 
     @Nullable
@@ -57,6 +61,12 @@ public class Status {
 
     @Expose
     public boolean fake = false;
+
+    public String getSource() {
+        return source != null && source.length() > 0 ?
+                String.format("%s 来自 %s", new PrettyTime(Locale.CHINA).format(date).replace(" ", ""), Html.fromHtml(source)) :
+                new PrettyTime(Locale.CHINA).format(date).replace(" ", "");
+    }
 
     public Status(Long id) {
         this.id = id;
