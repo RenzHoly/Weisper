@@ -22,16 +22,20 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
     @Bind(R.id.status_attitudes_count)
     TextView status_attitudes_count;
 
-    public StatusNormalViewHolder(View itemView) {
+    private int parentWidth;
+
+    public StatusNormalViewHolder(View itemView, int width) {
         super(itemView);
+        parentWidth = width;
         ButterKnife.bind(this, itemView);
     }
 
     public void bindView(Status status) {
         ViewDataBinding binding = DataBindingUtil.bind(itemView);
-        binding.setVariable(BR.status, status);
         Handlers handlers = new Handlers(status, status_attitudes_count);
+        binding.setVariable(BR.status, status);
         binding.setVariable(BR.handlers, handlers);
+        binding.setVariable(BR.width, parentWidth);
         binding.executePendingBindings();
     }
 

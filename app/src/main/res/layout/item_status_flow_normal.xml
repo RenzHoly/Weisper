@@ -10,6 +10,10 @@
             type="pw.bits.weisper.view.holder.StatusNormalViewHolder.Handlers" />
 
         <variable
+            name="width"
+            type="Integer" />
+
+        <variable
             name="status"
             type="pw.bits.weisper.library.bean.Status" />
     </data>
@@ -167,6 +171,7 @@
             android:layout_height="0dp"
             android:layout_below="@id/retweeted_status"
             android:paddingTop="8dp"
-            app:pictures="@{status.retweeted == null ? status.pictures : status.retweeted.pictures}" />
+            app:pictures="@{status.retweeted == null ? status.pictures : status.retweeted.pictures}"
+            app:width="@{width}" />
     </RelativeLayout>
 </layout>

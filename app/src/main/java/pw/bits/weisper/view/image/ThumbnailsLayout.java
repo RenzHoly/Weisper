@@ -29,11 +29,10 @@ public class ThumbnailsLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    @BindingAdapter("pictures")
-    public static void setPictures(ThumbnailsLayout view, List<Picture> pictures) {
-        View parent = (View) view.getParent();
+    @BindingAdapter({"pictures", "width"})
+    public static void setPictures(ThumbnailsLayout view, List<Picture> pictures, int width) {
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        int height = parent != null ? parent.getWidth() - lp.leftMargin - lp.rightMargin : -1;
+        int height = width - lp.leftMargin - lp.rightMargin;
         int layouts[] = new int[]{
                 R.layout.item_status_pictures_1,
                 R.layout.item_status_pictures_2,
