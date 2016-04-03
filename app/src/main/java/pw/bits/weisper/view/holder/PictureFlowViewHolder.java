@@ -36,7 +36,7 @@ public class PictureFlowViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindView(Status status) {
-        List<Picture> pictures = status.retweeted_status == null ? status.pic_urls : status.retweeted_status.pic_urls;
+        List<Picture> pictures = status.retweeted == null ? status.pictures : status.retweeted.pictures;
 
         itemView.setVisibility(pictures.size() == 0 ? View.GONE : View.VISIBLE);
         if (pictures.size() == 0) {

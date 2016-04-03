@@ -37,6 +37,6 @@ public abstract class FlowAdapter<T extends RecyclerView.ViewHolder> extends Rec
 
     @Subscribe
     void onEvent(RemoveLoadViewHolderEvent event) {
-        list.removeItemAt(event.getPosition());
+        list.remove(event.getStatus());
     }
 }

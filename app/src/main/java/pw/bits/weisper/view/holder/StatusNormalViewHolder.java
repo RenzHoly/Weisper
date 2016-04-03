@@ -83,19 +83,19 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
         status_text.setText(status.text);
         user_screen_name.setText(status.user.screen_name);
         if (status.source.length() > 0) {
-            status_source.setText(String.format("%s 来自 %s", new PrettyTime(Locale.CHINA).format(status.created_at).replace(" ", ""), Html.fromHtml(status.source)));
+            status_source.setText(String.format("%s 来自 %s", new PrettyTime(Locale.CHINA).format(status.date).replace(" ", ""), Html.fromHtml(status.source)));
         } else {
-            status_source.setText(new PrettyTime(Locale.CHINA).format(status.created_at).replace(" ", ""));
+            status_source.setText(new PrettyTime(Locale.CHINA).format(status.date).replace(" ", ""));
         }
 
-        setStatusInfo(status_reposts_icon, status_reposts_count, status.reposts_count);
-        setStatusInfo(status_comments_icon, status_comments_count, status.comments_count);
-        setStatusInfo(status_attitudes_icon, status_attitudes_count, status.attitudes_count);
+        setStatusInfo(status_reposts_icon, status_reposts_count, status.reposts);
+        setStatusInfo(status_comments_icon, status_comments_count, status.comments);
+        setStatusInfo(status_attitudes_icon, status_attitudes_count, status.attitudes);
 
-        retweeted_status.setVisibility(status.retweeted_status == null ? View.GONE : View.VISIBLE);
-        if (status.retweeted_status != null) {
-            if (status.retweeted_status.user != null) {
-                retweeted_status_text.setText(String.format("@%s:%s", status.retweeted_status.user.screen_name, status.retweeted_status.text));
+        retweeted_status.setVisibility(status.retweeted == null ? View.GONE : View.VISIBLE);
+        if (status.retweeted != null) {
+            if (status.retweeted.user != null) {
+                retweeted_status_text.setText(String.format("@%s:%s", status.retweeted.user.screen_name, status.retweeted.text));
             } else {
                 retweeted_status_text.setText("抱歉，此微博已被作者删除");
             }
@@ -109,16 +109,16 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
             popup.show();
         });
 
-        if (status.retweeted_status != null) {
+        if (status.retweeted != null) {
             retweeted_status.setOnClickListener(v -> {
                 StatusPopupMenu popup = new StatusPopupMenu(itemView.getContext(), status_attitudes_count, Gravity.END);
-                popup.setStatus(status.retweeted_status);
+                popup.setStatus(status.retweeted);
                 popup.show();
             });
         }
 
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) itemView.getLayoutParams();
-        status_pictures_container.setPictures(status.retweeted_status == null ? status.pic_urls : status.retweeted_status.pic_urls, parentWidth - lp.leftMargin - lp.rightMargin);
+        status_pictures_container.setPictures(status.retweeted == null ? status.pictures : status.retweeted.pictures, parentWidth - lp.leftMargin - lp.rightMargin);
     }
 
     private void setStatusInfo(ImageView icon, TextView text, int count) {

@@ -4,6 +4,8 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.hawk.Hawk;
 
+import java.util.List;
+
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -83,12 +85,12 @@ public class WeiboData {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<Statuses> statusesShowBatch(long[] ids) {
+    public static Observable<Statuses> statusesShowBatch(List<Long> ids) {
         String string = "";
-        for (int i = 0; i < ids.length - 1; i++) {
-            string += ids[i] + ",";
+        for (int i = 0; i < ids.size() - 1; i++) {
+            string += ids.get(i) + ",";
         }
-        string += ids[ids.length - 1];
+        string += ids.get(ids.size() - 1);
         return service.statusesShowBatch(string)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

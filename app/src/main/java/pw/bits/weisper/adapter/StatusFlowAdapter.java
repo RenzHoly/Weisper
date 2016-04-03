@@ -39,6 +39,6 @@ public class StatusFlowAdapter extends FlowAdapter<StatusAbstractViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return list.get(position).mid == null ? TYPE_LOAD : TYPE_NORMAL;
+        return list.get(position).fake ? TYPE_LOAD : TYPE_NORMAL;
     }
 }

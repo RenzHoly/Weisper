@@ -2,6 +2,8 @@ package pw.bits.weisper.store;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,13 +59,12 @@ public class FlowStatusStore extends BaseStatusStore {
     }
 
     public void loadBatch(int start, int end, DataCallback callback) {
-        long ids[] = new long[end - start + 1];
-        if (ids.length < 1) {
-            load(new Statuses(), callback);
-            return;
-        }
+
+        List<Long> ids = new ArrayList<>();
         for (int i = start; i <= end; i++) {
-            ids[i - start] = statusSortedList.get(i).id;
+            if (!statusSortedList.get(i).fake) {
+                ids.add(statusSortedList.get(i).id);
+            }
         }
         WeiboData
                 .statusesShowBatch(ids)
