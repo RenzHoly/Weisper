@@ -32,6 +32,7 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
         binding.setVariable(BR.status, status);
         Handlers handlers = new Handlers(status, status_attitudes_count);
         binding.setVariable(BR.handlers, handlers);
+        binding.executePendingBindings();
     }
 
     public class Handlers {
