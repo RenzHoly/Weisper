@@ -31,8 +31,9 @@ public class ThumbnailsLayout extends FrameLayout {
 
     @BindingAdapter("pictures")
     public static void setPictures(ThumbnailsLayout view, List<Picture> pictures) {
+        View parent = (View) view.getParent();
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        int height = view.getWidth() - lp.leftMargin - lp.rightMargin;
+        int height = parent != null ? parent.getWidth() - lp.leftMargin - lp.rightMargin : -1;
         int layouts[] = new int[]{
                 R.layout.item_status_pictures_1,
                 R.layout.item_status_pictures_2,
