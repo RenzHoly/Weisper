@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -29,23 +28,8 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
     @Bind(R.id.retweeted_status_text)
     StatusTextView retweeted_status_text;
 
-    @Bind(R.id.status_reposts_count)
-    TextView status_reposts_count;
-
-    @Bind(R.id.status_reposts_icon)
-    ImageView status_reposts_icon;
-
-    @Bind(R.id.status_comments_count)
-    TextView status_comments_count;
-
-    @Bind(R.id.status_comments_icon)
-    ImageView status_comments_icon;
-
     @Bind(R.id.status_attitudes_count)
     TextView status_attitudes_count;
-
-    @Bind(R.id.status_attitudes_icon)
-    ImageView status_attitudes_icon;
 
     @Bind(R.id.status_pictures_container)
     ThumbnailsLayout status_pictures_container;
@@ -65,10 +49,6 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
         DataBindingUtil.bind(itemView).setVariable(BR.status, status);
 
         status_text.setText(status.text);
-
-        setStatusInfo(status_reposts_icon, status_reposts_count, status.reposts);
-        setStatusInfo(status_comments_icon, status_comments_count, status.comments);
-        setStatusInfo(status_attitudes_icon, status_attitudes_count, status.attitudes);
 
         retweeted_status.setVisibility(status.retweeted == null ? View.GONE : View.VISIBLE);
         if (status.retweeted != null) {
@@ -95,11 +75,5 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
 
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) itemView.getLayoutParams();
         status_pictures_container.setPictures(status.retweeted == null ? status.pictures : status.retweeted.pictures, parentWidth - lp.leftMargin - lp.rightMargin);
-    }
-
-    private void setStatusInfo(ImageView icon, TextView text, int count) {
-        text.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
-        icon.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
-        text.setText(String.format("%d", count));
     }
 }
