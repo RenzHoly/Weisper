@@ -125,6 +125,7 @@
             android:fontFamily="serif"
             android:lineSpacingExtra="2sp"
             android:paddingTop="8dp"
+            android:text="@{status.text}"
             android:textColor="?attr/colorText"
             android:textSize="16sp" />
 
@@ -134,7 +135,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/status_text"
             android:orientation="horizontal"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="@{status.retweeted == null ? View.GONE : View.VISIBLE}">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -148,6 +150,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
                 android:lineSpacingExtra="2sp"
+                android:text="@{status.retweeted != null &amp;&amp; status.retweeted.user != null ? String.format(`@%s:%s`, status.retweeted.user.screen_name, status.retweeted.text) : `抱歉，此微博已被作者删除`}"
                 android:textColor="?attr/colorText"
                 android:textSize="16sp" />
         </LinearLayout>

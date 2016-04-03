@@ -22,9 +22,6 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
     @Bind(R.id.status_layout)
     View status_layout;
 
-    @Bind(R.id.status_text)
-    StatusTextView status_text;
-
     @Bind(R.id.retweeted_status_text)
     StatusTextView retweeted_status_text;
 
@@ -47,17 +44,6 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
 
     public void bindView(Status status) {
         DataBindingUtil.bind(itemView).setVariable(BR.status, status);
-
-        status_text.setText(status.text);
-
-        retweeted_status.setVisibility(status.retweeted == null ? View.GONE : View.VISIBLE);
-        if (status.retweeted != null) {
-            if (status.retweeted.user != null) {
-                retweeted_status_text.setText(String.format("@%s:%s", status.retweeted.user.screen_name, status.retweeted.text));
-            } else {
-                retweeted_status_text.setText("抱歉，此微博已被作者删除");
-            }
-        }
 
         status_layout.setOnClickListener(v -> {
             StatusPopupMenu popup = new StatusPopupMenu(itemView.getContext(), status_attitudes_count, Gravity.END);
