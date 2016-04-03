@@ -77,7 +77,6 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
     }
 
     public void bindView(Status status) {
-
         DataBindingUtil.bind(itemView).setVariable(BR.status, status);
 
         status_text.setText(status.text);

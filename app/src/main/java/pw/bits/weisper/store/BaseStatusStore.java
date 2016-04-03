@@ -1,5 +1,6 @@
 package pw.bits.weisper.store;
 
+import android.support.annotation.Nullable;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 
@@ -74,7 +75,7 @@ public class BaseStatusStore {
         });
     }
 
-    protected void load(Statuses statuses, DataCallback callback) {
+    protected void load(Statuses statuses, @Nullable DataCallback callback) {
         int previousSize = statusSortedList.size();
         statusSortedList.addAll(statuses.getStatuses());
         if (callback != null) {
@@ -123,9 +124,9 @@ public class BaseStatusStore {
         @Override
         public boolean areContentsTheSame(Status oldItem, Status newItem) {
             return oldItem.id.equals(newItem.id) &&
-                    oldItem.reposts.equals(newItem.reposts) &&
-                    oldItem.comments.equals(newItem.comments) &&
-                    oldItem.attitudes.equals(newItem.attitudes) &&
+                    oldItem.reposts == newItem.reposts &&
+                    oldItem.comments == newItem.comments &&
+                    oldItem.attitudes == newItem.attitudes &&
                     oldItem.fake == newItem.fake;
         }
 

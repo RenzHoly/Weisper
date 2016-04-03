@@ -1,5 +1,7 @@
 package pw.bits.weisper.library.bean;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -23,29 +25,33 @@ public class Status {
     public String source;
     //微博来源
 
+    @Nullable
     public Geo geo;
     //地理信息字段 详细
 
+    @Nullable
     public User user;
     //微博作者的用户信息字段 详细
 
     @SerializedName("retweeted_status")
+    @Nullable
     public Status retweeted;
     //被转发的原微博信息字段，当该微博为转发微博时返回 详细
 
     @SerializedName("reposts_count")
-    public Integer reposts;
+    public int reposts = 0;
     //转发数
 
     @SerializedName("comments_count")
-    public Integer comments;
+    public int comments = 0;
     //评论数
 
     @SerializedName("attitudes_count")
-    public Integer attitudes;
+    public int attitudes = 0;
     //表态数
 
     @SerializedName("pic_urls")
+    @Nullable
     public List<Picture> pictures;
     //微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
 
