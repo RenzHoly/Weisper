@@ -6,6 +6,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="handlers"
+            type="pw.bits.weisper.view.holder.StatusNormalViewHolder.Handlers" />
+
+        <variable
             name="status"
             type="pw.bits.weisper.library.bean.Status" />
     </data>
@@ -16,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="1px"
         android:background="?attr/colorBackgroundItem"
+        android:onClick="@{handlers.onClickStatus}"
         android:orientation="horizontal"
         android:padding="16dp">
 
@@ -134,6 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/status_text"
+            android:onClick="@{handlers.onClickRetweetedStatus}"
             android:orientation="horizontal"
             android:paddingTop="8dp"
             android:visibility="@{status.retweeted == null ? View.GONE : View.VISIBLE}">
