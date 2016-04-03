@@ -12,7 +12,6 @@ import butterknife.ButterKnife;
 import pw.bits.weisper.BR;
 import pw.bits.weisper.R;
 import pw.bits.weisper.library.bean.Status;
-import pw.bits.weisper.view.image.AvatarImageView;
 import pw.bits.weisper.view.image.ThumbnailsLayout;
 import pw.bits.weisper.view.widget.StatusPopupMenu;
 import pw.bits.weisper.view.widget.StatusTextView;
@@ -29,9 +28,6 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
 
     @Bind(R.id.retweeted_status_text)
     StatusTextView retweeted_status_text;
-
-    @Bind(R.id.user_profile_image)
-    AvatarImageView user_profile_image;
 
     @Bind(R.id.status_reposts_count)
     TextView status_reposts_count;
@@ -82,8 +78,6 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
                 retweeted_status_text.setText("抱歉，此微博已被作者删除");
             }
         }
-
-        user_profile_image.setUser(status.user);
 
         status_layout.setOnClickListener(v -> {
             StatusPopupMenu popup = new StatusPopupMenu(itemView.getContext(), status_attitudes_count, Gravity.END);

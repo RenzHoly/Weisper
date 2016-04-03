@@ -43,7 +43,7 @@ public class PictureFlowViewHolder extends RecyclerView.ViewHolder {
             itemView.getLayoutParams().height = 0;
         }
 
-        user_profile_image.setUser(status.user);
+        AvatarImageView.setUser(user_profile_image, status.user);
         status_text.setText(status.text);
         picture_flow_layout.setPictures(pictures, parentWidth);
     }

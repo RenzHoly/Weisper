@@ -1,7 +1,9 @@
 package pw.bits.weisper.view.image;
 
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
@@ -27,15 +29,16 @@ public class AvatarImageView extends de.hdodenhof.circleimageview.CircleImageVie
         super(context, attrs, defStyle);
     }
 
-    public void setUser(User user) {
+    @BindingAdapter("avatar")
+    public static void setUser(ImageView view, User user) {
         if (user == null) {
             return;
         }
-        Glide.with(getContext())
+        Glide.with(view.getContext())
                 .load(user.profile_image_url)
                 .asBitmap()
                 .placeholder(R.drawable.picture_placeholder)
-                .into(this);
-        setOnClickListener(v -> EventBus.getDefault().post(new OpenUserEvent(user.screen_name)));
+                .into(view);
+        view.setOnClickListener(v -> EventBus.getDefault().post(new OpenUserEvent(user.screen_name)));
     }
 }
