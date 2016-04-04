@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="handlers"
             type="pw.bits.weisper.view.holder.PictureFlowViewHolder.Handlers" />
@@ -19,7 +21,8 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingEnd="16dp"
-        android:paddingStart="16dp">
+        android:paddingStart="16dp"
+        android:visibility="@{status.pictures != null &amp;&amp; status.pictures.size() > 0 ? View.VISIBLE : View.GONE}">
 
         <pw.bits.weisper.view.image.AvatarImageView
             android:id="@+id/user_profile_image"

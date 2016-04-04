@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="handlers"
             type="pw.bits.weisper.view.holder.PictureFlowViewHolder.Handlers" />
@@ -10,12 +12,17 @@
         <variable
             name="status"
             type="pw.bits.weisper.library.bean.Status" />
+
+        <variable
+            name="width"
+            type="Integer" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="@{status.pictures != null &amp;&amp; status.pictures.size() > 0 ? View.VISIBLE : View.GONE}">
 
         <include
             layout="@layout/widget_pinned_status"
@@ -26,6 +33,9 @@
             android:id="@+id/picture_flow_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:visibility="@{status.pictures != null &amp;&amp; status.pictures.size() > 0 ? View.VISIBLE : View.GONE}"
+            bind:pictures="@{status.retweeted == null ? status.pictures : status.retweeted.pictures}"
+            bind:width="@{width}" />
     </LinearLayout>
 </layout>
