@@ -1,5 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -172,7 +173,7 @@
             android:layout_height="0dp"
             android:layout_below="@id/retweeted_status"
             android:paddingTop="8dp"
-            app:pictures="@{status.retweeted == null ? status.pictures : status.retweeted.pictures}"
-            app:width="@{width}" />
+            bind:pictures="@{status.retweeted == null ? status.pictures : status.retweeted.pictures}"
+            bind:width="@{width}" />
     </RelativeLayout>
 </layout>
