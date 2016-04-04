@@ -1,13 +1,31 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/widget_pinned_status" />
+    <data>
 
-    <pw.bits.weisper.view.image.PictureFlowLayout
-        android:id="@+id/picture_flow_layout"
+        <variable
+            name="handlers"
+            type="pw.bits.weisper.view.holder.PictureFlowViewHolder.Handlers" />
+
+        <variable
+            name="status"
+            type="pw.bits.weisper.library.bean.Status" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
-</LinearLayout>
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/widget_pinned_status"
+            bind:handlers="@{handlers}"
+            bind:user="@{status.user}" />
+
+        <pw.bits.weisper.view.image.PictureFlowLayout
+            android:id="@+id/picture_flow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
+</layout>
