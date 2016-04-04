@@ -7,10 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import org.greenrobot.eventbus.EventBus;
-
 import pw.bits.weisper.R;
-import pw.bits.weisper.event.OpenUserEvent;
 import pw.bits.weisper.library.bean.User;
 
 /**
@@ -39,6 +36,5 @@ public class AvatarImageView extends de.hdodenhof.circleimageview.CircleImageVie
                 .asBitmap()
                 .placeholder(R.drawable.picture_placeholder)
                 .into(view);
-        view.setOnClickListener(v -> EventBus.getDefault().post(new OpenUserEvent(user.screen_name)));
     }
 }

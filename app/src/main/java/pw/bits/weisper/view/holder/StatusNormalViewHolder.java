@@ -6,12 +6,13 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pw.bits.weisper.BR;
 import pw.bits.weisper.R;
+import pw.bits.weisper.event.OpenUserEvent;
 import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.view.widget.StatusPopupMenu;
 
@@ -49,17 +50,21 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
         }
 
         public void onClickStatus(View view) {
-            Logger.i("onClickStatus");
             StatusPopupMenu popup = new StatusPopupMenu(view.getContext(), anchor, Gravity.END);
             popup.setStatus(status);
             popup.show();
         }
 
         public void onClickRetweetedStatus(View view) {
-            Logger.i("onClickRetweetedStatus");
             StatusPopupMenu popup = new StatusPopupMenu(view.getContext(), anchor, Gravity.END);
             popup.setStatus(status.retweeted);
             popup.show();
+        }
+
+        public void onClickAvatar(View view) {
+            if (status != null && status.user != null) {
+                EventBus.getDefault().post(new OpenUserEvent(status.user.screen_name));
+            }
         }
     }
 }
