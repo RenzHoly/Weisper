@@ -61,7 +61,7 @@ public class FlowStatusStore extends BaseStatusStore {
     public void loadBatch(int start, int end, DataCallback callback) {
         List<Long> ids = new ArrayList<>();
         for (int i = start; i <= end; i++) {
-            if (!statusSortedList.get(i).fake) {
+            if (!statusSortedList.get(i).fake && i >= 0 && i < statusSortedList.size()) {
                 ids.add(statusSortedList.get(i).id);
             }
         }
