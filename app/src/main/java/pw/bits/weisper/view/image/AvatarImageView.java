@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import pw.bits.weisper.R;
-import pw.bits.weisper.library.bean.User;
 
 /**
  * Created by rzh on 16/3/19.
@@ -26,14 +25,12 @@ public class AvatarImageView extends de.hdodenhof.circleimageview.CircleImageVie
         super(context, attrs, defStyle);
     }
 
-    @BindingAdapter("avatar")
-    public static void setUser(ImageView view, User user) {
-        if (user == null) {
-            return;
-        }
+    @BindingAdapter("android:src")
+    public static void setUser(ImageView view, String url) {
         Glide.with(view.getContext())
-                .load(user.profile_image_url)
+                .load(url)
                 .asBitmap()
+                .dontTransform()
                 .placeholder(R.drawable.picture_placeholder)
                 .into(view);
     }

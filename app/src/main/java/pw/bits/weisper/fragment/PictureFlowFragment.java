@@ -43,7 +43,7 @@ public class PictureFlowFragment extends StorePositionFragment {
         pinned_view.setVisibility(event.isOverlapping() ? View.GONE : View.VISIBLE);
         AvatarImageView avatarImageView = (AvatarImageView) pinned_view.findViewById(R.id.user_profile_image);
         StatusTextView statusTextView = (StatusTextView) pinned_view.findViewById(R.id.status_text);
-        AvatarImageView.setUser(avatarImageView, event.getUser());
+        AvatarImageView.setUser(avatarImageView, event.getUser().profile_image_url);
         statusTextView.setText(event.getText());
     }
 

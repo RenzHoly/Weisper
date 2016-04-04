@@ -34,7 +34,7 @@
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
             android:onClick="@{handlers.onClickAvatar}"
-            app:avatar="@{status.user}"
+            android:src="@{status.user.profile_image_url}"
             app:civ_border_color="#FFCCCCCC"
             app:civ_border_width="0.5dp" />
 
