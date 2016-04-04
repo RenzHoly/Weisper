@@ -29,14 +29,14 @@ public class PictureFlowLayout extends LinearLayout {
     @BindingAdapter({"pictures", "width"})
     public static void setPictures(PictureFlowLayout view, @Nullable List<Picture> pictures, int width) {
         view.removeAllViews();
-        for (int i = 0; i < (pictures == null ? 0 : pictures.size()); i++) {
+        int size = pictures == null ? 0 : pictures.size();
+        for (int i = 0; i < size; i++) {
             PictureFlowImageView imageView = new PictureFlowImageView(view.getContext());
-            imageView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+            imageView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, width));
             imageView.setAdjustViewBounds(true);
             imageView.setImage(pictures, i);
-            imageView.setMaxHeight(width);
-            imageView.setMinimumHeight(width / 2);
             view.addView(imageView);
         }
+        view.getLayoutParams().height = width * size;
     }
 }
