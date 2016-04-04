@@ -56,7 +56,7 @@ public class Status {
 
     @SerializedName("pic_urls")
     @Nullable
-    public List<Picture> pictures;
+    List<Picture> pictures;
     //微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
 
     @Expose
@@ -66,6 +66,15 @@ public class Status {
         return source != null && source.length() > 0 ?
                 String.format("%s 来自 %s", new PrettyTime(Locale.CHINA).format(date).replace(" ", ""), Html.fromHtml(source)) :
                 new PrettyTime(Locale.CHINA).format(date).replace(" ", "");
+    }
+
+    @Nullable
+    public List<Picture> getPictures() {
+        return retweeted == null ? pictures : retweeted.pictures;
+    }
+
+    public String getRetweetedText() {
+        return retweeted != null && retweeted.user != null ? String.format("@%s:%s", retweeted.user.screen_name, retweeted.text) : "抱歉，此微博已被作者删除";
     }
 
     public Status(Long id) {

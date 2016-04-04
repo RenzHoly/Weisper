@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="@{status.pictures != null &amp;&amp; status.pictures.size() > 0 ? View.VISIBLE : View.GONE}">
+        android:visibility="@{status.getPictures() != null &amp;&amp; status.getPictures().size() > 0 ? View.VISIBLE : View.GONE}">
 
         <include
             layout="@layout/widget_pinned_status"
@@ -34,8 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="@{status.pictures != null &amp;&amp; status.pictures.size() > 0 ? View.VISIBLE : View.GONE}"
-            bind:pictures="@{status.retweeted == null ? status.pictures : status.retweeted.pictures}"
+            bind:pictures="@{status.getPictures()}"
             bind:width="@{width}" />
     </LinearLayout>
 </layout>

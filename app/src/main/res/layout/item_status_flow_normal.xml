@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
                 android:lineSpacingExtra="2sp"
-                android:text="@{status.retweeted != null &amp;&amp; status.retweeted.user != null ? String.format(`@%s:%s`, status.retweeted.user.screen_name, status.retweeted.text) : `抱歉，此微博已被作者删除`}"
+                android:text="@{status.getRetweetedText()}"
                 android:textColor="?attr/colorText"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -173,7 +173,7 @@
             android:layout_height="0dp"
             android:layout_below="@id/retweeted_status"
             android:paddingTop="8dp"
-            bind:pictures="@{status.retweeted == null ? status.pictures : status.retweeted.pictures}"
+            bind:pictures="@{status.getPictures()}"
             bind:width="@{width}" />
     </RelativeLayout>
 </layout>
