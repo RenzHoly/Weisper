@@ -40,7 +40,7 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
         binding.executePendingBindings();
     }
 
-    public class Handlers {
+    public static class Handlers {
         private Status status;
         private View anchor;
 

@@ -34,7 +34,7 @@ public class PictureFlowViewHolder extends RecyclerView.ViewHolder {
         binding.executePendingBindings();
     }
 
-    public class Handlers {
+    public static class Handlers {
         private Status status;
 
         public Handlers(Status status) {

@@ -1,13 +1,41 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <pw.bits.weisper.view.list.PictureFlowListView
-        android:id="@+id/picture_list"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="status"
+            type="pw.bits.weisper.library.bean.Status" />
+
+        <variable
+            name="handlers"
+            type="pw.bits.weisper.view.holder.PictureFlowViewHolder.Handlers" />
+
+        <variable
+            name="overlapping"
+            type="Boolean" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/pinned_view"
-        layout="@layout/widget_pinned_status" />
-</FrameLayout>
+        <pw.bits.weisper.view.list.PictureFlowListView
+            android:id="@+id/picture_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{overlapping ? View.GONE : View.VISIBLE}">
+
+            <include
+                layout="@layout/widget_pinned_status"
+                bind:handlers="@{handlers}"
+                bind:status="@{status}" />
+        </FrameLayout>
+    </FrameLayout>
+</layout>

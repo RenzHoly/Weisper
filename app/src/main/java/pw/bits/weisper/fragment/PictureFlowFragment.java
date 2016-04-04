@@ -1,5 +1,7 @@
 package pw.bits.weisper.fragment;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,19 +11,18 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pw.bits.weisper.BR;
 import pw.bits.weisper.R;
 import pw.bits.weisper.event.PictureFlowPositionChangeEvent;
-import pw.bits.weisper.view.image.AvatarImageView;
+import pw.bits.weisper.view.holder.PictureFlowViewHolder;
 import pw.bits.weisper.view.list.FlowListView;
 import pw.bits.weisper.view.list.PictureFlowListView;
-import pw.bits.weisper.view.widget.StatusTextView;
 
 /**
  * Created by rzh on 16/3/14.
  */
 public class PictureFlowFragment extends StorePositionFragment {
-    @Bind(R.id.pinned_view)
-    ViewGroup pinned_view;
+    ViewDataBinding binding;
 
     @Bind(R.id.picture_list)
     PictureFlowListView picture_list;
@@ -35,16 +36,18 @@ public class PictureFlowFragment extends StorePositionFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        pinned_view.setVisibility(View.GONE);
+        binding = DataBindingUtil.bind(view);
+        binding.setVariable(BR.overlapping, true);
+        binding.executePendingBindings();
     }
 
     @Subscribe
     public void onEvent(PictureFlowPositionChangeEvent event) {
-        pinned_view.setVisibility(event.isOverlapping() ? View.GONE : View.VISIBLE);
-        AvatarImageView avatarImageView = (AvatarImageView) pinned_view.findViewById(R.id.user_profile_image);
-        StatusTextView statusTextView = (StatusTextView) pinned_view.findViewById(R.id.status_text);
-//        AvatarImageView.setUser(avatarImageView, event.getUser().profile_image_url);
-        statusTextView.setText(event.getText());
+        PictureFlowViewHolder.Handlers handlers = new PictureFlowViewHolder.Handlers(event.getStatus());
+        binding.setVariable(BR.status, event.getStatus());
+        binding.setVariable(BR.handlers, handlers);
+        binding.setVariable(BR.overlapping, event.isOverlapping());
+        binding.executePendingBindings();
     }
 
     @Override
