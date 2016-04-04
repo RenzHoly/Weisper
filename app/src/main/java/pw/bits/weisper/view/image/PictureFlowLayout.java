@@ -2,7 +2,7 @@ package pw.bits.weisper.view.image;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -27,16 +27,15 @@ public class PictureFlowLayout extends LinearLayout {
     }
 
     @BindingAdapter({"pictures", "width"})
-    public static void setPictures(PictureFlowLayout view, @Nullable List<Picture> pictures, int width) {
+    public static void setPictures(PictureFlowLayout view, @NonNull List<Picture> pictures, int width) {
         view.removeAllViews();
-        int size = pictures == null ? 0 : pictures.size();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < pictures.size(); i++) {
             PictureFlowImageView imageView = new PictureFlowImageView(view.getContext());
             imageView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, width));
             imageView.setAdjustViewBounds(true);
             imageView.setImage(pictures, i);
             view.addView(imageView);
         }
-        view.getLayoutParams().height = width * size;
+        view.getLayoutParams().height = width * pictures.size();
     }
 }

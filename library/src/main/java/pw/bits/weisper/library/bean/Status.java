@@ -1,5 +1,6 @@
 package pw.bits.weisper.library.bean;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Html;
 
@@ -8,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -68,9 +70,10 @@ public class Status {
                 new PrettyTime(Locale.CHINA).format(date).replace(" ", "");
     }
 
-    @Nullable
+    @NonNull
     public List<Picture> getPictures() {
-        return retweeted == null ? pictures : retweeted.pictures;
+        List<Picture> result = retweeted == null ? pictures : retweeted.pictures;
+        return result == null ? new ArrayList<>() : result;
     }
 
     public String getRetweetedText() {

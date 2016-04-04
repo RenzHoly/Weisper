@@ -173,6 +173,7 @@
             android:layout_height="0dp"
             android:layout_below="@id/retweeted_status"
             android:paddingTop="8dp"
+            android:visibility="@{status.getPictures().size() > 0 ? View.VISIBLE : View.GONE}"
             bind:pictures="@{status.getPictures()}"
             bind:width="@{width}" />
     </RelativeLayout>

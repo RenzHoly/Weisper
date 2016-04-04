@@ -22,7 +22,7 @@
         android:orientation="horizontal"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:visibility="@{status.getPictures() != null &amp;&amp; status.getPictures().size() > 0 ? View.VISIBLE : View.GONE}">
+        android:visibility="@{status.getPictures().size() > 0 ? View.VISIBLE : View.GONE}">
 
         <pw.bits.weisper.view.image.AvatarImageView
             android:layout_width="32dp"
