@@ -20,7 +20,7 @@
         <include
             layout="@layout/widget_pinned_status"
             bind:handlers="@{handlers}"
-            bind:user="@{status.user}" />
+            bind:status="@{status}" />
 
         <pw.bits.weisper.view.image.PictureFlowLayout
             android:id="@+id/picture_flow_layout"

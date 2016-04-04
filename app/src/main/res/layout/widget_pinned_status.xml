@@ -8,8 +8,8 @@
             type="pw.bits.weisper.view.holder.PictureFlowViewHolder.Handlers" />
 
         <variable
-            name="user"
-            type="pw.bits.weisper.library.bean.User" />
+            name="status"
+            type="pw.bits.weisper.library.bean.Status" />
     </data>
 
     <LinearLayout
@@ -27,7 +27,7 @@
             android:layout_height="32dp"
             android:layout_marginEnd="8dp"
             android:onClick="@{handlers.onClickAvatar}"
-            android:src="@{user.profile_image_url}"
+            android:src="@{status.user.profile_image_url}"
             app:civ_border_color="#FFCCCCCC"
             app:civ_border_width="0.5dp" />
 
@@ -40,6 +40,7 @@
             android:lines="1"
             android:maxLines="1"
             android:singleLine="true"
+            android:text="@{status.text}"
             android:textColor="?attr/colorText"
             android:textSize="16sp" />
     </LinearLayout>

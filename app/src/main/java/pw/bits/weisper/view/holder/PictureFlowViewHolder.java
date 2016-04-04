@@ -17,7 +17,6 @@ import pw.bits.weisper.event.OpenUserEvent;
 import pw.bits.weisper.library.bean.Picture;
 import pw.bits.weisper.library.bean.Status;
 import pw.bits.weisper.view.image.PictureFlowLayout;
-import pw.bits.weisper.view.widget.StatusTextView;
 
 /**
  * Created by rzh on 16/3/19.
@@ -25,9 +24,6 @@ import pw.bits.weisper.view.widget.StatusTextView;
 public class PictureFlowViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.picture_flow_layout)
     PictureFlowLayout picture_flow_layout;
-
-    @Bind(R.id.status_text)
-    StatusTextView status_text;
 
     private int parentWidth = 0;
 
@@ -51,7 +47,6 @@ public class PictureFlowViewHolder extends RecyclerView.ViewHolder {
             itemView.getLayoutParams().height = 0;
         }
 
-        status_text.setText(status.text);
         picture_flow_layout.setPictures(pictures, parentWidth);
     }
 
