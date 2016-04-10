@@ -9,7 +9,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import pw.bits.weisper.BR;
-import pw.bits.weisper.R;
 import pw.bits.weisper.event.OpenUserEvent;
 import pw.bits.weisper.library.bean.Status;
 
