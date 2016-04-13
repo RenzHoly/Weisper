@@ -1,10 +1,10 @@
-package pw.bits.weisper.library;
+package pw.bits.weisper;
 
 import java.util.List;
 
-import pw.bits.weisper.library.bean.Status;
-import pw.bits.weisper.library.bean.StatusResponse;
-import pw.bits.weisper.library.bean.User;
+import pw.bits.weisper.bean.Status;
+import pw.bits.weisper.bean.StatusResponse;
+import pw.bits.weisper.bean.User;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;

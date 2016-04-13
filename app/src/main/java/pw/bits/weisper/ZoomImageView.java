@@ -1,4 +1,4 @@
-package pw.bits.weisper.library;
+package pw.bits.weisper;
 
 /**
  * Created by rzh on 16/3/27.

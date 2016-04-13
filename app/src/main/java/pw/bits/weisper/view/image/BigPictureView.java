@@ -17,8 +17,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import pw.bits.weisper.R;
 import pw.bits.weisper.event.ClosePictureEvent;
-import pw.bits.weisper.library.LongPictureView;
-import pw.bits.weisper.library.ZoomImageView;
+import pw.bits.weisper.LongPictureView;
+import pw.bits.weisper.ZoomImageView;
 
 /**
  * Created by rzh on 16/3/23.

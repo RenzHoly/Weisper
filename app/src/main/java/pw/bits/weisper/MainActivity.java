@@ -41,7 +41,6 @@ import pw.bits.weisper.fragment.PictureFragment;
 import pw.bits.weisper.fragment.StatusFlowFragment;
 import pw.bits.weisper.fragment.TopicFragment;
 import pw.bits.weisper.fragment.UserFragment;
-import pw.bits.weisper.library.WeiboModel;
 import pw.bits.weisper.store.FlowStatusStore;
 import pw.bits.weisper.view.widget.Toolbar;
 

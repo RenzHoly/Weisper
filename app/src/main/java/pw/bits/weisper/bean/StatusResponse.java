@@ -1,4 +1,4 @@
-package pw.bits.weisper.library.bean;
+package pw.bits.weisper.bean;
 
 import android.support.annotation.NonNull;
 
@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pw.bits.weisper.bean.Status;
 
 /**
  * Created by rzh on 16/3/15.
@@ -20,10 +22,10 @@ public class StatusResponse {
     }
 
     public long getSinceId() {
-        return items.size() == 0 ? 0L : items.get(0).id;
+        return items.size() == 0 ? 0L : items.get(0).getId();
     }
 
     public long getMaxId() {
-        return items.size() == 0 ? 0L : items.get(items.size() - 1).id - 1;
+        return items.size() == 0 ? 0L : items.get(items.size() - 1).getId() - 1;
     }
 }

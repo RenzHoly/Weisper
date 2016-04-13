@@ -1,4 +1,4 @@
-package pw.bits.weisper.library;
+package pw.bits.weisper;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -1,4 +1,4 @@
-package pw.bits.weisper.library.bean;
+package pw.bits.weisper.bean;
 
 import android.support.annotation.NonNull;
 import android.text.Html;

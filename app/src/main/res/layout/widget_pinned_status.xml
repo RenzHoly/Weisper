@@ -11,7 +11,7 @@
 
         <variable
             name="status"
-            type="pw.bits.weisper.library.bean.Status" />
+            type="pw.bits.weisper.bean.Status" />
     </data>
 
     <LinearLayout

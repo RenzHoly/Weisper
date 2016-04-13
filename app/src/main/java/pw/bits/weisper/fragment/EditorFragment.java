@@ -15,8 +15,8 @@ import com.orhanobut.logger.Logger;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pw.bits.weisper.R;
-import pw.bits.weisper.library.WeiboModel;
-import pw.bits.weisper.library.bean.Status;
+import pw.bits.weisper.WeiboModel;
+import pw.bits.weisper.bean.Status;
 import rx.Subscriber;
 
 /**

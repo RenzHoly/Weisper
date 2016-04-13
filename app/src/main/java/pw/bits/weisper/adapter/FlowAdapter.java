@@ -8,7 +8,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import pw.bits.weisper.event.RemoveLoadViewHolderEvent;
-import pw.bits.weisper.library.bean.Status;
+import pw.bits.weisper.bean.Status;
 
 /**
  * Created by rzh on 16/3/27.

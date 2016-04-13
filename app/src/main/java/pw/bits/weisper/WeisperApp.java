@@ -12,8 +12,6 @@ import com.orhanobut.logger.Logger;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import pw.bits.weisper.library.WeiboModel;
-import pw.bits.weisper.library.WeiboService;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
