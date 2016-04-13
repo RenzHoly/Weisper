@@ -32,10 +32,6 @@ public class Status {
     //微博来源
 
     @Nullable
-    public Geo geo;
-    //地理信息字段 详细
-
-    @Nullable
     public User user;
     //微博作者的用户信息字段 详细
 
