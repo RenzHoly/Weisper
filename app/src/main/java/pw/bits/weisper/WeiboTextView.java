@@ -25,6 +25,8 @@ import android.widget.TextView;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import pw.bits.weisper.data.Emotions;
+
 /**
  * Created by rzh on 16/3/15.
  */

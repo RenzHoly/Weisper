@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import pw.bits.weisper.R;
 import pw.bits.weisper.event.OpenUserEvent;
-import pw.bits.weisper.bean.User;
+import pw.bits.weisper.data.bean.User;
 import rx.Observable;
 import rx.Subscriber;
 

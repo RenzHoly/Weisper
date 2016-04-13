@@ -8,7 +8,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import pw.bits.weisper.R;
 import pw.bits.weisper.event.OpenEditorEvent;
-import pw.bits.weisper.bean.Status;
+import pw.bits.weisper.data.bean.Status;
 
 /**
  * Created by rzh on 16/3/28.

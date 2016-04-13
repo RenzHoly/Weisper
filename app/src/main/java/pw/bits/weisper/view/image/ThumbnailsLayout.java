@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import java.util.List;
 
 import pw.bits.weisper.R;
-import pw.bits.weisper.bean.Picture;
+import pw.bits.weisper.data.bean.Picture;
 
 /**
  * Created by rzh on 16/3/19.

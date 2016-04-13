@@ -1,8 +1,8 @@
-package pw.bits.weisper;
+package pw.bits.weisper.data;
 
-import pw.bits.weisper.bean.Status;
-import pw.bits.weisper.bean.StatusResponse;
-import pw.bits.weisper.bean.User;
+import pw.bits.weisper.data.bean.Status;
+import pw.bits.weisper.data.bean.StatusResponse;
+import pw.bits.weisper.data.bean.User;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;

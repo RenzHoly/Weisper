@@ -1,6 +1,6 @@
 package pw.bits.weisper.event;
 
-import pw.bits.weisper.bean.Status;
+import pw.bits.weisper.data.bean.Status;
 
 /**
  * Created by rzh on 16/3/28.

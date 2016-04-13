@@ -11,7 +11,7 @@
 
         <variable
             name="status"
-            type="pw.bits.weisper.bean.Status" />
+            type="pw.bits.weisper.data.bean.Status" />
 
         <variable
             name="width"

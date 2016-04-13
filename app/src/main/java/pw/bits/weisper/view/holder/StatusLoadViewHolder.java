@@ -5,7 +5,7 @@ import android.view.View;
 import org.greenrobot.eventbus.EventBus;
 
 import pw.bits.weisper.event.RemoveLoadViewHolderEvent;
-import pw.bits.weisper.bean.Status;
+import pw.bits.weisper.data.bean.Status;
 import pw.bits.weisper.store.FlowStatusStore;
 
 /**

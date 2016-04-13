@@ -8,8 +8,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import pw.bits.weisper.event.StatusEvent;
-import pw.bits.weisper.bean.StatusResponse;
-import pw.bits.weisper.WeiboModel;
+import pw.bits.weisper.data.bean.StatusResponse;
+import pw.bits.weisper.data.WeiboModel;
 import rx.Subscriber;
 
 /**

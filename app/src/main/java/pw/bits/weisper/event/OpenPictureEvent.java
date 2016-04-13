@@ -3,7 +3,7 @@ package pw.bits.weisper.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import pw.bits.weisper.bean.Picture;
+import pw.bits.weisper.data.bean.Picture;
 
 /**
  * Created by rzh on 16/3/20.

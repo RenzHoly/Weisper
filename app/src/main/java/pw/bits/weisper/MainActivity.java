@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
+import pw.bits.weisper.data.WeiboModel;
 import pw.bits.weisper.event.ClosePictureEvent;
 import pw.bits.weisper.event.CloseUserEvent;
 import pw.bits.weisper.event.OpenEditorEvent;

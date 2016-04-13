@@ -1,9 +1,11 @@
-package pw.bits.weisper;
+package pw.bits.weisper.data;
 
 import android.support.annotation.DrawableRes;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import pw.bits.weisper.R;
 
 /**
  * Created by rzh on 16/3/15.

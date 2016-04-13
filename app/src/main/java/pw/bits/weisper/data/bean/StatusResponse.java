@@ -1,4 +1,4 @@
-package pw.bits.weisper.bean;
+package pw.bits.weisper.data.bean;
 
 import android.support.annotation.NonNull;
 
@@ -6,8 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import pw.bits.weisper.bean.Status;
 
 /**
  * Created by rzh on 16/3/15.
