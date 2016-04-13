@@ -14,7 +14,7 @@
         android:textColor="?attr/colorText"
         android:textSize="16sp" />
 
-    <pw.bits.weisper.WeiboEditText
+    <pw.bits.weisper.view.widget.WeiboEditText
         android:id="@+id/editor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

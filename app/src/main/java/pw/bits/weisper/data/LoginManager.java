@@ -1,4 +1,4 @@
-package pw.bits.weisper;
+package pw.bits.weisper.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;

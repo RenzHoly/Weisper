@@ -10,7 +10,6 @@ import org.greenrobot.eventbus.EventBus;
 import pw.bits.weisper.event.OpenLinkEvent;
 import pw.bits.weisper.event.OpenTopicEvent;
 import pw.bits.weisper.event.OpenUserEvent;
-import pw.bits.weisper.WeiboTextView;
 
 /**
  * Created by rzh on 16/3/26.

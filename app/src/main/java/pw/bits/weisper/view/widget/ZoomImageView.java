@@ -1,4 +1,4 @@
-package pw.bits.weisper;
+package pw.bits.weisper.view.widget;
 
 /**
  * Created by rzh on 16/3/27.

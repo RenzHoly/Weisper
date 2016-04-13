@@ -1,4 +1,4 @@
-package pw.bits.weisper;
+package pw.bits.weisper.view.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
