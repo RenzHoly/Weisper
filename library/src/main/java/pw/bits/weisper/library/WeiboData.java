@@ -10,7 +10,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import pw.bits.weisper.library.bean.Status;
-import pw.bits.weisper.library.bean.Statuses;
+import pw.bits.weisper.library.bean.StatusResponse;
 import pw.bits.weisper.library.bean.User;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -49,19 +49,19 @@ public class WeiboData {
 
     private static WeiboService service = retrofit.create(WeiboService.class);
 
-    public static Observable<Statuses> statusesHomeTimeline(long since_id, long max_id) {
+    public static Observable<StatusResponse> statusesHomeTimeline(long since_id, long max_id) {
         return service.statusesHomeTimeline(20, since_id, max_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<Statuses> statusesUserTimeLine(String screen_name, long since_id, long max_id) {
+    public static Observable<StatusResponse> statusesUserTimeLine(String screen_name, long since_id, long max_id) {
         return service.statusesUserTimeLine(20, since_id, max_id, screen_name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<Statuses> searchTopics(String topic) {
+    public static Observable<StatusResponse> searchTopics(String topic) {
         return service.searchTopics(50, topic)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -85,7 +85,7 @@ public class WeiboData {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<Statuses> statusesShowBatch(List<Long> ids) {
+    public static Observable<StatusResponse> statusesShowBatch(List<Long> ids) {
         String string = "";
         for (int i = 0; i < ids.size() - 1; i++) {
             string += ids.get(i) + ",";

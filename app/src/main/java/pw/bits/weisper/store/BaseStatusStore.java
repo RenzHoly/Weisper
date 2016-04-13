@@ -9,7 +9,7 @@ import java.util.List;
 
 import pw.bits.weisper.adapter.FlowAdapter;
 import pw.bits.weisper.library.bean.Status;
-import pw.bits.weisper.library.bean.Statuses;
+import pw.bits.weisper.library.bean.StatusResponse;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -27,8 +27,8 @@ public class BaseStatusStore {
         adapters.add(adapter);
     }
 
-    protected void loadFront(Observable<Statuses> observable, DataCallback callback) {
-        observable.subscribe(new Subscriber<Statuses>() {
+    protected void loadFront(Observable<StatusResponse> observable, DataCallback callback) {
+        observable.subscribe(new Subscriber<StatusResponse>() {
             @Override
             public void onCompleted() {
 
@@ -40,7 +40,7 @@ public class BaseStatusStore {
             }
 
             @Override
-            public void onNext(Statuses statuses) {
+            public void onNext(StatusResponse statuses) {
                 if (since_id != 0 && statuses.getMaxId() > since_id) {
                     statusSortedList.add(new Status((statuses.getMaxId() + since_id) / 2));
                 }
@@ -54,8 +54,8 @@ public class BaseStatusStore {
         });
     }
 
-    protected void loadBehind(Observable<Statuses> observable, DataCallback callback) {
-        observable.subscribe(new Subscriber<Statuses>() {
+    protected void loadBehind(Observable<StatusResponse> observable, DataCallback callback) {
+        observable.subscribe(new Subscriber<StatusResponse>() {
             @Override
             public void onCompleted() {
 
@@ -67,7 +67,7 @@ public class BaseStatusStore {
             }
 
             @Override
-            public void onNext(Statuses statuses) {
+            public void onNext(StatusResponse statuses) {
                 if (max_id == 0 || statuses.getMaxId() < max_id)
                     max_id = statuses.getMaxId();
                 load(statuses, callback);
@@ -75,9 +75,9 @@ public class BaseStatusStore {
         });
     }
 
-    protected void load(Statuses statuses, @Nullable DataCallback callback) {
+    protected void load(StatusResponse statuses, @Nullable DataCallback callback) {
         int previousSize = statusSortedList.size();
-        statusSortedList.addAll(statuses.getStatuses());
+        statusSortedList.addAll(statuses.getItems());
         if (callback != null) {
             callback.onDone(statusSortedList.size() - previousSize);
         }

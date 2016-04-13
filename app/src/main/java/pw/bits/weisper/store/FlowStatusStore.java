@@ -8,7 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import pw.bits.weisper.event.StatusEvent;
-import pw.bits.weisper.library.bean.Statuses;
+import pw.bits.weisper.library.bean.StatusResponse;
 import pw.bits.weisper.library.WeiboData;
 import rx.Subscriber;
 
@@ -40,7 +40,7 @@ public class FlowStatusStore extends BaseStatusStore {
         }
         WeiboData
                 .statusesHomeTimeline(statusSortedList.get(position + 1).id, statusSortedList.get(position - 1).id - 1)
-                .subscribe(new Subscriber<Statuses>() {
+                .subscribe(new Subscriber<StatusResponse>() {
                     @Override
                     public void onCompleted() {
 
@@ -52,7 +52,7 @@ public class FlowStatusStore extends BaseStatusStore {
                     }
 
                     @Override
-                    public void onNext(Statuses statuses) {
+                    public void onNext(StatusResponse statuses) {
                         load(statuses, callback);
                     }
                 });
@@ -67,7 +67,7 @@ public class FlowStatusStore extends BaseStatusStore {
         }
         WeiboData
                 .statusesShowBatch(ids)
-                .subscribe(new Subscriber<Statuses>() {
+                .subscribe(new Subscriber<StatusResponse>() {
                     @Override
                     public void onCompleted() {
 
@@ -79,7 +79,7 @@ public class FlowStatusStore extends BaseStatusStore {
                     }
 
                     @Override
-                    public void onNext(Statuses statuses) {
+                    public void onNext(StatusResponse statuses) {
                         load(statuses, callback);
                     }
                 });

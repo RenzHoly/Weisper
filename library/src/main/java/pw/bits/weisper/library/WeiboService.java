@@ -1,7 +1,7 @@
 package pw.bits.weisper.library;
 
 import pw.bits.weisper.library.bean.Status;
-import pw.bits.weisper.library.bean.Statuses;
+import pw.bits.weisper.library.bean.StatusResponse;
 import pw.bits.weisper.library.bean.User;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -15,14 +15,14 @@ import rx.Observable;
  */
 public interface WeiboService {
     @GET("statuses/home_timeline.json")
-    Observable<Statuses> statusesHomeTimeline(
+    Observable<StatusResponse> statusesHomeTimeline(
             @Query("count") Integer count,
             @Query("since_id") Long since_id,
             @Query("max_id") Long max_id
     );
 
     @GET("statuses/user_timeline.json")
-    Observable<Statuses> statusesUserTimeLine(
+    Observable<StatusResponse> statusesUserTimeLine(
             @Query("count") Integer count,
             @Query("since_id") Long since_id,
             @Query("max_id") Long max_id,
@@ -30,7 +30,7 @@ public interface WeiboService {
     );
 
     @GET("search/topics.json")
-    Observable<Statuses> searchTopics(
+    Observable<StatusResponse> searchTopics(
             @Query("count") Integer count,
             @Query("q") String topic
     );
@@ -50,7 +50,7 @@ public interface WeiboService {
     );
 
     @GET("statuses/show_batch.json")
-    Observable<Statuses> statusesShowBatch(
+    Observable<StatusResponse> statusesShowBatch(
             @Query("ids") String ids
     );
 }
