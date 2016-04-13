@@ -14,16 +14,10 @@ public class StatusResponse {
     }
 
     public Long getSinceId() {
-        if (items.size() == 0) {
-            return 0L;
-        }
-        return items.get(0).id;
+        return items.size() == 0 ? 0L : items.get(0).id;
     }
 
     public Long getMaxId() {
-        if (items.size() == 0) {
-            return 0L;
-        }
-        return items.get(items.size() - 1).id - 1;
+        return items.size() == 0 ? 0L : items.get(items.size() - 1).id - 1;
     }
 }
