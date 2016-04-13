@@ -106,8 +106,8 @@ public class Status {
     }
 
     @NonNull
-    public String getUserProfileImageUrl() {
-        return user == null ? "" : user.profile_image_url;
+    public String getAvatar() {
+        return user == null ? "" : user.avatar_large;
     }
 
     @NonNull
