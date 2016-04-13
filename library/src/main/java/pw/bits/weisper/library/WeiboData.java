@@ -90,7 +90,9 @@ public class WeiboData {
         for (int i = 0; i < ids.size() - 1; i++) {
             string += ids.get(i) + ",";
         }
-        string += ids.get(ids.size() - 1);
+        if (ids.size() > 0) {
+            string += ids.get(ids.size() - 1);
+        }
         return service.statusesShowBatch(string)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
