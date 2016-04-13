@@ -21,7 +21,7 @@ public class Status {
     Date date;
     //微博创建时间
 
-    Long id;
+    long id;
     //微博ID
 
     String text;
@@ -110,9 +110,8 @@ public class Status {
         return user == null ? "" : user.avatar_large;
     }
 
-    @NonNull
-    public Long getId() {
-        return id == null ? 0L : id;
+    public long getId() {
+        return id;
     }
 
     public boolean isFake() {
@@ -122,10 +121,5 @@ public class Status {
     public Status(Long id) {
         this.id = id;
         this.fake = true;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return o instanceof Status && this.id.equals(((Status) o).id);
     }
 }
