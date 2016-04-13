@@ -57,13 +57,13 @@ public class StatusNormalViewHolder extends StatusAbstractViewHolder {
 
         public void onClickRetweetedStatus(View view) {
             StatusPopupMenu popup = new StatusPopupMenu(view.getContext(), anchor, Gravity.END);
-            popup.setStatus(status.retweeted);
+            popup.setStatus(status.getRetweeted());
             popup.show();
         }
 
         public void onClickAvatar(View view) {
-            if (status != null && status.user != null) {
-                EventBus.getDefault().post(new OpenUserEvent(status.user.screen_name));
+            if (status != null) {
+                EventBus.getDefault().post(new OpenUserEvent(status.getScreenName()));
             }
         }
     }

@@ -39,7 +39,7 @@ public class FlowStatusStore extends BaseStatusStore {
             return;
         }
         WeiboData
-                .statusesHomeTimeline(statusSortedList.get(position + 1).id, statusSortedList.get(position - 1).id - 1)
+                .statusesHomeTimeline(statusSortedList.get(position + 1).getId(), statusSortedList.get(position - 1).getId() - 1)
                 .subscribe(new Subscriber<StatusResponse>() {
                     @Override
                     public void onCompleted() {
@@ -61,8 +61,8 @@ public class FlowStatusStore extends BaseStatusStore {
     public void loadBatch(int start, int end, DataCallback callback) {
         List<Long> ids = new ArrayList<>();
         for (int i = start; i <= end; i++) {
-            if (i >= 0 && i < statusSortedList.size() && !statusSortedList.get(i).fake) {
-                ids.add(statusSortedList.get(i).id);
+            if (i >= 0 && i < statusSortedList.size() && !statusSortedList.get(i).isFake()) {
+                ids.add(statusSortedList.get(i).getId());
             }
         }
         WeiboData

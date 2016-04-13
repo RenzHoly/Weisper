@@ -1,7 +1,6 @@
 package pw.bits.weisper.library.bean;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.Html;
 
 import com.google.gson.annotations.Expose;
@@ -19,47 +18,45 @@ import java.util.Locale;
  */
 public class Status {
     @SerializedName("created_at")
-    public Date date;
+    Date date;
     //微博创建时间
 
-    public Long id;
+    Long id;
     //微博ID
 
-    public String text;
+    String text;
     //微博信息内容
 
     String source;
     //微博来源
 
-    @Nullable
-    public User user;
+    User user;
     //微博作者的用户信息字段 详细
 
     @SerializedName("retweeted_status")
-    @Nullable
-    public Status retweeted;
+    Status retweeted;
     //被转发的原微博信息字段，当该微博为转发微博时返回 详细
 
     @SerializedName("reposts_count")
-    public int reposts = 0;
+    int reposts = 0;
     //转发数
 
     @SerializedName("comments_count")
-    public int comments = 0;
+    int comments = 0;
     //评论数
 
     @SerializedName("attitudes_count")
-    public int attitudes = 0;
+    int attitudes = 0;
     //表态数
 
     @SerializedName("pic_urls")
-    @Nullable
     List<Picture> pictures;
     //微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
 
     @Expose
-    public boolean fake = false;
+    boolean fake = false;
 
+    @NonNull
     public String getSource() {
         return source != null && source.length() > 0 ?
                 String.format("%s 来自 %s", new PrettyTime(Locale.CHINA).format(date).replace(" ", ""), Html.fromHtml(source)) :
@@ -68,12 +65,58 @@ public class Status {
 
     @NonNull
     public List<Picture> getPictures() {
-        List<Picture> result = retweeted == null ? pictures : retweeted.pictures;
+        List<Picture> result = retweeted == null ? pictures : retweeted.getPictures();
         return result == null ? new ArrayList<>() : result;
     }
 
+    @NonNull
+    public String getScreenName() {
+        return user == null ? "" : user.screen_name;
+    }
+
+    @NonNull
     public String getRetweetedText() {
-        return retweeted != null && retweeted.user != null ? String.format("@%s:%s", retweeted.user.screen_name, retweeted.text) : "抱歉，此微博已被作者删除";
+        return retweeted != null ? String.format("@%s:%s", retweeted.getScreenName(), retweeted.getText()) : "抱歉，此微博已被作者删除";
+    }
+
+    @NonNull
+    public Status getRetweeted() {
+        return retweeted == null ? new Status(0L) : retweeted;
+    }
+
+    public int getReposts() {
+        return reposts;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public int getAttitudes() {
+        return attitudes;
+    }
+
+    public boolean hasRetweeted() {
+        return retweeted != null;
+    }
+
+    @NonNull
+    public String getText() {
+        return text == null ? "" : text;
+    }
+
+    @NonNull
+    public String getUserProfileImageUrl() {
+        return user == null ? "" : user.profile_image_url;
+    }
+
+    @NonNull
+    public Long getId() {
+        return id == null ? 0L : id;
+    }
+
+    public boolean isFake() {
+        return fake;
     }
 
     public Status(Long id) {

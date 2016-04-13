@@ -90,7 +90,7 @@ public class BaseStatusStore {
     public class StatusCallback extends SortedList.Callback<Status> {
         @Override
         public int compare(Status o1, Status o2) {
-            return o2.id.compareTo(o1.id);
+            return o2.getId().compareTo(o1.getId());
         }
 
         @Override
@@ -123,17 +123,17 @@ public class BaseStatusStore {
 
         @Override
         public boolean areContentsTheSame(Status oldItem, Status newItem) {
-            return oldItem.id.equals(newItem.id) &&
-                    oldItem.reposts == newItem.reposts &&
-                    oldItem.comments == newItem.comments &&
-                    oldItem.attitudes == newItem.attitudes &&
-                    oldItem.fake == newItem.fake;
+            return oldItem.getId().equals(newItem.getId()) &&
+                    oldItem.getReposts() == newItem.getReposts() &&
+                    oldItem.getComments() == newItem.getComments() &&
+                    oldItem.getAttitudes() == newItem.getAttitudes() &&
+                    oldItem.isFake() == newItem.isFake();
         }
 
         @Override
         public boolean areItemsTheSame(Status item1, Status item2) {
-            return item1.id.equals(item2.id) &&
-                    item1.fake == item2.fake;
+            return item1.getId().equals(item2.getId()) &&
+                    item1.isFake() == item2.isFake();
         }
     }
 

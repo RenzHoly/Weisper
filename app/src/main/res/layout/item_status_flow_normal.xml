@@ -35,7 +35,7 @@
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
             android:onClick="@{handlers.onClickAvatar}"
-            android:src="@{status.user.profile_image_url}"
+            android:src="@{status.getUserProfileImageUrl()}"
             app:civ_border_color="#FFCCCCCC"
             app:civ_border_width="0.5dp" />
 
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@id/avatar"
-            android:text="@{status.user.screen_name}"
+            android:text="@{status.getScreenName()}"
             android:textColor="?attr/colorText"
             android:textSize="14sp" />
 
@@ -73,17 +73,17 @@
                 android:src="@drawable/ic_repeat_black_18dp"
                 android:tint="@android:color/darker_gray"
                 android:translationY="1.5dp"
-                android:visibility="@{status.reposts == 0 ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{status.getReposts() == 0 ? View.GONE : View.VISIBLE}" />
 
             <TextView
                 android:id="@+id/status_reposts_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{String.valueOf(status.reposts)}"
+                android:text="@{String.valueOf(status.getReposts())}"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp"
-                android:visibility="@{status.reposts == 0 ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{status.getReposts() == 0 ? View.GONE : View.VISIBLE}" />
 
             <ImageView
                 android:id="@+id/status_comments_icon"
@@ -94,17 +94,17 @@
                 android:src="@drawable/ic_chat_bubble_outline_black_18dp"
                 android:tint="@android:color/darker_gray"
                 android:translationY="1.5dp"
-                android:visibility="@{status.comments == 0 ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{status.getComments() == 0 ? View.GONE : View.VISIBLE}" />
 
             <TextView
                 android:id="@+id/status_comments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{String.valueOf(status.comments)}"
+                android:text="@{String.valueOf(status.getComments())}"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp"
-                android:visibility="@{status.comments == 0 ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{status.getComments() == 0 ? View.GONE : View.VISIBLE}" />
 
             <ImageView
                 android:id="@+id/status_attitudes_icon"
@@ -115,17 +115,17 @@
                 android:src="@drawable/ic_favorite_border_black_18dp"
                 android:tint="@android:color/darker_gray"
                 android:translationY="1dp"
-                android:visibility="@{status.attitudes == 0 ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{status.getAttitudes() == 0 ? View.GONE : View.VISIBLE}" />
 
             <TextView
                 android:id="@+id/status_attitudes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@{String.valueOf(status.attitudes)}"
+                android:text="@{String.valueOf(status.getAttitudes())}"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp"
-                android:visibility="@{status.attitudes == 0 ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{status.getAttitudes() == 0 ? View.GONE : View.VISIBLE}" />
         </LinearLayout>
 
         <pw.bits.weisper.view.widget.StatusTextView
@@ -136,7 +136,7 @@
             android:fontFamily="serif"
             android:lineSpacingExtra="2sp"
             android:paddingTop="8dp"
-            android:text="@{status.text}"
+            android:text="@{status.getText()}"
             android:textColor="?attr/colorText"
             android:textSize="16sp" />
 
@@ -148,7 +148,7 @@
             android:onClick="@{handlers.onClickRetweetedStatus}"
             android:orientation="horizontal"
             android:paddingTop="8dp"
-            android:visibility="@{status.retweeted == null ? View.GONE : View.VISIBLE}">
+            android:visibility="@{status.hasRetweeted() ? View.VISIBLE : View.GONE}">
 
             <ImageView
                 android:layout_width="wrap_content"

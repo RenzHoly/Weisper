@@ -41,8 +41,8 @@ public class PictureFlowViewHolder extends RecyclerView.ViewHolder {
         }
 
         public void onClickAvatar(View view) {
-            if (status != null && status.user != null) {
-                EventBus.getDefault().post(new OpenUserEvent(status.user.screen_name));
+            if (status != null) {
+                EventBus.getDefault().post(new OpenUserEvent(status.getScreenName()));
             }
         }
     }
