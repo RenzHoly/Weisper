@@ -2,6 +2,7 @@ package pw.bits.weisper.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 
 /**
  * Created by rzh on 16/4/13.
@@ -29,6 +30,7 @@ public class LoginManager {
         return this;
     }
 
+    @Nullable
     public String getAccessToken() {
         return preferences.getString(KEY_ACCESS_TOKEN, null);
     }

@@ -15,9 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.orhanobut.hawk.Hawk;
-import com.orhanobut.hawk.HawkBuilder;
-import com.orhanobut.hawk.LogLevel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
+import pw.bits.weisper.data.LoginManager;
 import pw.bits.weisper.data.WeiboModel;
 import pw.bits.weisper.event.ClosePictureEvent;
 import pw.bits.weisper.event.CloseUserEvent;
@@ -65,12 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setupView();
-        Hawk.init(this)
-                .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
-                .setStorage(HawkBuilder.newSharedPrefStorage(this))
-                .setLogLevel(LogLevel.FULL)
-                .build();
-        if (Hawk.get("access-token", null) != null) {
+        if (LoginManager.with(this).getAccessToken() != null) {
             EventBus.getDefault().register(this);
             fm.beginTransaction()
                     .setCustomAnimations(R.anim.slow_fade_in, R.anim.fast_fade_out, R.anim.slow_fade_in, R.anim.fast_fade_out)
@@ -160,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     public void onEvent(CloseUserEvent event) {
-        toolbar.setAvatar(WeiboModel.usersShow(Hawk.get("uid", 0L)));
+        toolbar.setAvatar(WeiboModel.usersShow(LoginManager.with(this).getUID()));
     }
 
     @Subscribe
@@ -220,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         FlowStatusStore.instance.start();
-        toolbar.setAvatar(WeiboModel.usersShow(Hawk.get("uid", 0L)));
+        toolbar.setAvatar(WeiboModel.usersShow(LoginManager.with(this).getUID()));
     }
 
     @Override

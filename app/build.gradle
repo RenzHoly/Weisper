@@ -50,7 +50,6 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'
 
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.github.orhanobut:hawk:1.21'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'

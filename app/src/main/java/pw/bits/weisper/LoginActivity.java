@@ -8,14 +8,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.orhanobut.hawk.Hawk;
-
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pw.bits.weisper.data.LoginManager;
 
 /**
  * Created by rzh on 16/3/17.
@@ -58,8 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         Matcher uid = Pattern.compile("(?<=uid=)[^&]+").matcher(url);
         CharSequence message;
         if (token.find() && expires_in.find() && uid.find()) {
-            Hawk.put("access-token", token.group());
-            Hawk.put("uid", Long.parseLong(uid.group()));
+            LoginManager.with(this).setAccessToken(token.group()).setUID(Long.parseLong(uid.group()));
             startActivity(new Intent(this, MainActivity.class));
             message = String.format(Locale.getDefault(), getString(R.string.login_success), Long.valueOf(expires_in.group()) / 60 / 60 / 24);
         } else {
