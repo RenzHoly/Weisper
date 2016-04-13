@@ -41,7 +41,7 @@ import pw.bits.weisper.fragment.PictureFragment;
 import pw.bits.weisper.fragment.StatusFlowFragment;
 import pw.bits.weisper.fragment.TopicFragment;
 import pw.bits.weisper.fragment.UserFragment;
-import pw.bits.weisper.library.WeiboData;
+import pw.bits.weisper.library.WeiboModel;
 import pw.bits.weisper.store.FlowStatusStore;
 import pw.bits.weisper.view.widget.Toolbar;
 
@@ -155,12 +155,12 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.main_layout, userFragment)
                 .addToBackStack(null)
                 .commit();
-        toolbar.setAvatar(WeiboData.usersShow(event.getScreenName()));
+        toolbar.setAvatar(WeiboModel.usersShow(event.getScreenName()));
     }
 
     @Subscribe
     public void onEvent(CloseUserEvent event) {
-        toolbar.setAvatar(WeiboData.usersShow(Hawk.get("uid", 0L)));
+        toolbar.setAvatar(WeiboModel.usersShow(Hawk.get("uid", 0L)));
     }
 
     @Subscribe
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         FlowStatusStore.instance.start();
-        toolbar.setAvatar(WeiboData.usersShow(Hawk.get("uid", 0L)));
+        toolbar.setAvatar(WeiboModel.usersShow(Hawk.get("uid", 0L)));
     }
 
     @Override

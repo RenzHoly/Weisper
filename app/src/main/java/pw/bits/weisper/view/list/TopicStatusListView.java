@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import pw.bits.weisper.adapter.StatusFlowAdapter;
-import pw.bits.weisper.library.WeiboData;
+import pw.bits.weisper.library.WeiboModel;
 import pw.bits.weisper.store.BaseStatusStore;
 
 /**
@@ -49,7 +49,7 @@ public class TopicStatusListView extends SwipeRefreshLayout {
 
     private class TopicStatusStore extends BaseStatusStore {
         public void loadFront(DataCallback callback) {
-            super.loadFront(WeiboData.searchTopics(topic), callback);
+            super.loadFront(WeiboModel.searchTopics(topic), callback);
         }
     }
 }

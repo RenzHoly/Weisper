@@ -47,6 +47,7 @@ dependencies {
         exclude group: 'glide-parent'
     }
     compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.github.orhanobut:hawk:1.21'
     compile 'org.greenrobot:eventbus:3.0.0'

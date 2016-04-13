@@ -15,7 +15,7 @@ import com.orhanobut.logger.Logger;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pw.bits.weisper.R;
-import pw.bits.weisper.library.WeiboData;
+import pw.bits.weisper.library.WeiboModel;
 import pw.bits.weisper.library.bean.Status;
 import rx.Subscriber;
 
@@ -48,7 +48,7 @@ public class EditorFragment extends Fragment {
     }
 
     private void setupView() {
-        send.setOnClickListener(v -> WeiboData.statusesRepost(getArguments().getLong("id", -1),
+        send.setOnClickListener(v -> WeiboModel.statusesRepost(getArguments().getLong("id", -1),
                 String.format("%s//@%s:%s", editor.getText().toString(), getArguments().getString("user"), origin.getText()), false).subscribe(new Subscriber<Status>() {
             @Override
             public void onCompleted() {
