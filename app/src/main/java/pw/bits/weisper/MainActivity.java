@@ -14,7 +14,11 @@ import android.view.MenuItem;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
+import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.gson.GsonBuilder;
+import com.orhanobut.logger.LogLevel;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,7 +30,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
 import pw.bits.weisper.data.LoginManager;
+import pw.bits.weisper.data.Oauth2Interceptor;
 import pw.bits.weisper.data.WeiboModel;
+import pw.bits.weisper.data.WeiboService;
 import pw.bits.weisper.event.ClosePictureEvent;
 import pw.bits.weisper.event.CloseUserEvent;
 import pw.bits.weisper.event.OpenEditorEvent;
@@ -42,6 +48,9 @@ import pw.bits.weisper.fragment.TopicFragment;
 import pw.bits.weisper.fragment.UserFragment;
 import pw.bits.weisper.store.FlowStatusStore;
 import pw.bits.weisper.view.widget.Toolbar;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fm = getSupportFragmentManager();
@@ -64,22 +73,40 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setupView();
         if (LoginManager.with(this).getAccessToken() != null) {
-            EventBus.getDefault().register(this);
+            init();
             fm.beginTransaction()
                     .setCustomAnimations(R.anim.slow_fade_in, R.anim.fast_fade_out, R.anim.slow_fade_in, R.anim.fast_fade_out)
                     .replace(R.id.main_layout, statusFlowFragment)
                     .commit();
-            OkHttpClient client = new OkHttpClient().newBuilder()
-                    .addNetworkInterceptor(new StethoInterceptor())
-                    .connectTimeout(15, TimeUnit.SECONDS)
-                    .readTimeout(15, TimeUnit.SECONDS)
-                    .build();
-            Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(client));
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
+    }
+
+    private void init() {
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build());
+        Logger.init().logLevel(LogLevel.FULL);
+        EventBus.getDefault().register(this);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new Oauth2Interceptor(LoginManager.with(this).getAccessToken()))
+                .addNetworkInterceptor(new StethoInterceptor())
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
+                        .setDateFormat("EEE MMM dd HH:mm:ss z yyyy")
+                        .create()))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(client)
+                .baseUrl("https://api.weibo.com/2/")
+                .build();
+        WeiboModel.init(retrofit.create(WeiboService.class));
+        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(client));
     }
 
     private void setupView() {
