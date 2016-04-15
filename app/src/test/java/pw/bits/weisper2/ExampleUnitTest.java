@@ -56,16 +56,17 @@ public class ExampleUnitTest {
         WeiboService service = retrofit.create(WeiboService.class);
 
         service.statusesHomeTimeline(50, 0L, 0L)
-                .flatMap(statusResponse -> {
+                .flatMap(statusResponse -> Observable.from(statusResponse.getItems()))
+                .map(Status::getText)
+                .map(text -> {
                     List<String> urls = new ArrayList<>();
-                    for (Status status : statusResponse.getItems()) {
-                        Matcher link = linkPattern.matcher(status.getText());
-                        while (link.find()) {
-                            urls.add(link.group());
-                        }
+                    Matcher link = linkPattern.matcher(text);
+                    while (link.find()) {
+                        urls.add(link.group());
                     }
-                    return Observable.from(urls).flatMap(this::getOriginUrl);
+                    return urls;
                 })
+                .flatMap(urls -> Observable.from(urls).flatMap(this::getOriginUrl))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.immediate())
                 .subscribe(new Subscriber<String>() {
