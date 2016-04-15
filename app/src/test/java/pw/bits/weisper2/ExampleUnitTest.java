@@ -40,7 +40,6 @@ public class ExampleUnitTest {
     @Test
     public void Rx() throws Exception {
         CountDownLatch lock = new CountDownLatch(1);
-        Pattern linkPattern = Pattern.compile("https?://t\\.cn/\\w+");
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new Oauth2Interceptor("2.00eIAEkF06XASOaedab7fa31SZqCVE"))
@@ -58,14 +57,7 @@ public class ExampleUnitTest {
         service.statusesHomeTimeline(50, 0L, 0L)
                 .flatMap(statusResponse -> Observable.from(statusResponse.getItems()))
                 .map(Status::getText)
-                .map(text -> {
-                    List<String> urls = new ArrayList<>();
-                    Matcher link = linkPattern.matcher(text);
-                    while (link.find()) {
-                        urls.add(link.group());
-                    }
-                    return urls;
-                })
+                .map(this::matchUrls)
                 .flatMap(urls -> Observable.from(urls).flatMap(this::getOriginUrl))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.immediate())
@@ -86,6 +78,16 @@ public class ExampleUnitTest {
                     }
                 });
         lock.await();
+    }
+
+    private List<String> matchUrls(String text) {
+        Pattern linkPattern = Pattern.compile("https?://t\\.cn/\\w+");
+        List<String> urls = new ArrayList<>();
+        Matcher link = linkPattern.matcher(text);
+        while (link.find()) {
+            urls.add(link.group());
+        }
+        return urls;
     }
 
     public Observable<String> getOriginUrl(String shortUrl) {
